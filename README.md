@@ -1,4 +1,11 @@
-# vinext-starter
+# 國立政治大學研發處企畫組兼任助理交接手冊
+
+以書本形式呈現的互動式交接手冊，整理進用文件、進用系統操作、安全衛生教育訓練及後續工作交接內容。
+
+- [開啟 GitHub Pages 手冊](https://serinanogit.github.io/nccu_planning_tejunsho/)
+- [開啟目前線上手冊](https://nccu-planning-assistant-handbook.adept-pearl-9663.chatgpt.site)
+
+## 專案架構
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and

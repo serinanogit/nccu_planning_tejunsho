@@ -27,13 +27,13 @@ const chapters: Array<{ id: Chapter; number: string; label: string; color: strin
 ];
 
 const baseDocuments: HandbookDocument[] = [
-  { id: "arrival", name: "計畫兼任助理報到程序表", copies: "印 1 份", system: false, preview: "/assets/doc-previews/arrival.png", note: null, href: null, linkLabel: null, downloadHref: "/assets/forms/arrival-procedure-form.doc", downloadName: "計畫兼任助理報到程序表.doc" },
-  { id: "appointment", name: "進用單", copies: "印 1 份", system: true, preview: "/assets/doc-previews/appointment/page-1.jpg", previewPages: ["/assets/doc-previews/appointment/page-1.jpg", "/assets/doc-previews/appointment/page-2.jpg", "/assets/doc-previews/appointment/page-3.jpg"], note: null, href: null, linkLabel: null },
-  { id: "contract", name: "計畫兼任助理定期勞動契約書", copies: "印 3 份", system: true, preview: "/assets/doc-previews/contract.png", note: null, href: null, linkLabel: null },
-  { id: "description", name: "計畫兼任助理工作說明書", copies: "印 1 份", system: false, preview: "/assets/doc-previews/description.png", note: null, href: null, linkLabel: null },
-  { id: "relationship", name: "計畫兼任助理勞動型關係認定表", copies: "印 4 份", system: false, preview: "/assets/doc-previews/relationship.png", note: null, href: null, linkLabel: null },
-  { id: "pension", name: "提繳勞工退休金比例同意書", copies: "印 1 份", system: true, preview: "/assets/doc-previews/pension.png", note: null, href: null, linkLabel: null },
-  { id: "health", name: "健保投保確認申請表", copies: "印 1 份", system: true, preview: "/assets/doc-previews/health.png", note: null, href: null, linkLabel: null },
+  { id: "arrival", name: "計畫兼任助理報到程序表", copies: "印 1 份", system: false, preview: "assets/doc-previews/arrival.png", note: null, href: null, linkLabel: null, downloadHref: "assets/forms/arrival-procedure-form.doc", downloadName: "計畫兼任助理報到程序表.doc" },
+  { id: "appointment", name: "進用單", copies: "印 1 份", system: true, preview: "assets/doc-previews/appointment/page-1.jpg", previewPages: ["assets/doc-previews/appointment/page-1.jpg", "assets/doc-previews/appointment/page-2.jpg", "assets/doc-previews/appointment/page-3.jpg"], note: null, href: null, linkLabel: null },
+  { id: "contract", name: "計畫兼任助理定期勞動契約書", copies: "印 3 份", system: true, preview: "assets/doc-previews/contract.png", note: null, href: null, linkLabel: null },
+  { id: "description", name: "計畫兼任助理工作說明書", copies: "印 1 份", system: false, preview: "assets/doc-previews/description.png", note: null, href: null, linkLabel: null },
+  { id: "relationship", name: "計畫兼任助理勞動型關係認定表", copies: "印 4 份", system: false, preview: "assets/doc-previews/relationship.png", note: null, href: null, linkLabel: null },
+  { id: "pension", name: "提繳勞工退休金比例同意書", copies: "印 1 份", system: true, preview: "assets/doc-previews/pension.png", note: null, href: null, linkLabel: null },
+  { id: "health", name: "健保投保確認申請表", copies: "印 1 份", system: true, preview: "assets/doc-previews/health.png", note: null, href: null, linkLabel: null },
   { id: "enrollment", name: "在學證明", copies: "印 1 份", system: false, preview: null, note: null, href: "https://moltke.nccu.edu.tw/sturegcert_SSO/index.jsp", linkLabel: "申請在學證明" },
   { id: "funding", name: "經費核定清單", copies: "向進用窗口(致緯哥)索取", system: false, preview: null, note: null, href: null, linkLabel: null },
 ];
@@ -225,8 +225,8 @@ export default function Home() {
                     </ol>
                     <a className="system-link" href="https://schwebap.nccu.edu.tw/pawb01/tempmenu.aspx" target="_blank" rel="noreferrer">開啟政大進用系統 <span aria-hidden="true">↗</span></a>
                   </div>
-                  <button className="system-guide-image" onClick={() => openLightbox("/assets/doc-previews/system-guide.jpg")} aria-label="放大查看進用系統操作範例">
-                    <img src="/assets/doc-previews/system-guide.jpg" alt="政大新進人員進用登錄系統操作範例，以紅框標示高教深耕／雙語計畫入口及計畫選擇欄位" />
+                  <button className="system-guide-image" onClick={() => openLightbox("assets/doc-previews/system-guide.jpg")} aria-label="放大查看進用系統操作範例">
+                    <img src="assets/doc-previews/system-guide.jpg" alt="政大新進人員進用登錄系統操作範例，以紅框標示高教深耕／雙語計畫入口及計畫選擇欄位" />
                     <span>操作畫面｜點圖放大</span>
                   </button>
                 </div>
@@ -273,16 +273,16 @@ export default function Home() {
                       </CheckItem>
                       {index === 2 && (
                         <figure className="screenshot-card">
-                          <button onClick={() => openLightbox("/assets/學習證明如何下載.jpg")} aria-label="放大查看學習證明下載操作截圖">
-                            <img src="/assets/學習證明如何下載.jpg" alt="職業安全衛生數位學習平台：由個人專區進入學習履歷，勾選課程後列印學習紀錄" /><span>點圖放大</span>
+                          <button onClick={() => openLightbox("assets/學習證明如何下載.jpg")} aria-label="放大查看學習證明下載操作截圖">
+                            <img src="assets/學習證明如何下載.jpg" alt="職業安全衛生數位學習平台：由個人專區進入學習履歷，勾選課程後列印學習紀錄" /><span>點圖放大</span>
                           </button>
                           <figcaption><strong>操作截圖｜如何下載學習時數證明</strong><br />個人專區 → 學習履歷 → 勾選上、下兩門課程 → 列印學習紀錄</figcaption>
                         </figure>
                       )}
                       {index === 3 && (
                         <figure className="example-card">
-                          <button onClick={() => openLightbox("/assets/一般安全衛生教育訓練證明單_去識別範例.png")} aria-label="放大查看教育訓練證明單填寫範例">
-                            <img src="/assets/一般安全衛生教育訓練證明單_去識別範例.png" alt="已去除個人資料的一般安全衛生教育訓練證明單填寫範例" />
+                          <button onClick={() => openLightbox("assets/一般安全衛生教育訓練證明單_去識別範例.png")} aria-label="放大查看教育訓練證明單填寫範例">
+                            <img src="assets/一般安全衛生教育訓練證明單_去識別範例.png" alt="已去除個人資料的一般安全衛生教育訓練證明單填寫範例" />
                           </button>
                           <figcaption><span className="example-label">填寫範例</span><strong>實施日期也要填寫</strong><p>原則上填實際完成日；若慣例填報到日，請先問進用窗口(致緯哥)。</p></figcaption>
                         </figure>
