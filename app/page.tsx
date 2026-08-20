@@ -284,12 +284,12 @@ export default function Home() {
                         </figure>
                       )}
                       {index === 3 && (
-                        <figure className="example-inline">
+                        <figure className="screenshot-card">
                           <button onClick={() => openLightbox("assets/一般安全衛生教育訓練證明單_填寫範例.jpg")} aria-label="放大查看教育訓練證明單填寫範例">
                             <img src="assets/一般安全衛生教育訓練證明單_填寫範例.jpg" alt="一般安全衛生教育訓練證明單填寫範例，標示實施日期欄位" />
                             <span>點圖放大</span>
                           </button>
-                          <figcaption><span className="example-label">填寫範例</span><strong>實施日期也要填寫</strong><p>原則上填報到日，請先問進用窗口(致緯哥)。</p></figcaption>
+                          <figcaption><strong>填寫範例｜實施日期也要填寫</strong><br />原則上填報到日，請先問進用窗口(致緯哥)。</figcaption>
                         </figure>
                       )}
                     </div>
