@@ -29,7 +29,7 @@ const chapters: Array<{ id: Chapter; number: string; label: string; color: strin
 const baseDocuments: HandbookDocument[] = [
   { id: "arrival", name: "計畫兼任助理報到程序表", copies: "印 1 份", system: false, preview: "assets/doc-previews/arrival.png", note: null, href: null, linkLabel: null, downloadHref: "assets/forms/arrival-procedure-form.doc", downloadName: "計畫兼任助理報到程序表.doc" },
   { id: "appointment", name: "進用單", copies: "印 1 份", system: true, preview: "assets/doc-previews/appointment/page-1.jpg", previewPages: ["assets/doc-previews/appointment/page-1.jpg", "assets/doc-previews/appointment/page-2.jpg", "assets/doc-previews/appointment/page-3.jpg"], note: null, href: null, linkLabel: null },
-  { id: "contract", name: "計畫兼任助理定期勞動契約書", copies: "印 3 份", system: true, preview: "assets/doc-previews/contract.png", note: null, href: null, linkLabel: null },
+  { id: "contract", name: "計畫兼任助理定期勞動契約書", copies: "印 3 份", system: true, preview: "assets/doc-previews/contract/page-1.jpg", previewPages: ["assets/doc-previews/contract/page-1.jpg", "assets/doc-previews/contract/page-2.jpg"], note: null, href: null, linkLabel: null },
   { id: "description", name: "計畫兼任助理工作說明書", copies: "印 1 份", system: false, preview: "assets/doc-previews/description.png", note: null, href: null, linkLabel: null },
   { id: "relationship", name: "計畫兼任助理勞動型關係認定表", copies: "印 4 份", system: false, preview: "assets/doc-previews/relationship.png", note: null, href: null, linkLabel: null },
   { id: "pension", name: "提繳勞工退休金比例同意書", copies: "印 1 份", system: true, preview: "assets/doc-previews/pension.png", note: null, href: null, linkLabel: null },
@@ -235,7 +235,7 @@ export default function Home() {
                   {documents.map((doc, index) => (
                     <article key={doc.id} className={`document-card ${doc.preview ? "" : "without-preview"} ${checked[`doc-${doc.id}`] ? "is-checked" : ""}`}>
                       {doc.preview ? (
-                        <button className={`document-thumb ${doc.id === "arrival" || doc.id === "appointment" ? "landscape-preview" : ""}`} onClick={() => openLightbox(doc.previewPages ?? doc.preview!)} aria-label={`放大查看${doc.name}${doc.previewPages ? `填寫範例，共 ${doc.previewPages.length} 張` : "去識別範例"}`}>
+                        <button className={`document-thumb ${doc.id === "arrival" || doc.id === "appointment" || doc.id === "contract" ? "landscape-preview" : ""}`} onClick={() => openLightbox(doc.previewPages ?? doc.preview!)} aria-label={`放大查看${doc.name}${doc.previewPages ? `填寫範例，共 ${doc.previewPages.length} 張` : "去識別範例"}`}>
                           <img src={doc.preview} alt={`${doc.name}${doc.previewPages ? "填寫範例" : "去識別範例"}縮圖`} />
                           <span>{doc.previewPages ? `填寫範例・${doc.previewPages.length} 張` : "去識別範例"}</span>
                         </button>
