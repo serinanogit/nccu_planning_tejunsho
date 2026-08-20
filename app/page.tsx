@@ -257,9 +257,6 @@ export default function Home() {
                   ))}
                 </div>
                 {identity === "concurrent" && <p className="conditional-note">已依你的身分自動加入「保險費經費分攤同意書」。</p>}
-                <div className="download-placeholder">
-                  <div><strong>空白進用文件下載</strong><p>空白表單整理完成後，會放在這裡集中下載。</p></div><button disabled>文件待補</button>
-                </div>
               </section>
 
               <section id="safety" className="content-section">
@@ -280,11 +277,12 @@ export default function Home() {
                         </figure>
                       )}
                       {index === 3 && (
-                        <figure className="example-card">
-                          <button onClick={() => openLightbox("assets/一般安全衛生教育訓練證明單_去識別範例.png")} aria-label="放大查看教育訓練證明單填寫範例">
-                            <img src="assets/一般安全衛生教育訓練證明單_去識別範例.png" alt="已去除個人資料的一般安全衛生教育訓練證明單填寫範例" />
+                        <figure className="example-inline">
+                          <button onClick={() => openLightbox("assets/一般安全衛生教育訓練證明單_填寫範例.jpg")} aria-label="放大查看教育訓練證明單填寫範例">
+                            <img src="assets/一般安全衛生教育訓練證明單_填寫範例.jpg" alt="一般安全衛生教育訓練證明單填寫範例，標示實施日期欄位" />
+                            <span>點圖放大</span>
                           </button>
-                          <figcaption><span className="example-label">填寫範例</span><strong>實施日期也要填寫</strong><p>原則上填實際完成日；若慣例填報到日，請先問進用窗口(致緯哥)。</p></figcaption>
+                          <figcaption><span className="example-label">填寫範例</span><strong>實施日期也要填寫</strong><p>原則上填報到日，請先問進用窗口(致緯哥)。</p></figcaption>
                         </figure>
                       )}
                     </div>

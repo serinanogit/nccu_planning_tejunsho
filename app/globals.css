@@ -174,6 +174,13 @@ button { color: inherit; }
 .example-card figcaption { padding: 26px; }
 .example-card figcaption strong { display: block; margin-top: 12px; color: #ac3c31; font: 700 1.25rem var(--font-book); }
 .example-card figcaption p { color: #68757c; line-height: 1.7; }
+.example-inline { margin: 10px 0 22px 39px; padding: 10px 0; display: grid; grid-template-columns: 108px minmax(0, 1fr); align-items: center; gap: 16px; border-top: 1px solid #e2dbcf; border-bottom: 1px solid #e2dbcf; }
+.example-inline button { position: relative; width: 108px; aspect-ratio: 3 / 4; padding: 0; border: 1px solid #d6cdbf; border-radius: 5px; overflow: hidden; background: #f3f1ec; cursor: zoom-in; }
+.example-inline button img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.example-inline button span { position: absolute; inset: auto 5px 5px; padding: 4px; border-radius: 3px; color: white; background: rgba(32,52,72,.86); font-size: .58rem; font-weight: 700; text-align: center; }
+.example-inline figcaption { min-width: 0; }
+.example-inline figcaption strong { display: block; margin-top: 7px; color: #ac3c31; font: 700 1rem var(--font-book); }
+.example-inline figcaption p { margin: 5px 0 0; color: #68757c; font-size: .78rem; line-height: 1.65; }
 .example-label { display: inline-block; color: #86600b; border: 1px solid #d6b45f; border-radius: 999px; padding: 4px 8px; font-size: .66rem; font-weight: 800; }
 .page-footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; color: #918a7d; font-size: .66rem; letter-spacing: .05em; }
 .placeholder-page { position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-left: 16%; }
@@ -207,6 +214,8 @@ button { color: inherit; }
   .section-intro, .safety-list { margin-left: 0; }
   .example-card { grid-template-columns: 1fr; }
   .example-card button { max-height: 450px; border-right: 0; border-bottom: 1px solid #ddd5c9; }
+  .example-inline { grid-template-columns: 96px minmax(0, 1fr); margin-left: 34px; gap: 12px; }
+  .example-inline button { width: 96px; }
 }
 
 @media (max-width: 560px) {
