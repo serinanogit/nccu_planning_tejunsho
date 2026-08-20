@@ -175,6 +175,7 @@ button { color: inherit; }
 .screenshot-card button span { position: absolute; right: 12px; bottom: 12px; color: #fff; background: rgba(26,39,49,.78); border-radius: 999px; padding: 6px 10px; font-size: .68rem; }
 .screenshot-card figcaption { padding: 13px 16px; color: #65717a; font-size: .76rem; line-height: 1.6; }
 .screenshot-card figcaption strong { color: var(--ink); }
+.safety-form-card { max-width: 560px; }
 .example-card { display: grid; grid-template-columns: minmax(220px, 42%) 1fr; align-items: center; }
 .example-card button { max-height: 390px; overflow: hidden; border-right: 1px solid #ddd5c9; }
 .example-card img { display: block; width: 100%; height: auto; }

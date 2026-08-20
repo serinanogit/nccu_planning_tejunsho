@@ -284,7 +284,7 @@ export default function Home() {
                         </figure>
                       )}
                       {index === 3 && (
-                        <figure className="screenshot-card">
+                        <figure className="screenshot-card safety-form-card">
                           <button onClick={() => openLightbox("assets/一般安全衛生教育訓練證明單_填寫範例.jpg")} aria-label="放大查看教育訓練證明單填寫範例">
                             <img src="assets/一般安全衛生教育訓練證明單_填寫範例.jpg" alt="一般安全衛生教育訓練證明單填寫範例，標示實施日期欄位" />
                             <span>點圖放大</span>
