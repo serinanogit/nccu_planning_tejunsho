@@ -32,8 +32,8 @@ const baseDocuments: HandbookDocument[] = [
   { id: "contract", name: "計畫兼任助理定期勞動契約書", copies: "印 3 份", system: true, preview: "assets/doc-previews/contract/page-1.jpg", previewPages: ["assets/doc-previews/contract/page-1.jpg", "assets/doc-previews/contract/page-2.jpg"], note: null, href: null, linkLabel: null },
   { id: "description", name: "計畫兼任助理工作說明書", copies: "印 1 份", system: false, preview: "assets/doc-previews/description/page-1.jpg", previewPages: ["assets/doc-previews/description/page-1.jpg", "assets/doc-previews/description/page-2.jpg"], note: null, href: null, linkLabel: null, downloadHref: "assets/forms/job-description-form.doc", downloadName: "計畫兼任助理工作說明書.doc" },
   { id: "relationship", name: "計畫兼任助理勞動型關係認定表", copies: "印 4 份", system: false, preview: "assets/doc-previews/relationship/example.jpg", previewPages: ["assets/doc-previews/relationship/example.jpg"], note: null, href: null, linkLabel: null, downloadHref: "assets/forms/labor-relationship-form.docx", downloadName: "計畫兼任助理勞動型關係認定表.docx" },
-  { id: "pension", name: "提繳勞工退休金比例同意書", copies: "印 1 份", system: true, preview: "assets/doc-previews/pension.png", note: null, href: null, linkLabel: null },
-  { id: "health", name: "健保投保確認申請表", copies: "印 1 份", system: true, preview: "assets/doc-previews/health.png", note: null, href: null, linkLabel: null },
+  { id: "pension", name: "提繳勞工退休金比例同意書", copies: "印 1 份", system: true, preview: null, note: null, href: null, linkLabel: null },
+  { id: "health", name: "健保投保確認申請表", copies: "印 1 份", system: true, preview: null, note: null, href: null, linkLabel: null },
   { id: "enrollment", name: "在學證明", copies: "印 1 份", system: false, preview: null, note: null, href: "https://moltke.nccu.edu.tw/sturegcert_SSO/index.jsp", linkLabel: "申請在學證明" },
   { id: "funding", name: "經費核定清單", copies: "向進用窗口(致緯哥)索取", system: false, preview: null, note: null, href: null, linkLabel: null },
 ];
