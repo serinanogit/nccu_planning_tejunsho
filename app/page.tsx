@@ -262,6 +262,13 @@ export default function Home() {
               <section id="safety" className="content-section">
                 <div className="section-title"><span>3</span><div><p>報到前完成</p><h2>一般安全衛生教育訓練</h2></div></div>
                 <p className="section-intro">企畫組兼任助理只需完成勞動部職業安全衛生數位學習平台的「上、下」兩門線上課程，再依下列步驟備齊文件。</p>
+                <div className="safety-resources">
+                  <div><strong>先從線上平台開始</strong><p>使用自己平常習慣的 Email 註冊即可。</p></div>
+                  <div className="safety-resource-actions">
+                    <a className="primary" href="https://isafeel.osha.gov.tw/mooc/index.php" target="_blank" rel="noreferrer">開啟線上課程平台 <span aria-hidden="true">↗</span></a>
+                    <a href="assets/references/新進員工一般安全衛生教育訓練實施說明.pdf" target="_blank" rel="noreferrer">查看實施說明 PDF <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
                 <div className="safety-list">
                   {safetySteps.map((step, index) => (
                     <div key={step}>

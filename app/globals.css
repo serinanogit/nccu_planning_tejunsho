@@ -158,6 +158,13 @@ button { color: inherit; }
 .download-placeholder p { margin: 4px 0 0; color: #7b7c79; font-size: .77rem; }
 .download-placeholder button { border: 0; border-radius: 4px; padding: 9px 12px; color: #9c9a94; background: #e6e4df; }
 .section-intro { color: #5f6d76; line-height: 1.8; margin: -5px 0 18px 58px; max-width: 760px; }
+.safety-resources { margin: 0 0 18px 58px; padding: 13px 15px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-left: 3px solid #d4a83b; background: #fbf7ea; }
+.safety-resources strong { color: var(--ink); font-size: .82rem; }
+.safety-resources p { margin: 4px 0 0; color: #6b7376; font-size: .75rem; }
+.safety-resource-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.safety-resource-actions a { padding: 8px 10px; border: 1px solid #ac9c79; border-radius: 4px; color: #5f5031; background: #fff; font-size: .72rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.safety-resource-actions a.primary { border-color: var(--navy); color: #fff; background: var(--navy); }
+.safety-resource-actions a:hover { border-color: #172f45; color: #fff; background: #172f45; }
 .safety-list { margin-left: 58px; border-top: 1px solid #ddd6ca; }
 .safety-list .check-item { padding-left: 4px; }
 .step-text { display: grid; gap: 5px; line-height: 1.65; }
@@ -211,7 +218,9 @@ button { color: inherit; }
   .system-guide { grid-template-columns: 1fr; }
   .system-guide-image { min-height: 330px; }
   .document-list.document-grid { grid-template-columns: 1fr; }
-  .section-intro, .safety-list { margin-left: 0; }
+  .section-intro, .safety-resources, .safety-list { margin-left: 0; }
+  .safety-resources { align-items: flex-start; flex-direction: column; }
+  .safety-resource-actions { justify-content: flex-start; }
   .example-card { grid-template-columns: 1fr; }
   .example-card button { max-height: 450px; border-right: 0; border-bottom: 1px solid #ddd5c9; }
   .example-inline { grid-template-columns: 96px minmax(0, 1fr); margin-left: 34px; gap: 12px; }
