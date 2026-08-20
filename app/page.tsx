@@ -130,13 +130,14 @@ export default function Home() {
     <main className="site-shell">
       <header className="topbar">
         <div className="brand-lockup">
-          <span className="brand-mark" aria-hidden="true">政</span>
+          <span className="brand-mark">
+            <img src="assets/nccu-rnd-logo.png" alt="國立政治大學研究發展處標誌" />
+          </span>
           <div>
             <p>國立政治大學｜研發處企畫組</p>
             <strong>兼任助理交接手冊</strong>
           </div>
         </div>
-        <p className="role-note">本手冊已依「企畫組兼任助理」職位設定</p>
       </header>
 
       <div className="book-stage">
