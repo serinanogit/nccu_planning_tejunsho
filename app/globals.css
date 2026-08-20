@@ -169,6 +169,8 @@ button { color: inherit; }
 .safety-list .check-item { padding-left: 4px; }
 .step-text { display: grid; gap: 5px; line-height: 1.65; }
 .step-text b { color: #9a7210; font-size: .66rem; letter-spacing: .1em; }
+.step-text a { color: #345d72; font-weight: 700; text-decoration: underline; text-decoration-color: #a9bec8; text-underline-offset: 4px; }
+.step-text a:hover { color: #9a7210; text-decoration-color: currentColor; }
 .screenshot-card, .example-card { margin: 16px 0 30px 39px; border: 1px solid #dcd4c6; background: #fff; border-radius: 8px; overflow: hidden; }
 .screenshot-card button, .example-card button { position: relative; display: block; padding: 0; border: 0; width: 100%; background: #eee; cursor: zoom-in; }
 .screenshot-card img { display: block; width: 100%; height: auto; }

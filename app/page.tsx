@@ -39,11 +39,11 @@ const baseDocuments: HandbookDocument[] = [
 ];
 
 const safetySteps = [
-  "完成「一般職業安全衛生教育訓練課程（上）」。",
-  "完成「一般職業安全衛生教育訓練課程（下）」。",
-  "至「個人專區 → 學習履歷 → 列印學習紀錄」下載學習時數證明。",
-  "列印並填寫教育訓練證明單的基本資料，將學習時數證明附在證明單後面，再交給進用窗口(致緯哥)確認實體課程欄位及主管簽章。",
-  "將完整文件送至總務處環安組備查。",
+  { text: "一般職業安全衛生教育訓練課程（上）", href: "https://isafeel.osha.gov.tw/info/10000045" },
+  { text: "一般職業安全衛生教育訓練課程（下）", href: "https://isafeel.osha.gov.tw/info/10000056" },
+  { text: "至「個人專區 → 學習履歷 → 列印學習紀錄」下載學習時數證明。" },
+  { text: "列印並填寫教育訓練證明單的基本資料，將學習時數證明附在證明單後面，再交給進用窗口(致緯哥)確認實體課程欄位及主管簽章。" },
+  { text: "將完整文件送至總務處環安組備查。" },
 ];
 
 function CheckItem({ id, checked, onChange, children }: {
@@ -271,9 +271,14 @@ export default function Home() {
                 </div>
                 <div className="safety-list">
                   {safetySteps.map((step, index) => (
-                    <div key={step}>
+                    <div key={step.text}>
                       <CheckItem id={`safety-${index}`} checked={Boolean(checked[`safety-${index}`])} onChange={toggle}>
-                        <span className="step-text"><b>步驟 {index + 1}</b>{step}</span>
+                        <span className="step-text">
+                          <b>步驟 {index + 1}</b>
+                          {step.href ? (
+                            <span>完成「<a href={step.href} target="_blank" rel="noreferrer">{step.text} <span aria-hidden="true">↗</span></a>」。</span>
+                          ) : step.text}
+                        </span>
                       </CheckItem>
                       {index === 2 && (
                         <figure className="screenshot-card">
