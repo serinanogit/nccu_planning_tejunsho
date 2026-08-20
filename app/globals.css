@@ -134,7 +134,7 @@ button { color: inherit; }
 .document-card-top { width: 100%; min-height: 24px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .document-card-body > strong { margin-top: 5px; line-height: 1.5; font-size: .91rem; }
 .document-card-body > small { margin-top: 4px; color: #8b8377; font-size: .72rem; }
-.document-note { margin: 10px 0 0; color: #68736f; font-size: .76rem; line-height: 1.65; }
+.document-note { margin: 10px 0 0; padding: 8px 10px; color: #72571a; background: #fff4d2; border-left: 3px solid #d4a83b; border-radius: 0 4px 4px 0; font-size: .76rem; font-weight: 700; line-height: 1.65; }
 .document-action { margin-top: 11px; display: inline-flex; align-items: center; gap: 7px; border-bottom: 1px solid #8d743a; color: #735918; font-size: .76rem; font-weight: 700; text-decoration: none; }
 .document-action:hover { color: var(--navy); border-color: var(--navy); }
 .document-download { margin-top: 11px; display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px; border: 1px solid #9babb7; border-radius: 4px; color: var(--navy); background: #f5f8f9; font-size: .72rem; font-weight: 800; text-decoration: none; }
