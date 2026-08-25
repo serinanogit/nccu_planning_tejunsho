@@ -264,6 +264,25 @@ export default function Home() {
                 {identity === "concurrent" && <p className="conditional-note">已依你的身分自動加入「保險費經費分攤同意書」。</p>}
               </section>
 
+              <aside className="submission-locations" aria-labelledby="submission-locations-title">
+                <div className="submission-locations-heading">
+                  <span aria-hidden="true">📍</span>
+                  <div><small>文件完成後送到這裡</small><h3 id="submission-locations-title">文件繳交地點</h3></div>
+                </div>
+                <div className="submission-location-grid">
+                  <div className="submission-location-card">
+                    <strong>人事室進用文件清單</strong>
+                    <p><span aria-hidden="true">📍</span>行政大樓 6 樓</p>
+                    <b>人事室・第四組</b>
+                  </div>
+                  <div className="submission-location-card safety-location">
+                    <strong>一般安全衛生教育訓練文件</strong>
+                    <p><span aria-hidden="true">📍</span>行政大樓 5 樓</p>
+                    <b>總務處・環安組</b>
+                  </div>
+                </div>
+              </aside>
+
               <section id="safety" className="content-section">
                 <div className="section-title"><span>3</span><div><p>報到前完成</p><h2>一般安全衛生教育訓練</h2></div></div>
                 <p className="section-intro">企畫組兼任助理只需完成勞動部職業安全衛生數位學習平台的「上、下」兩門線上課程，再依下列步驟備齊文件。</p>
