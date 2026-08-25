@@ -50,6 +50,9 @@ button { color: inherit; }
 .cover-department { margin: 0 0 12px; font-size: 1.04rem; letter-spacing: .13em; }
 .cover-page h1 { position: relative; z-index: 1; margin: 0; color: var(--navy); font-family: var(--font-book); font-size: clamp(3.2rem, 7vw, 6.8rem); line-height: .98; letter-spacing: .08em; }
 .cover-subtitle { margin: 27px 0 34px; color: var(--ink-soft); line-height: 1.9; letter-spacing: .05em; }
+.cover-message { position: relative; z-index: 1; max-width: 590px; margin: 24px 0 28px; font-size: .92rem; line-height: 1.75; letter-spacing: .02em; }
+.cover-message p { margin: 0; }
+.cover-message p + p { margin-top: 9px; }
 .primary-button { border: 0; border-radius: 4px; background: var(--navy); color: #fff; padding: 14px 19px; cursor: pointer; box-shadow: 0 5px 12px rgba(33,63,91,.18); }
 .primary-button:hover { background: #162f46; }
 .primary-button span { margin-left: 16px; }

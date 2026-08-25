@@ -151,7 +151,11 @@ export default function Home() {
               <div className="cover-rule" />
               <p className="cover-department">國立政治大學研發處企畫組</p>
               <h1>兼任助理<br />交接手冊</h1>
-              <p className="cover-subtitle">從進用、工作內容到薪資核銷，<br />把每一步留給下一位助理。</p>
+              <div className="cover-subtitle cover-message">
+                <p>嗨～學弟 or 學妹，我是 YITING 🤗</p>
+                <p>首先，恭喜你通過面試和上機考，你真的超棒 💯！歡迎你加入政大研發處企畫組 💫</p>
+                <p>📖 這份手冊整理了我認為可能會對你入職有幫助的內容，希望多少能幫助到你 ☺️</p>
+              </div>
               <button className="primary-button" onClick={() => changeChapter("hiring")}>
                 開始閱讀 01 進用 <span aria-hidden="true">→</span>
               </button>
