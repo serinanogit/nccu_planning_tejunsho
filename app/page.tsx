@@ -262,26 +262,14 @@ export default function Home() {
                   ))}
                 </div>
                 {identity === "concurrent" && <p className="conditional-note">已依你的身分自動加入「保險費經費分攤同意書」。</p>}
+                <aside className="submission-location" aria-label="人事室進用文件繳交地點">
+                  <span className="submission-pin" aria-hidden="true">📍</span>
+                  <div>
+                    <small>人事室進用文件清單｜完成後繳交</small>
+                    <strong>行政大樓 6 樓・人事室第四組</strong>
+                  </div>
+                </aside>
               </section>
-
-              <aside className="submission-locations" aria-labelledby="submission-locations-title">
-                <div className="submission-locations-heading">
-                  <span aria-hidden="true">📍</span>
-                  <div><small>文件完成後送到這裡</small><h3 id="submission-locations-title">文件繳交地點</h3></div>
-                </div>
-                <div className="submission-location-grid">
-                  <div className="submission-location-card">
-                    <strong>人事室進用文件清單</strong>
-                    <p><span aria-hidden="true">📍</span>行政大樓 6 樓</p>
-                    <b>人事室・第四組</b>
-                  </div>
-                  <div className="submission-location-card safety-location">
-                    <strong>一般安全衛生教育訓練文件</strong>
-                    <p><span aria-hidden="true">📍</span>行政大樓 5 樓</p>
-                    <b>總務處・環安組</b>
-                  </div>
-                </div>
-              </aside>
 
               <section id="safety" className="content-section">
                 <div className="section-title"><span>3</span><div><p>報到前完成</p><h2>一般安全衛生教育訓練</h2></div></div>
@@ -324,6 +312,13 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+                <aside className="submission-location safety-submission" aria-label="一般安全衛生教育訓練文件繳交地點">
+                  <span className="submission-pin" aria-hidden="true">📍</span>
+                  <div>
+                    <small>一般安全衛生教育訓練文件｜完成後繳交</small>
+                    <strong>行政大樓 5 樓・總務處環安組</strong>
+                  </div>
+                </aside>
               </section>
 
               <footer className="page-footer"><span>國立政治大學研發處企畫組｜兼任助理交接手冊</span><span>01 — 進用</span></footer>
