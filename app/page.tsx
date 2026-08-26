@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Chapter = "cover" | "hiring" | "work" | "salary" | "other";
-type Identity = "single" | "internal" | "external";
+type Identity = "single" | "internal" | "external" | "both";
 type HandbookDocument = {
   id: string;
   name: string;
@@ -80,7 +80,7 @@ export default function Home() {
     const savedIdentity = window.localStorage.getItem("nccu-handbook-identity");
     const savedInsurance = window.localStorage.getItem("nccu-handbook-insured-elsewhere");
     if (saved) setChecked(JSON.parse(saved));
-    if (savedIdentity === "single" || savedIdentity === "internal" || savedIdentity === "external") setIdentity(savedIdentity);
+    if (savedIdentity === "single" || savedIdentity === "internal" || savedIdentity === "external" || savedIdentity === "both") setIdentity(savedIdentity);
     if (savedIdentity === "concurrent") setIdentity("internal");
     if (savedInsurance === "true") setInsuredElsewhere(true);
     setHydrated(true);
@@ -105,7 +105,7 @@ export default function Home() {
   }, [lightbox]);
 
   const documents = useMemo(
-    () => identity === "internal"
+    () => identity === "internal" || identity === "both"
       ? [...baseDocuments, { id: "insurance-share", name: "保險費經費分攤同意書", copies: "印 1 份", system: false, preview: null, note: null, href: null, linkLabel: null, downloadHref: "assets/forms/insurance-cost-sharing-form.doc", downloadName: "兼任多職務保險費分攤同意書.doc" }]
       : baseDocuments,
     [identity],
@@ -160,6 +160,9 @@ export default function Home() {
               <div className="cover-rule" />
               <p className="cover-department">國立政治大學研發處企畫組</p>
               <h1>兼任助理<br />交接手冊</h1>
+              <div className="cover-illustration" aria-hidden="true">
+                <img src="assets/cover-cats.png" alt="" />
+              </div>
               <div className="cover-subtitle cover-message">
                 <p>嗨～學弟 or 學妹，我是 YITING 🤗</p>
                 <p>首先，恭喜你通過面試和上機考，你真的超棒 💯！歡迎你加入政大研發處企畫組 💫</p>
@@ -209,16 +212,20 @@ export default function Home() {
                       <input type="radio" name="identity" checked={identity === "external"} onChange={() => setIdentity("external")} />
                       <span><strong>同時兼任校外其他實習或工讀</strong></span>
                     </label>
+                    <label className={identity === "both" ? "selected" : ""}>
+                      <input type="radio" name="identity" checked={identity === "both"} onChange={() => setIdentity("both")} />
+                      <span><strong>同時兼任校內與校外其他助理、實習或工讀</strong><small>研究獎助生不算在內</small></span>
+                    </label>
                   </fieldset>
                   {identity !== "single" && (
                     <div className="follow-up"><label><input type="checkbox" checked={insuredElsewhere} onChange={(event) => setInsuredElsewhere(event.target.checked)} />其他工讀單位或公司已為我投保健保</label></div>
                   )}
                   <div className="insurance-summary" aria-live="polite">
                     <div><span className="insurance-icon">勞</span><p><strong>勞保：強制投保</strong></p></div>
-                    <div><span className="insurance-icon health">健</span><p>{identity === "single" ? (
-                      <strong>健保：需辦理投保</strong>
-                    ) : (
+                    <div><span className="insurance-icon health">健</span><p>{insuredElsewhere && identity !== "single" ? (
                       <><strong>健保：可向 人事室 勞健保業務 承辦人 確認免在本職位投保</strong><br />只有同時兼任其他工讀，且該單位已協助投保健保，才可不在本職位提撥。</>
+                    ) : (
+                      <strong>健保：需辦理投保</strong>
                     )}</p></div>
                   </div>
                 </div>
@@ -278,7 +285,7 @@ export default function Home() {
                     </article>
                   ))}
                 </div>
-                {identity === "internal" && <p className="conditional-note">已依你的身分自動加入「保險費經費分攤同意書」。</p>}
+                {(identity === "internal" || identity === "both") && <p className="conditional-note">已依你的身分自動加入「保險費經費分攤同意書」。</p>}
                 <aside className="submission-location" aria-label="人事室進用文件繳交地點">
                   <span className="submission-pin" aria-hidden="true">📍</span>
                   <div>
