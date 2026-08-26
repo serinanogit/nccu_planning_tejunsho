@@ -46,9 +46,24 @@ const safetySteps = [
 ];
 
 const salaryDocuments = [
-  { id: "attendance", name: "出勤紀錄單" },
-  { id: "appointment-proof", name: "進用證明單" },
-  { id: "payroll", name: "薪資清冊" },
+  {
+    id: "attendance",
+    name: "出勤紀錄單",
+    preview: "assets/salary/attendance/example/1.jpg",
+    previewPages: ["assets/salary/attendance/example/1.jpg", "assets/salary/attendance/example/2.jpg"],
+  },
+  {
+    id: "appointment-proof",
+    name: "進用證明單",
+    preview: "assets/salary/appointment/example/1.jpg",
+    previewPages: ["assets/salary/appointment/example/1.jpg"],
+  },
+  {
+    id: "payroll",
+    name: "薪資清冊",
+    preview: "assets/salary/payroll/example/1.jpg",
+    previewPages: ["assets/salary/payroll/example/1.jpg"],
+  },
 ];
 
 function CheckItem({ id, checked, onChange, children }: {
@@ -66,6 +81,33 @@ function CheckItem({ id, checked, onChange, children }: {
   );
 }
 
+function SalaryStep({ number, title, image, imageAlt, onOpen, children, note }: {
+  number: number;
+  title: string;
+  image: string;
+  imageAlt: string;
+  onOpen: () => void;
+  children: React.ReactNode;
+  note?: React.ReactNode;
+}) {
+  return (
+    <article className="salary-step-card">
+      <div className="salary-step-copy">
+        <span className="salary-step-number">{String(number).padStart(2, "0")}</span>
+        <div>
+          <h3>{title}</h3>
+          <div className="salary-step-description">{children}</div>
+          {note && <aside className="salary-inline-note"><strong>提醒</strong>{note}</aside>}
+        </div>
+      </div>
+      <button className="salary-step-image" onClick={onOpen} aria-label={`放大查看步驟 ${number}：${title}`}>
+        <img src={image} alt={imageAlt} />
+        <span>步驟 {number} 操作畫面｜點圖放大</span>
+      </button>
+    </article>
+  );
+}
+
 export default function Home() {
   const [chapter, setChapter] = useState<Chapter>("cover");
   const [identity, setIdentity] = useState<Identity>("single");
@@ -74,6 +116,7 @@ export default function Home() {
   const [lightbox, setLightbox] = useState<string[] | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
+  const [copiedInccu, setCopiedInccu] = useState(false);
 
   useEffect(() => {
     const saved = window.localStorage.getItem("nccu-handbook-progress");
@@ -133,6 +176,17 @@ export default function Home() {
   function openLightbox(pages: string | string[]) {
     setLightbox(Array.isArray(pages) ? pages : [pages]);
     setLightboxIndex(0);
+  }
+
+  async function copyInccuUrl() {
+    const url = "https://i.nccu.edu.tw/Login.aspx";
+    try {
+      await window.navigator.clipboard.writeText(url);
+      setCopiedInccu(true);
+      window.setTimeout(() => setCopiedInccu(false), 2200);
+    } catch {
+      window.prompt("請複製 iNCCU 網址", url);
+    }
   }
 
   return (
@@ -238,7 +292,14 @@ export default function Home() {
                     <p className="system-guide-kicker">進用系統操作</p>
                     <h3>先在系統建立本次進用資料</h3>
                     <ol>
-                      <li><b>開啟進用系統</b><span>點選左側「高教深耕／雙語計畫」，不要從其他類別進入。</span></li>
+                      <li>
+                        <b>開啟進用系統</b>
+                        <span>點選左側「高教深耕／雙語計畫」，不要從其他類別進入。</span>
+                        <button className="system-step-image" onClick={() => openLightbox("assets/doc-previews/system-guide-1.jpg")} aria-label="放大查看高教深耕／雙語計畫入口">
+                          <img src="assets/doc-previews/system-guide-1.jpg" alt="政大進用系統首頁，以紅框標示高教深耕／雙語計畫入口" />
+                          <span>操作畫面 1｜點圖放大</span>
+                        </button>
+                      </li>
                       <li className="system-plan-step">
                         <b>選擇計畫</b>
                         <span>請先跟進用窗口(致緯哥)確認以下資訊，再輸入中文姓名、英文姓名與身分證字號。</span>
@@ -248,16 +309,16 @@ export default function Home() {
                           <div><dt>計畫編號</dt><dd>115H111-01／115H111-01 學術研究國際接軌計畫</dd></div>
                         </dl>
                         <em className="annual-code-note">每年計畫代碼會變：基本格式為「民國年＋H111-01」，例如 116 年為 116H111-01。請以進用窗口(致緯哥)提供的當年度選項為準。</em>
+                        <button className="system-step-image" onClick={() => openLightbox("assets/doc-previews/system-guide-2.jpg")} aria-label="放大查看計畫選擇欄位">
+                          <img src="assets/doc-previews/system-guide-2.jpg" alt="政大進用系統計畫選擇畫面，以紅框標示學院系所、計畫主持人及計畫編號" />
+                          <span>操作畫面 2｜點圖放大</span>
+                        </button>
                       </li>
                       <li><b>填寫資料</b><span>填寫聘期、計畫名稱、執行單位、工作內容、薪資及勞健保／退休金資料；計畫或聘期若有疑問先問進用窗口(致緯哥)。</span></li>
                       <li><b>列印文件</b><span>由系統產出進用單、定期勞動契約書、退休金比例同意書及健保投保確認申請表，再依清單份數列印。</span></li>
                     </ol>
                     <a className="system-link" href="https://schwebap.nccu.edu.tw/pawb01/tempmenu.aspx" target="_blank" rel="noreferrer">開啟政大進用系統 <span aria-hidden="true">↗</span></a>
                   </div>
-                  <button className="system-guide-image" onClick={() => openLightbox("assets/doc-previews/system-guide.jpg")} aria-label="放大查看進用系統操作範例">
-                    <img src="assets/doc-previews/system-guide.jpg" alt="政大新進人員進用登錄系統操作範例，以紅框標示高教深耕／雙語計畫入口及計畫選擇欄位" />
-                    <span>操作畫面｜點圖放大</span>
-                  </button>
                 </div>
                 <div className="notice system-notice"><span>系統產生</span> 有此標籤的文件，請先由校內系統產出後再列印。</div>
                 <div className="document-list document-grid">
@@ -310,7 +371,7 @@ export default function Home() {
                     <div key={step.text}>
                       <CheckItem id={`safety-${index}`} checked={Boolean(checked[`safety-${index}`])} onChange={toggle}>
                         <span className="step-text">
-                          <b>步驟 {index + 1}</b>
+                          <b>{String(index + 1).padStart(2, "0")}</b>
                           {step.href ? (
                             <span>完成「<a href={step.href} target="_blank" rel="noreferrer">{step.text} <span aria-hidden="true">↗</span></a>」。</span>
                           ) : step.text}
@@ -326,8 +387,8 @@ export default function Home() {
                       )}
                       {index === 3 && (
                         <figure className="screenshot-card safety-form-card">
-                          <button onClick={() => openLightbox("assets/一般安全衛生教育訓練證明單_填寫範例.jpg")} aria-label="放大查看教育訓練證明單填寫範例">
-                            <img src="assets/一般安全衛生教育訓練證明單_填寫範例.jpg" alt="一般安全衛生教育訓練證明單填寫範例，標示實施日期欄位" />
+                          <button onClick={() => openLightbox("assets/環安教育證明單_實施日期範例.jpg")} aria-label="放大查看教育訓練證明單填寫範例">
+                            <img src="assets/環安教育證明單_實施日期範例.jpg" alt="一般安全衛生教育訓練證明單橫式填寫範例，標示實施日期欄位" />
                             <span>點圖放大</span>
                           </button>
                           <figcaption><strong>填寫範例｜實施日期也要填寫</strong><br />原則上填報到日，請先問進用窗口(致緯哥)。</figcaption>
@@ -375,6 +436,10 @@ export default function Home() {
                     const checklistId = `salary-${doc.id}`;
                     return (
                       <article key={doc.id} className={`salary-check-card ${checked[checklistId] ? "is-checked" : ""}`}>
+                        <button className="salary-card-preview" onClick={() => openLightbox(doc.previewPages)} aria-label={`放大查看${doc.name}列印範例，共 ${doc.previewPages.length} 張`}>
+                          <img src={doc.preview} alt={`${doc.name}列印範例縮圖`} />
+                          <span>列印範例・{doc.previewPages.length} 張</span>
+                        </button>
                         <label>
                           <input type="checkbox" checked={Boolean(checked[checklistId])} onChange={() => toggle(checklistId)} />
                           <span className="custom-check" aria-hidden="true">{checked[checklistId] ? "✓" : ""}</span>
@@ -385,18 +450,98 @@ export default function Home() {
                     );
                   })}
                 </div>
+                <aside className="salary-submit-notice">
+                  <span aria-hidden="true">📁</span>
+                  <p><strong>完成後繳交</strong>確認已列印出勤紀錄單、進用證明單及薪資清冊，並在薪資清冊的「承辦人」欄位簽名後，將三份文件夾入紅色公文夾，交給進用窗口(致緯哥)。</p>
+                </aside>
               </section>
 
-              {salaryDocuments.map((doc, index) => (
-                <section key={doc.id} id={`salary-${doc.id}-steps`} className="content-section salary-detail-section">
-                  <div className="section-title"><span>{index + 1}</span><div><p>列印步驟</p><h2>{doc.name}</h2></div></div>
-                  <div className="salary-step-placeholder">
-                    <span>操作步驟整理中</span>
-                    <strong>內容待補</strong>
-                    <p>後續將依實際流程補上列印位置、操作畫面與注意事項。</p>
-                  </div>
-                </section>
-              ))}
+              <section id="salary-attendance-steps" className="content-section salary-detail-section">
+                <div className="section-title"><span>1</span><div><p>列印步驟</p><h2>出勤紀錄單</h2></div></div>
+                <div className="salary-steps">
+                  <SalaryStep number={1} title="登入校務系統" image="assets/salary/attendance/steps/1.jpg" imageAlt="iNCCU 校園資訊系統中的校務系統 Web 入口" onOpen={() => openLightbox("assets/salary/attendance/steps/1.jpg")}>
+                    <p>登入 iNCCU，從右下角的「校園資訊系統」點選「校務系統 Web 入口」，並選擇以「員工編號」登入。</p>
+                    <a className="salary-inline-action" href="https://i.nccu.edu.tw/Login.aspx" target="_blank" rel="noreferrer">開啟 iNCCU <span aria-hidden="true">↗</span></a>
+                  </SalaryStep>
+                  <SalaryStep number={2} title="填寫當月出勤紀錄" image="assets/salary/attendance/steps/2.jpg" imageAlt="出勤紀錄填寫畫面，示範將同一天的八小時拆成兩筆四小時紀錄" onOpen={() => openLightbox("assets/salary/attendance/steps/2.jpg")} note={<>每筆出勤紀錄最多填寫 4 小時，不能直接將 8 小時填成一筆。例如同一天工作 8 小時，應分別填寫「08:00–12:00」及「13:00–17:00」。</>}>
+                    <p>依序進入「行政資訊系統 → 助理人員相關作業 → 出勤紀錄填寫」，找到當月份的資料並點選「編輯」。逐筆填寫出勤日期、起始時間及結束時間，再按下「加入」。</p>
+                  </SalaryStep>
+                  <SalaryStep number={3} title="確認時數並送出表單" image="assets/salary/attendance/steps/3.jpg" imageAlt="出勤紀錄畫面下方顯示目前總計八十小時及送出表單按鈕" onOpen={() => openLightbox("assets/salary/attendance/steps/3.jpg")} note={<>送出前，務必確認畫面下方的「目前總計」為 80 小時。</>}>
+                    <p>完成所有出勤紀錄後，確認畫面下方的「目前總計」已達 80 小時，再點選「送出表單」送交審核。</p>
+                  </SalaryStep>
+                  <SalaryStep number={4} title="等待研發長審核" image="assets/salary/attendance/steps/4.jpg" imageAlt="出勤紀錄列表的流程狀態顯示已送出" onOpen={() => openLightbox("assets/salary/attendance/steps/4.jpg")} note={<>流程狀態仍為「已送出」時，先不要列印出勤紀錄單。</>}>
+                    <p>送出後，流程狀態會顯示為「已送出」。此時請等待研發長完成審核。</p>
+                  </SalaryStep>
+                  <SalaryStep number={5} title="列印出勤紀錄單" image="assets/salary/attendance/steps/5.jpg" imageAlt="出勤紀錄列表的流程狀態顯示已確認，並標示列印按鈕" onOpen={() => openLightbox("assets/salary/attendance/steps/5.jpg") }>
+                    <p>待研發長完成審核，且流程狀態變為「已確認」後，點選右側的「列印」，印出當月出勤紀錄單，並接續辦理「進用證明單列印」與「薪資造冊」。</p>
+                  </SalaryStep>
+                </div>
+                <aside className="salary-section-note"><strong>列印後確認</strong>請再次確認出勤紀錄單下方的「時數總計」為 80 小時。</aside>
+              </section>
+
+              <section id="salary-appointment-proof-steps" className="content-section salary-detail-section">
+                <div className="section-title"><span>2</span><div><p>列印步驟</p><h2>進用證明單</h2></div></div>
+                <div className="salary-steps">
+                  <SalaryStep number={1} title="查詢進用單號" image="assets/salary/appointment/steps/1.jpg" imageAlt="政大進用系統首頁右側的查詢進用單號欄位" onOpen={() => openLightbox("assets/salary/appointment/steps/1.jpg")} note={<>出生年月日請依欄位提示，以西元年月日「yyyyMMdd」格式輸入。</>}>
+                    <p>開啟政大進用系統，使用右下方的「查詢進用單號」功能，依序輸入身分證字號、出生年月日及圖形驗證碼，再點選「送出」。</p>
+                    <a className="salary-inline-action" href="https://schwebap.nccu.edu.tw/pawb01/tempmenu.aspx" target="_blank" rel="noreferrer">開啟政大進用系統 <span aria-hidden="true">↗</span></a>
+                  </SalaryStep>
+                  <SalaryStep number={2} title="選擇研究發展處的進用資料" image="assets/salary/appointment/steps/2.jpg" imageAlt="進用單號查詢結果，以紅框標示研究發展處的進用單" onOpen={() => openLightbox("assets/salary/appointment/steps/2.jpg")} note={<>若畫面中有多筆進用紀錄，請選擇進用單位為「研究發展處」且聘期正確的資料。</>}>
+                    <p>在查詢結果中找到進用單位為「研究發展處」的資料，確認聘用起迄日期無誤後，點選左側藍色的「進用單號」。</p>
+                  </SalaryStep>
+                  <SalaryStep number={3} title="列印進用證明單" image="assets/salary/appointment/steps/3.jpg" imageAlt="進用證明頁面，以紅框標示計畫資料及列印連結" onOpen={() => openLightbox("assets/salary/appointment/steps/3.jpg")} note={<>列印前，請再次確認選擇的是企畫組目前使用的計畫資料。</>}>
+                    <p>進入「進用證明」頁面後，在「國科會及其他機構計畫資料」區塊確認計畫代號、單位及計畫主持人，再點選該筆資料左側的「列印」。</p>
+                  </SalaryStep>
+                </div>
+                <aside className="salary-section-note"><strong>請先記下</strong>列印後，請記下自己的「員工代號」、「計畫編號」及「進用單號」，後續辦理薪資造冊時會使用。</aside>
+              </section>
+
+              <section id="salary-payroll-steps" className="content-section salary-detail-section">
+                <div className="section-title"><span>3</span><div><p>造冊與列印步驟</p><h2>薪資清冊</h2></div></div>
+                <div className="salary-steps">
+                  <SalaryStep number={1} title="使用 IE 開啟新平台校務系統" image="assets/salary/payroll/steps/1.jpg" imageAlt="iNCCU 校園資訊系統中的新平台校務系統圖示，旁邊提醒只能使用 IE 瀏覽器" onOpen={() => openLightbox("assets/salary/payroll/steps/1.jpg")} note={<>「新平台校務系統」只能使用 Internet Explorer（IE）瀏覽器開啟。請複製網址後，再貼到 IE 瀏覽器。</>}>
+                    <p>登入 iNCCU 後，從右下角的「校園資訊系統」點選「新平台校務系統」。</p>
+                    <button className="salary-inline-action copy-action" onClick={copyInccuUrl}>{copiedInccu ? "已複製 iNCCU 網址 ✓" : "複製 iNCCU 網址"}</button>
+                  </SalaryStep>
+                  <SalaryStep number={2} title="進入薪資造冊功能" image="assets/salary/payroll/steps/2.jpg" imageAlt="新平台校務系統左側功能樹，以紅框標示人員薪資或學習津貼造冊" onOpen={() => openLightbox("assets/salary/payroll/steps/2.jpg")}>
+                    <p>進入新平台校務系統後，將左上方的系統選擇為「教職員資訊系統」，再依序展開「單位薪資或學習津貼造冊作業 → 人員薪資或學習津貼造冊」。</p>
+                  </SalaryStep>
+                  <SalaryStep number={3} title="建立薪資資料" image="assets/salary/payroll/steps/3.jpg" imageAlt="薪資造冊主畫面，依序標示人員類別、員工編號、進用單號、建立薪資及轉清冊" onOpen={() => openLightbox("assets/salary/payroll/steps/3.jpg")} note={<>此步驟會使用進用證明單上的「員工代號」與「進用單號」。</>}>
+                    <ol className="salary-substeps">
+                      <li>「人員類別」選擇「計畫類人員」。</li>
+                      <li>填寫自己的員工編號。</li>
+                      <li>選擇正確的進用單號，其他個人及計畫資料會由系統自動帶入。</li>
+                      <li>確認資料無誤後，點選「建立薪資」。</li>
+                      <li>再點選「轉清冊」。</li>
+                    </ol>
+                  </SalaryStep>
+                  <SalaryStep number={4} title="查詢並執行造冊" image="assets/salary/payroll/steps/4.jpg" imageAlt="單位薪資建檔造冊畫面，依序標示薪資月份、人員類別、查詢、勾選資料及執行造冊" onOpen={() => openLightbox("assets/salary/payroll/steps/4.jpg")}>
+                    <ol className="salary-substeps">
+                      <li>填寫要申報薪資的年份與月份。</li>
+                      <li>「人員類別」選擇「計畫類人員」。</li>
+                      <li>點選「查詢」。</li>
+                      <li>勾選步驟 3 建立的當月薪資資料。</li>
+                      <li>點選「執行造冊」。</li>
+                    </ol>
+                  </SalaryStep>
+                  <SalaryStep number={5} title="修改案由並選擇計畫" image="assets/salary/payroll/steps/5.jpg" imageAlt="薪資造冊資料填寫視窗，以紅框標示案由及選擇計畫按鈕" onOpen={() => openLightbox("assets/salary/payroll/steps/5.jpg")}>
+                    <p>將系統自動帶入的「案由」修改為「姓名＋薪資月份＋薪資或學習津貼」，例如「王小美08月薪資或學習津貼」，完成後點選「選擇計畫」。</p>
+                  </SalaryStep>
+                  <SalaryStep number={6} title="查詢並選擇計畫" image="assets/salary/payroll/steps/6.jpg" imageAlt="選擇計畫編號視窗，以紅框標示計畫編號、查詢按鈕及計畫結果" onOpen={() => openLightbox("assets/salary/payroll/steps/6.jpg")} note={<>請確認計畫編號及計畫名稱皆正確。</>}>
+                    <p>輸入進用證明單上的「計畫編號」，再點選「查詢」。查詢結果出現後，連按兩下正確的計畫。</p>
+                  </SalaryStep>
+                  <SalaryStep number={7} title="確認造冊" image="assets/salary/payroll/steps/7.jpg" imageAlt="薪資造冊資料填寫視窗，以紅框標示已選取的計畫及確定造冊按鈕" onOpen={() => openLightbox("assets/salary/payroll/steps/7.jpg")}>
+                    <p>確認畫面中的案由及計畫資料無誤，並已選取正確的計畫後，點選「確定造冊」。</p>
+                  </SalaryStep>
+                  <SalaryStep number={8} title="列印清冊" image="assets/salary/payroll/steps/8.jpg" imageAlt="薪資造冊主畫面，以紅框標示列印清冊按鈕" onOpen={() => openLightbox("assets/salary/payroll/steps/8.jpg")}>
+                    <p>完成造冊並回到主畫面後，點選上方的「列印清冊」。</p>
+                  </SalaryStep>
+                  <SalaryStep number={9} title="選擇清冊並產生報表" image="assets/salary/payroll/steps/9.jpg" imageAlt="查詢薪資視窗，顯示清冊號下拉選單及產生報表按鈕" onOpen={() => openLightbox("assets/salary/payroll/steps/9.jpg")}>
+                    <p>從「清冊號」下拉選單中，選擇自己最新建立的薪資清冊，再點選「產生報表」，即可產生並列印薪資清冊。</p>
+                  </SalaryStep>
+                </div>
+                <aside className="salary-section-note rose"><strong>列印後簽名</strong>列印薪資清冊後，請在下方的「承辦人」欄位親筆簽名。</aside>
+              </section>
 
               <footer className="page-footer"><span>國立政治大學研發處企畫組｜兼任助理交接手冊</span><span>03 — 薪資</span></footer>
             </section>
