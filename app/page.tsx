@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Chapter = "cover" | "hiring" | "work" | "salary" | "other";
-type Identity = "single" | "concurrent";
+type Identity = "single" | "internal" | "external";
 type HandbookDocument = {
   id: string;
   name: string;
@@ -43,7 +43,12 @@ const safetySteps = [
   { text: "一般職業安全衛生教育訓練課程（下）", href: "https://isafeel.osha.gov.tw/info/10000056" },
   { text: "至「個人專區 → 學習履歷 → 列印學習紀錄」下載學習時數證明。" },
   { text: "列印並填寫教育訓練證明單的基本資料，將學習時數證明附在證明單後面，再交給進用窗口(致緯哥)確認實體課程欄位及主管簽章。" },
-  { text: "將完整文件送至總務處環安組備查。" },
+];
+
+const salaryDocuments = [
+  { id: "attendance", name: "出勤紀錄單" },
+  { id: "appointment-proof", name: "進用證明單" },
+  { id: "payroll", name: "薪資清冊" },
 ];
 
 function CheckItem({ id, checked, onChange, children }: {
@@ -72,10 +77,11 @@ export default function Home() {
 
   useEffect(() => {
     const saved = window.localStorage.getItem("nccu-handbook-progress");
-    const savedIdentity = window.localStorage.getItem("nccu-handbook-identity") as Identity | null;
+    const savedIdentity = window.localStorage.getItem("nccu-handbook-identity");
     const savedInsurance = window.localStorage.getItem("nccu-handbook-insured-elsewhere");
     if (saved) setChecked(JSON.parse(saved));
-    if (savedIdentity === "single" || savedIdentity === "concurrent") setIdentity(savedIdentity);
+    if (savedIdentity === "single" || savedIdentity === "internal" || savedIdentity === "external") setIdentity(savedIdentity);
+    if (savedIdentity === "concurrent") setIdentity("internal");
     if (savedInsurance === "true") setInsuredElsewhere(true);
     setHydrated(true);
   }, []);
@@ -99,7 +105,7 @@ export default function Home() {
   }, [lightbox]);
 
   const documents = useMemo(
-    () => identity === "concurrent"
+    () => identity === "internal"
       ? [...baseDocuments, { id: "insurance-share", name: "保險費經費分攤同意書", copies: "印 1 份", system: false, preview: null, note: null, href: null, linkLabel: null, downloadHref: "assets/forms/insurance-cost-sharing-form.doc", downloadName: "兼任多職務保險費分攤同意書.doc" }]
       : baseDocuments,
     [identity],
@@ -111,6 +117,9 @@ export default function Home() {
   ];
   const completedCount = allChecklistIds.filter((id) => checked[id]).length;
   const progress = allChecklistIds.length ? Math.round((completedCount / allChecklistIds.length) * 100) : 0;
+  const salaryChecklistIds = salaryDocuments.map((doc) => `salary-${doc.id}`);
+  const salaryCompletedCount = salaryChecklistIds.filter((id) => checked[id]).length;
+  const salaryProgress = Math.round((salaryCompletedCount / salaryChecklistIds.length) * 100);
 
   function toggle(id: string) {
     setChecked((previous) => ({ ...previous, [id]: !previous[id] }));
@@ -159,7 +168,7 @@ export default function Home() {
               <button className="primary-button" onClick={() => changeChapter("hiring")}>
                 開始閱讀 01 進用 <span aria-hidden="true">→</span>
               </button>
-              <div className="cover-status"><span className="status-dot" />第一版框架｜目前完成「01 進用」</div>
+              <div className="cover-status"><span className="status-dot" />第一版框架｜01 進用完成・03 薪資整理中</div>
               <p className="page-number">01</p>
             </section>
           )}
@@ -192,17 +201,25 @@ export default function Home() {
                       <input type="radio" name="identity" checked={identity === "single"} onChange={() => { setIdentity("single"); setInsuredElsewhere(false); }} />
                       <span><strong>無兼任其他助理與工讀</strong><small>使用一般進用文件清單</small></span>
                     </label>
-                    <label className={identity === "concurrent" ? "selected" : ""}>
-                      <input type="radio" name="identity" checked={identity === "concurrent"} onChange={() => setIdentity("concurrent")} />
-                      <span><strong>同時兼任其他兼任助理或工讀</strong><small>研究獎助生不算在內</small></span>
+                    <label className={identity === "internal" ? "selected" : ""}>
+                      <input type="radio" name="identity" checked={identity === "internal"} onChange={() => setIdentity("internal")} />
+                      <span><strong>同時兼任校內其他兼任助理或工讀</strong><small>研究獎助生不算在內</small></span>
+                    </label>
+                    <label className={identity === "external" ? "selected" : ""}>
+                      <input type="radio" name="identity" checked={identity === "external"} onChange={() => setIdentity("external")} />
+                      <span><strong>同時兼任校外其他實習或工讀</strong></span>
                     </label>
                   </fieldset>
-                  {identity === "concurrent" && (
+                  {identity !== "single" && (
                     <div className="follow-up"><label><input type="checkbox" checked={insuredElsewhere} onChange={(event) => setInsuredElsewhere(event.target.checked)} />其他工讀單位或公司已為我投保健保</label></div>
                   )}
                   <div className="insurance-summary" aria-live="polite">
                     <div><span className="insurance-icon">勞</span><p><strong>勞保：強制投保</strong></p></div>
-                    <div><span className="insurance-icon health">健</span><p><strong>健保：{identity === "concurrent" && insuredElsewhere ? "可向人事室承辦人確認免在本職位投保" : "需辦理投保"}</strong><br />只有同時兼任其他工讀，且該單位已協助投保健保，才可不在本職位提撥。</p></div>
+                    <div><span className="insurance-icon health">健</span><p>{identity === "single" ? (
+                      <strong>健保：需辦理投保</strong>
+                    ) : (
+                      <><strong>健保：可向 人事室 勞健保業務 承辦人 確認免在本職位投保</strong><br />只有同時兼任其他工讀，且該單位已協助投保健保，才可不在本職位提撥。</>
+                    )}</p></div>
                   </div>
                 </div>
               </section>
@@ -261,7 +278,7 @@ export default function Home() {
                     </article>
                   ))}
                 </div>
-                {identity === "concurrent" && <p className="conditional-note">已依你的身分自動加入「保險費經費分攤同意書」。</p>}
+                {identity === "internal" && <p className="conditional-note">已依你的身分自動加入「保險費經費分攤同意書」。</p>}
                 <aside className="submission-location" aria-label="人事室進用文件繳交地點">
                   <span className="submission-pin" aria-hidden="true">📍</span>
                   <div>
@@ -325,7 +342,60 @@ export default function Home() {
             </section>
           )}
 
-          {(chapter === "work" || chapter === "salary" || chapter === "other") && (
+          {chapter === "salary" && (
+            <section className="page-content handbook-page salary-page">
+              <div className="chapter-heading">
+                <div>
+                  <p className="eyebrow">PART 03</p>
+                  <h1>薪資</h1>
+                  <p>每月依序備妥三份文件，再依下方說明完成列印。</p>
+                </div>
+                <div className="progress-card salary-progress" aria-label={`薪資文件進度 ${salaryProgress}%`}>
+                  <span>{salaryCompletedCount} / {salaryChecklistIds.length}</span><strong>{salaryProgress}%</strong>
+                  <div className="progress-track"><i style={{ width: `${salaryProgress}%` }} /></div>
+                  <small>勾選紀錄會保留在這台裝置</small>
+                </div>
+              </div>
+
+              <section className="content-section salary-overview" aria-labelledby="salary-overview-title">
+                <div className="salary-overview-heading">
+                  <p>本月應備文件</p>
+                  <h2 id="salary-overview-title">本月薪資核銷文件</h2>
+                </div>
+                <div className="salary-date-notice"><span aria-hidden="true">📅</span><p><strong>薪資填報時間</strong>每月 15 日後，即可開始填報當月薪資。</p></div>
+                <div className="salary-checklist" aria-label="本月薪資核銷文件清單">
+                  {salaryDocuments.map((doc, index) => {
+                    const checklistId = `salary-${doc.id}`;
+                    return (
+                      <article key={doc.id} className={`salary-check-card ${checked[checklistId] ? "is-checked" : ""}`}>
+                        <label>
+                          <input type="checkbox" checked={Boolean(checked[checklistId])} onChange={() => toggle(checklistId)} />
+                          <span className="custom-check" aria-hidden="true">{checked[checklistId] ? "✓" : ""}</span>
+                          <span><small>{String(index + 1).padStart(2, "0")}</small><strong>{doc.name}</strong></span>
+                        </label>
+                        <a href={`#salary-${doc.id}-steps`}>查看列印步驟 <span aria-hidden="true">↓</span></a>
+                      </article>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {salaryDocuments.map((doc, index) => (
+                <section key={doc.id} id={`salary-${doc.id}-steps`} className="content-section salary-detail-section">
+                  <div className="section-title"><span>{index + 1}</span><div><p>列印步驟</p><h2>{doc.name}</h2></div></div>
+                  <div className="salary-step-placeholder">
+                    <span>操作步驟整理中</span>
+                    <strong>內容待補</strong>
+                    <p>後續將依實際流程補上列印位置、操作畫面與注意事項。</p>
+                  </div>
+                </section>
+              ))}
+
+              <footer className="page-footer"><span>國立政治大學研發處企畫組｜兼任助理交接手冊</span><span>03 — 薪資</span></footer>
+            </section>
+          )}
+
+          {(chapter === "work" || chapter === "other") && (
             <section className="page-content placeholder-page">
               <p className="eyebrow">PART {chapters.find((item) => item.id === chapter)?.number}</p>
               <h1>{chapters.find((item) => item.id === chapter)?.label}</h1>
