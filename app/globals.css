@@ -11,6 +11,14 @@
   --background: #e9e5dc;
   --font-body: "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
   --font-book: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Noto Serif TC", "Songti TC", serif;
+  --font-ui: var(--font-body);
+  --type-chapter-title: clamp(2.8rem, 6vw, 5.4rem);
+  --type-section-title: 1.75rem;
+  --type-subtitle: 1.16rem;
+  --type-body: .9rem;
+  --type-note: .84rem;
+  --type-meta: .76rem;
+  --type-label: .7rem;
   color-scheme: light;
 }
 
@@ -253,9 +261,116 @@ button { color: inherit; }
 .salary-section-note strong { display: block; color: var(--navy); font-size: .68rem; letter-spacing: .1em; }
 .salary-section-note.rose { border-left-color: #a94f49; color: #704846; background: #faece9; }
 .salary-section-note.rose strong { color: #913f39; }
+
+/* 全站字體層級：相同內容角色在每個篇章使用同一套字型與字級。 */
+.chapter-heading h1,
+.placeholder-page h1 {
+  font-family: var(--font-book);
+  font-size: var(--type-chapter-title);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.section-title h2,
+.salary-overview-heading h2 {
+  font-family: var(--font-book);
+  font-size: var(--type-section-title);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.system-guide-copy h3,
+.system-guide li b,
+.salary-step-copy h3 {
+  font-family: var(--font-book);
+  font-size: var(--type-subtitle);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.section-intro,
+.insurance-summary p,
+.system-route,
+.system-guide li span,
+.document-note,
+.conditional-note,
+.download-placeholder p,
+.safety-resources p,
+.screenshot-card figcaption,
+.example-card figcaption p,
+.salary-date-notice p,
+.salary-submit-notice p,
+.salary-step-description,
+.salary-inline-note,
+.salary-section-note {
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  font-weight: 500;
+}
+
+.document-card-body > strong,
+.document-info strong,
+.safety-resources strong,
+.salary-check-card label strong,
+.submission-location strong {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.notice,
+.document-card-body > small,
+.document-check,
+.document-info small,
+.system-plan-values dt,
+.system-plan-values dd,
+.annual-code-note,
+.salary-check-card > a,
+.salary-inline-action,
+.lightbox-controls {
+  font-family: var(--font-body);
+  font-size: var(--type-note);
+}
+
+.section-title p,
+.salary-overview-heading p,
+.system-guide-kicker,
+.salary-date-notice strong,
+.salary-submit-notice strong,
+.salary-inline-note strong,
+.salary-section-note strong,
+.submission-location small,
+.system-plan-values dd small,
+.example-label {
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  font-weight: 800;
+}
+
+.notice > span,
+.system-badge,
+.system-step-image > span,
+.system-guide-image span,
+.document-thumb > span:not(.missing-icon),
+.screenshot-card button span,
+.salary-card-preview span,
+.salary-step-image span {
+  font-family: var(--font-body);
+  font-size: var(--type-label);
+  font-weight: 800;
+}
+
+.document-action,
+.document-download,
+.safety-resource-actions a,
+.system-link {
+  font-family: var(--font-body);
+  font-size: var(--type-note);
+}
+
 .page-footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; color: #918a7d; font-size: .66rem; letter-spacing: .05em; }
 .placeholder-page { position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-left: 16%; }
-.placeholder-page h1 { font-size: clamp(3.4rem, 7vw, 6rem); }
+.placeholder-page h1 { font-size: var(--type-chapter-title); }
 .placeholder-rule { width: 75px; height: 4px; background: var(--gold); margin: 30px 0; }
 .placeholder-page > p:not(.eyebrow):not(.page-number) { color: #758087; }
 .placeholder-stamp { margin-top: 48px; padding: 13px 20px; border: 2px solid #9d887a; color: #9d887a; transform: rotate(-5deg); font-weight: 800; letter-spacing: .18em; opacity: .66; }
@@ -302,7 +417,7 @@ button { color: inherit; }
   .section-nav { overflow-x: auto; padding: 14px 0; }
   .section-nav a { white-space: nowrap; }
   .section-title > span { width: 36px; height: 36px; }
-  .section-title h2 { font-size: 1.45rem; }
+  .section-title h2, .salary-overview-heading h2 { font-size: 1.45rem; }
   .identity-card { padding: 17px; }
   .system-guide { padding: 18px; }
   .document-card { grid-template-columns: 102px minmax(0, 1fr); }
