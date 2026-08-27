@@ -18,11 +18,11 @@ type HandbookDocument = {
   downloadName?: string;
 };
 
-const chapters: Array<{ id: Chapter; number: string; label: string; color: string }> = [
+const chapters: Array<{ id: Chapter; number: string; label: string; color: string; tabLines?: string[] }> = [
   { id: "cover", number: "", label: "封面", color: "#ded7c8" },
   { id: "hiring", number: "01", label: "進用", color: "#e7bd56" },
   { id: "checkin", number: "02", label: "簽到", color: "#e9cfa0" },
-  { id: "work", number: "03", label: "工作百寶袋", color: "#9db9ad" },
+  { id: "work", number: "03", label: "工作百寶袋", tabLines: ["工作", "百寶袋"], color: "#9db9ad" },
   { id: "salary", number: "04", label: "薪資", color: "#8da7bf" },
   { id: "other", number: "05", label: "其他", color: "#b5a4bb" },
 ];
@@ -218,7 +218,8 @@ export default function Home() {
         <nav className="bookmark-tabs" aria-label="手冊章節">
           {chapters.map((item) => (
             <button key={item.id} className={chapter === item.id ? "active" : ""} style={{ "--tab-color": item.color } as React.CSSProperties} onClick={() => changeChapter(item.id)} aria-current={chapter === item.id ? "page" : undefined}>
-              {item.number && <span>{item.number}</span>}{item.label}
+              {item.number && <span className="bookmark-number">{item.number}</span>}
+              <span className="bookmark-label">{(item.tabLines ?? [item.label]).map((line) => <span key={line}>{line}</span>)}</span>
             </button>
           ))}
         </nav>
@@ -242,7 +243,7 @@ export default function Home() {
               <button className="primary-button" onClick={() => changeChapter("hiring")}>
                 開始閱讀 01 進用 <span aria-hidden="true">→</span>
               </button>
-              <div className="cover-status"><span className="status-dot" />第一版框架｜01 進用完成・04 薪資整理中</div>
+              <div className="cover-status"><span className="status-dot" />第一版框架｜01 進用完成・02 簽到完成・04 薪資整理中</div>
               <p className="page-number">01</p>
             </section>
           )}
@@ -427,6 +428,117 @@ export default function Home() {
             </section>
           )}
 
+          {chapter === "checkin" && (
+            <section className="page-content handbook-page checkin-page">
+              <div className="chapter-heading">
+                <div>
+                  <p className="eyebrow">PART 02</p>
+                  <h1><span className="chapter-title-emoji" aria-hidden="true">🕘</span>簽到</h1>
+                  <p>每天記錄實際出勤時間、完成主管簽章，也要記得自己還有多少彈性補足時數。</p>
+                </div>
+              </div>
+
+              <nav className="section-nav checkin-nav" aria-label="簽到章節目錄">
+                <a href="#checkin-daily">📝 每日簽到</a>
+                <a href="#checkin-hours">⏰ 上班時間</a>
+                <a href="#checkin-schedule">📅 每週排班</a>
+                <a href="#checkin-flex">⏳ 彈性時數</a>
+                <a href="#checkin-forms">🔍 兩張表的差異</a>
+                <a href="#checkin-salary-time">💰 薪資申報時間</a>
+              </nav>
+
+              <section id="checkin-daily" className="content-section checkin-detail-section">
+                <div className="section-title checkin-section-title"><span aria-hidden="true">📝</span><div><p>每天都要完成</p><h2>每日簽到流程</h2></div></div>
+                <div className="checkin-step-grid">
+                  <article><strong>01</strong><div><h3>填寫實際時間</h3><p>依當天實際出勤情形，填寫日期、工讀開始時間、工讀結束時間及工讀時數。</p></div></article>
+                  <article><strong>02</strong><div><h3>下班時送簽</h3><p>下班時將表格拿給致緯哥蓋章簽名，即完成今日簽到。</p></div></article>
+                  <article><strong>03</strong><div><h3>致緯哥不在時</h3><p>若致緯哥請假或不在，請改由專案經理（芷蓉姐）蓋章簽名。</p></div></article>
+                </div>
+                <figure className="checkin-form-preview">
+                  <button onClick={() => openLightbox("assets/checkin/attendance-log.jpg")} aria-label="放大查看兼任助理時數紀錄表範例">
+                    <img src="assets/checkin/attendance-log.jpg" alt="國立政治大學研發處企畫組兼任助理時數紀錄表範例，包含日期、上下班時間、工讀時數、工讀生簽章及輔導人員簽章" />
+                    <span>表格範例｜點圖放大</span>
+                  </button>
+                  <figcaption><strong>兼任助理時數紀錄表</strong><br />這張表記錄每天實際上下班時間，下班前別忘了完成主管簽章。</figcaption>
+                </figure>
+              </section>
+
+              <section id="checkin-hours" className="content-section checkin-detail-section">
+                <div className="section-title checkin-section-title"><span aria-hidden="true">⏰</span><div><p>固定時段</p><h2>上下班及休息時間</h2></div></div>
+                <div className="checkin-table-wrap">
+                  <table className="checkin-table">
+                    <thead><tr><th scope="col">時段</th><th scope="col">時間</th><th scope="col">工讀時數</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">上午班</th><td>09:00–12:00</td><td><strong>3 小時</strong></td></tr>
+                      <tr className="break-row"><th scope="row">中午休息</th><td>12:00–13:30</td><td>1.5 小時（不計工時）</td></tr>
+                      <tr><th scope="row">下午班</th><td>13:30–17:30</td><td><strong>4 小時</strong></td></tr>
+                      <tr><th scope="row">整天班</th><td>09:00–12:00、13:30–17:30</td><td><strong>7 小時</strong></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section id="checkin-schedule" className="content-section checkin-detail-section">
+                <div className="section-title checkin-section-title"><span aria-hidden="true">📅</span><div><p>每週原則</p><h2>每週排班方式</h2></div></div>
+                <div className="checkin-table-wrap compact">
+                  <table className="checkin-table">
+                    <thead><tr><th scope="col">排班方式</th><th scope="col">每週次數</th><th scope="col">時數說明</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">半天班</th><td><strong>3 次</strong></td><td>上午班為 3 小時；下午班為 4 小時。</td></tr>
+                      <tr><th scope="row">整天班</th><td><strong>1 次</strong></td><td>上午及下午合計 7 小時。</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section id="checkin-flex" className="content-section checkin-detail-section">
+                <div className="section-title checkin-section-title"><span aria-hidden="true">⏳</span><div><p>請自己記好</p><h2>彈性補足時數</h2></div></div>
+                <aside className="checkin-highlight">
+                  <span aria-hidden="true">80</span>
+                  <div><strong>這個職位每月工作時數為 80 小時</strong><p>上午班只有 3 小時，因此每安排一次上午班，會產生 1 小時的彈性補足時數。</p></div>
+                </aside>
+                <ul className="checkin-note-list">
+                  <li><strong>請自己記錄</strong>目前累積多少彈性補足時數。</li>
+                  <li>若單位臨時需要協助，而且你的時間可以配合，就盡量利用這些時數幫忙。</li>
+                  <li>單位仍會優先配合你的時間，不會強制要求你取消原有行程。</li>
+                  <li>如果當月的彈性補足時數已經全部補完，再繼續協助就會使當月工時超過 80 小時，請先告訴致緯哥，由致緯哥確認如何處理。</li>
+                </ul>
+              </section>
+
+              <section id="checkin-forms" className="content-section checkin-detail-section">
+                <div className="section-title checkin-section-title"><span aria-hidden="true">🔍</span><div><p>特別注意</p><h2>兩張表不要混淆</h2></div></div>
+                <div className="checkin-table-wrap comparison">
+                  <table className="checkin-table">
+                    <thead><tr><th scope="col">比較項目</th><th scope="col">第二章｜兼任助理時數紀錄表</th><th scope="col">第四章｜薪資出勤紀錄單</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">用途</th><td>每天上下班簽到</td><td>每月薪資申報</td></tr>
+                      <tr><th scope="row">填寫時間</th><td><strong>當天實際上下班時間</strong></td><td>依照自己當月沒有課的時段填寫</td></tr>
+                      <tr><th scope="row">完成方式</th><td>每天填寫，並請致緯哥或芷蓉姐蓋章簽名</td><td>確認當月合計為 <strong>80 小時</strong>後送出</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <aside className="checkin-warning"><strong>請記住：</strong>第二章填的是「實際出勤時間」；第四章則依自己沒有課的時段完成當月 80 小時填報，因此兩張表上的時間可能不同。</aside>
+              </section>
+
+              <section id="checkin-salary-time" className="content-section checkin-detail-section">
+                <div className="section-title checkin-section-title"><span aria-hidden="true">💰</span><div><p>提早完成申報</p><h2>為什麼兩張表的時間可能不同？</h2></div></div>
+                <p className="checkin-intro">薪資處理約需要 15 個工作天。致緯哥希望助理能早一點領到薪水，因此薪資出勤紀錄單通常會在月中先完成申報。</p>
+                <div className="checkin-table-wrap salary-timing">
+                  <table className="checkin-table">
+                    <thead><tr><th scope="col">完成申報時間</th><th scope="col">預計領薪時間</th><th scope="col">說明</th></tr></thead>
+                    <tbody>
+                      <tr className="recommended-row"><th scope="row">每月 15 日或其後 2～3 天</th><td><strong>通常為下個月初（約 5 日）</strong></td><td>可讓薪資較早進入處理流程。</td></tr>
+                      <tr><th scope="row">等到月底再申報</th><td>可能延至下個月 16 日左右</td><td>因薪資處理約需 15 個工作天。</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <aside className="checkin-latest-rule">若校方規定或作業方式有變動，請依最新通知辦理。</aside>
+              </section>
+
+              <footer className="page-footer"><span>國立政治大學研發處企畫組｜兼任助理交接手冊</span><span>02 — 簽到</span></footer>
+            </section>
+          )}
+
           {chapter === "salary" && (
             <section className="page-content handbook-page salary-page">
               <div className="chapter-heading">
@@ -604,7 +716,7 @@ export default function Home() {
             </section>
           )}
 
-          {(chapter === "checkin" || chapter === "other") && (
+          {chapter === "other" && (
             <section className="page-content placeholder-page">
               <p className="eyebrow">PART {chapters.find((item) => item.id === chapter)?.number}</p>
               <h1>{chapters.find((item) => item.id === chapter)?.label}</h1>

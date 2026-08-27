@@ -47,10 +47,12 @@ button { color: inherit; }
 .book-spine { position: absolute; inset: 0 auto 0 0; width: 17px; background: linear-gradient(90deg, rgba(73,59,43,.18), rgba(255,255,255,.05)); box-shadow: 5px 0 12px rgba(71,58,42,.08); z-index: 3; }
 .page-content { min-height: 760px; padding: 72px 82px 52px 92px; }
 .bookmark-tabs { position: sticky; z-index: 4; top: 24px; width: max-content; height: 0; margin-left: 100%; transform: translateY(34px); display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.bookmark-tabs button { --tab-color: #ddd; min-width: 92px; min-height: 57px; padding: 10px 13px 10px 17px; display: flex; align-items: center; gap: 7px; border: 1px solid rgba(50,55,58,.15); border-left: 0; border-radius: 0 9px 9px 0; background: var(--tab-color); cursor: pointer; text-align: left; font-size: .83rem; font-weight: 700; box-shadow: 3px 4px 8px rgba(36,40,43,.14); transition: transform .18s ease, min-width .18s ease, filter .18s ease; }
+.bookmark-tabs button { --tab-color: #ddd; width: 92px; min-width: 92px; min-height: 57px; padding: 10px 13px 10px 17px; display: flex; align-items: center; gap: 7px; border: 1px solid rgba(50,55,58,.15); border-left: 0; border-radius: 0 9px 9px 0; background: var(--tab-color); cursor: pointer; text-align: left; font-size: .83rem; font-weight: 700; box-shadow: 3px 4px 8px rgba(36,40,43,.14); transition: transform .18s ease, width .18s ease, filter .18s ease; }
 .bookmark-tabs button:hover, .bookmark-tabs button:focus-visible { transform: translateX(5px); filter: brightness(1.04); outline: none; }
-.bookmark-tabs button.active { min-width: 105px; transform: translateX(5px); box-shadow: 4px 5px 10px rgba(36,40,43,.2); }
-.bookmark-tabs button span { font-size: .64rem; opacity: .65; letter-spacing: .08em; }
+.bookmark-tabs button.active { width: 105px; min-width: 105px; transform: translateX(5px); box-shadow: 4px 5px 10px rgba(36,40,43,.2); }
+.bookmark-number { flex: 0 0 auto; font-size: .64rem; opacity: .65; letter-spacing: .08em; }
+.bookmark-label { display: grid; gap: 0; font-size: .83rem; line-height: 1.25; letter-spacing: .01em; }
+.bookmark-label > span { display: block; }
 .cover-page { position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding-left: 15%; background: linear-gradient(105deg, transparent 0 63%, rgba(33,63,91,.045) 63% 64%, transparent 64%); }
 .cover-page > :not(.cover-illustration) { position: relative; z-index: 1; }
 .cover-illustration { position: absolute; z-index: 0; width: 290px; height: 290px; right: 8%; top: 22%; display: grid; place-items: center; border: 1px solid rgba(33,63,91,.12); border-radius: 50%; overflow: hidden; background: rgba(255,253,247,.78); box-shadow: 0 0 0 24px rgba(217,167,46,.05), 0 0 0 50px rgba(33,63,91,.03); }
@@ -273,6 +275,42 @@ button { color: inherit; }
 .salary-final-check-link small { color: #f0cf73; font-size: var(--type-meta); letter-spacing: .08em; }
 .salary-final-check-link:hover { transform: translateY(-2px); box-shadow: 0 11px 23px rgba(33,63,91,.25); }
 
+.chapter-title-emoji { display: inline-block; margin-right: .18em; font-family: var(--font-body); font-size: .68em; vertical-align: .08em; letter-spacing: 0; }
+.checkin-nav { flex-wrap: wrap; }
+.checkin-detail-section { scroll-margin-top: 112px; }
+.checkin-section-title > span { font-family: var(--font-body); font-size: 1.15rem; font-style: normal; }
+.checkin-step-grid { margin-left: 58px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.checkin-step-grid article { min-width: 0; padding: 18px; display: flex; align-items: flex-start; gap: 12px; border: 1px solid #ded4c2; border-radius: 9px; background: rgba(255,255,255,.72); box-shadow: 0 5px 15px rgba(63,49,28,.05); }
+.checkin-step-grid article > strong { flex: 0 0 auto; color: #a5740b; font: italic 700 .72rem var(--font-book); }
+.checkin-step-grid h3 { margin: 0 0 7px; color: var(--navy); font: 700 var(--type-subtitle)/1.4 var(--font-book); }
+.checkin-step-grid p { margin: 0; color: #5f6d76; font-size: var(--type-body); line-height: 1.75; }
+.checkin-form-preview { margin: 20px 0 0 58px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(190px, .72fr); border: 1px solid #d8cebb; border-radius: 9px; overflow: hidden; background: #f7f2e7; box-shadow: 0 6px 18px rgba(55,43,27,.07); }
+.checkin-form-preview button { position: relative; min-width: 0; padding: 0; border: 0; border-right: 1px solid #d8cebb; background: #fff; cursor: zoom-in; }
+.checkin-form-preview img { display: block; width: 100%; height: auto; max-height: 430px; object-fit: contain; }
+.checkin-form-preview button span { position: absolute; right: 11px; bottom: 11px; padding: 7px 10px; border-radius: 999px; color: #fff; background: rgba(28,47,63,.88); font-size: var(--type-label); font-weight: 800; }
+.checkin-form-preview figcaption { align-self: center; padding: 20px; color: #66737b; font-size: var(--type-body); line-height: 1.75; }
+.checkin-form-preview figcaption strong { color: var(--navy); font-family: var(--font-book); font-size: var(--type-subtitle); }
+.checkin-table-wrap { margin-left: 58px; overflow-x: auto; border: 1px solid #d8cebb; border-radius: 9px; background: rgba(255,255,255,.75); box-shadow: 0 5px 15px rgba(55,43,27,.05); }
+.checkin-table { width: 100%; border-collapse: collapse; min-width: 580px; font-size: var(--type-body); line-height: 1.65; }
+.checkin-table th, .checkin-table td { padding: 13px 16px; border-bottom: 1px solid #e3dbce; text-align: left; vertical-align: top; }
+.checkin-table thead th { color: #fff; background: var(--navy); font-size: var(--type-note); letter-spacing: .03em; }
+.checkin-table tbody th { width: 24%; color: var(--navy); background: #faf6ec; }
+.checkin-table tbody tr:last-child > * { border-bottom: 0; }
+.checkin-table .break-row > * { color: #7c6e59; background: #f3eee4; }
+.checkin-table .recommended-row > * { background: #fff8df; }
+.checkin-table .recommended-row th { color: #805d0d; }
+.checkin-highlight { margin-left: 58px; padding: 18px 20px; display: flex; align-items: center; gap: 18px; border: 1px solid #dfc46f; border-left: 5px solid var(--gold); border-radius: 8px; background: linear-gradient(135deg, #fff6d9, #fffdf5); box-shadow: 0 5px 15px rgba(118,89,20,.08); }
+.checkin-highlight > span { flex: 0 0 auto; width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: #b6800d; font: 800 1.18rem var(--font-book); }
+.checkin-highlight strong { color: #805d0d; font-size: 1rem; }
+.checkin-highlight p { margin: 5px 0 0; color: #65583c; font-size: var(--type-body); line-height: 1.7; }
+.checkin-note-list { margin: 16px 0 0 58px; padding: 18px 20px 18px 43px; border: 1px solid #d7dfda; border-radius: 8px; color: #596b62; background: #f3f8f5; font-size: var(--type-body); line-height: 1.8; }
+.checkin-note-list li + li { margin-top: 7px; }
+.checkin-note-list li::marker { color: #759587; }
+.checkin-warning { margin: 15px 0 0 58px; padding: 15px 17px; border-left: 5px solid #a94f49; border-radius: 0 7px 7px 0; color: #704846; background: #faece9; font-size: var(--type-body); line-height: 1.75; }
+.checkin-warning strong { color: #913f39; }
+.checkin-intro { margin: 0 0 18px 58px; color: #5f6d76; font-size: var(--type-body); line-height: 1.8; }
+.checkin-latest-rule { margin: 14px 0 0 58px; color: #6f756e; font-size: var(--type-note); font-weight: 700; }
+
 .work-shortcut-nav { position: sticky; z-index: 3; top: 0; padding: 18px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; background: linear-gradient(var(--paper) 82%, transparent); scroll-margin-top: 18px; }
 .work-shortcut-nav a { min-height: 62px; padding: 11px 13px; display: flex; align-items: center; gap: 9px; border: 1px solid #cfdad4; border-radius: 8px; color: #3f5e53; background: rgba(248,252,249,.95); box-shadow: 0 4px 11px rgba(58,83,72,.07); font-size: var(--type-note); font-weight: 800; line-height: 1.45; text-decoration: none; }
 .work-shortcut-nav a span { flex: 0 0 auto; font-size: 1.2rem; }
@@ -411,14 +449,15 @@ button { color: inherit; }
   .page-content { padding: 54px 34px 44px 42px; }
   .bookmark-tabs { position: fixed; z-index: 10; left: 14px; right: 14px; width: auto; height: auto; margin: 0; transform: none; top: auto; bottom: max(10px, env(safe-area-inset-bottom)); flex-direction: row; align-items: stretch; gap: 4px; padding: 5px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; border-radius: 12px; background: rgba(255,255,255,.9); backdrop-filter: blur(12px); box-shadow: 0 7px 25px rgba(28,35,41,.2); }
   .bookmark-tabs::-webkit-scrollbar { display: none; }
-  .bookmark-tabs button, .bookmark-tabs button.active { flex: 0 0 104px; min-width: 104px; min-height: 49px; padding: 7px 10px; border: 0; border-radius: 8px; transform: none; box-shadow: none; font-size: .72rem; flex-direction: column; justify-content: center; gap: 2px; }
+  .bookmark-tabs button, .bookmark-tabs button.active { width: 104px; flex: 0 0 104px; min-width: 104px; min-height: 49px; padding: 7px 10px; border: 0; border-radius: 8px; transform: none; box-shadow: none; font-size: .72rem; flex-direction: column; justify-content: center; gap: 2px; }
   .bookmark-tabs button:hover { transform: none; }
   .chapter-heading { grid-template-columns: 1fr; }
   .progress-card { max-width: 260px; }
   .identity-card fieldset, .insurance-summary { grid-template-columns: 1fr; }
   .system-step-image { width: min(84%, 620px); }
   .document-list.document-grid { grid-template-columns: 1fr; }
-  .section-intro, .safety-resources, .safety-list, .submission-location, .salary-steps, .salary-section-note, .salary-final-check-link, .work-content-placeholder, .work-back-link { margin-left: 0; }
+  .section-intro, .safety-resources, .safety-list, .submission-location, .salary-steps, .salary-section-note, .salary-final-check-link, .checkin-step-grid, .checkin-form-preview, .checkin-table-wrap, .checkin-highlight, .checkin-note-list, .checkin-warning, .checkin-intro, .checkin-latest-rule, .work-content-placeholder, .work-back-link { margin-left: 0; }
+  .checkin-step-grid { grid-template-columns: 1fr; }
   .safety-resources { align-items: flex-start; flex-direction: column; }
   .safety-resource-actions { justify-content: flex-start; }
   .example-card { grid-template-columns: 1fr; }
@@ -469,8 +508,19 @@ button { color: inherit; }
   .screenshot-card, .example-card { margin-left: 0; margin-right: 0; }
   .page-footer { flex-direction: column; gap: 5px; }
   .bookmark-tabs { left: 9px; right: 9px; }
-  .bookmark-tabs button, .bookmark-tabs button.active { flex-basis: 92px; min-width: 92px; padding-inline: 6px; }
-  .bookmark-tabs button span { font-size: .55rem; }
+  .bookmark-tabs button, .bookmark-tabs button.active { width: 92px; flex-basis: 92px; min-width: 92px; padding-inline: 6px; }
+  .bookmark-number { font-size: .55rem; }
+  .bookmark-label { font-size: .72rem; line-height: 1.2; }
+  .checkin-nav { flex-wrap: nowrap; }
+  .checkin-detail-section { scroll-margin-top: 76px; }
+  .checkin-form-preview { grid-template-columns: 1fr; }
+  .checkin-form-preview button { border-right: 0; border-bottom: 1px solid #d8cebb; }
+  .checkin-form-preview figcaption { padding: 17px; }
+  .checkin-table { min-width: 520px; }
+  .checkin-table th, .checkin-table td { padding: 11px 13px; }
+  .checkin-highlight { align-items: flex-start; padding: 16px; }
+  .checkin-highlight > span { width: 46px; height: 46px; font-size: 1rem; }
+  .checkin-note-list { padding: 16px 17px 16px 38px; }
   .work-shortcut-nav { margin-inline: -21px; padding: 12px 21px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
   .work-shortcut-nav::-webkit-scrollbar { display: none; }
   .work-shortcut-nav a { flex: 0 0 190px; min-height: 54px; }
