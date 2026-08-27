@@ -46,7 +46,7 @@ button { color: inherit; }
 .book-page { position: relative; z-index: 1; min-height: 760px; background: linear-gradient(90deg, rgba(70,60,44,.09), transparent 17px), repeating-linear-gradient(0deg, rgba(95,78,49,.012) 0 1px, transparent 1px 5px), var(--paper); border: 1px solid #d4ccbe; border-radius: 7px 2px 2px 7px; box-shadow: inset 0 0 70px rgba(125,105,67,.04); overflow: hidden; }
 .book-spine { position: absolute; inset: 0 auto 0 0; width: 17px; background: linear-gradient(90deg, rgba(73,59,43,.18), rgba(255,255,255,.05)); box-shadow: 5px 0 12px rgba(71,58,42,.08); z-index: 3; }
 .page-content { min-height: 760px; padding: 72px 82px 52px 92px; }
-.bookmark-tabs { position: absolute; z-index: 4; top: 34px; left: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.bookmark-tabs { position: sticky; z-index: 4; top: 24px; width: max-content; height: 0; margin-left: 100%; transform: translateY(34px); display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .bookmark-tabs button { --tab-color: #ddd; min-width: 92px; min-height: 57px; padding: 10px 13px 10px 17px; display: flex; align-items: center; gap: 7px; border: 1px solid rgba(50,55,58,.15); border-left: 0; border-radius: 0 9px 9px 0; background: var(--tab-color); cursor: pointer; text-align: left; font-size: .83rem; font-weight: 700; box-shadow: 3px 4px 8px rgba(36,40,43,.14); transition: transform .18s ease, min-width .18s ease, filter .18s ease; }
 .bookmark-tabs button:hover, .bookmark-tabs button:focus-visible { transform: translateX(5px); filter: brightness(1.04); outline: none; }
 .bookmark-tabs button.active { min-width: 105px; transform: translateX(5px); box-shadow: 4px 5px 10px rgba(36,40,43,.2); }
@@ -232,6 +232,11 @@ button { color: inherit; }
 .salary-check-card label > span:last-child { min-width: 0; display: grid; gap: 4px; }
 .salary-check-card label small { color: #a17a1c; font: italic .7rem var(--font-book); }
 .salary-check-card label strong { line-height: 1.5; }
+.salary-card-reminder { margin: 0 15px 14px; color: #596a75; font-size: var(--type-note); line-height: 1.65; }
+.salary-card-reminder strong { color: var(--navy); }
+.salary-card-reminder b { color: #9c332d; }
+.salary-card-reminder mark,
+.salary-section-note mark { padding: 0 .08em; color: inherit; font-weight: 900; background: linear-gradient(transparent 34%, #fff06b 34%, #fff06b 90%, transparent 90%); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .salary-check-card > a { margin-top: auto; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #e1dbd0; color: #536d7e; background: #faf9f5; font-size: .7rem; font-weight: 800; text-decoration: none; }
 .salary-check-card > a:hover { color: #fff; background: var(--navy); }
 .salary-submit-notice { margin-top: 16px; padding: 15px 18px; display: flex; align-items: center; gap: 14px; border: 1px solid #d8aaa5; border-left: 5px solid #a94f49; border-radius: 7px; color: #68413e; background: linear-gradient(135deg, #f8e8e6, #fff8f5); box-shadow: 0 5px 15px rgba(126,56,50,.08); }
@@ -254,6 +259,7 @@ button { color: inherit; }
 .salary-step-image span { position: absolute; right: 12px; bottom: 12px; padding: 7px 11px; border-radius: 999px; color: #fff; background: rgba(28,47,63,.88); font-size: .66rem; font-weight: 800; }
 .salary-inline-note { margin-top: 12px; padding: 9px 11px; border-left: 3px solid #d3aa44; border-radius: 0 5px 5px 0; color: #705c2f; background: #fff5d8; font-size: .73rem; line-height: 1.65; }
 .salary-inline-note strong { display: block; margin-bottom: 2px; color: #8c650f; font-size: .65rem; letter-spacing: .1em; }
+.salary-critical-reminder { display: block; margin-top: 8px; color: #c2251d; font-weight: 900; }
 .salary-inline-action { margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; border: 1px solid #8ca2b1; border-radius: 5px; color: var(--navy); background: #f5f8fa; font: 800 .72rem var(--font-ui); text-decoration: none; cursor: pointer; }
 .salary-inline-action:hover { border-color: var(--navy); color: #fff; background: var(--navy); }
 .salary-inline-action.copy-action { appearance: none; }
@@ -261,6 +267,22 @@ button { color: inherit; }
 .salary-section-note strong { display: block; color: var(--navy); font-size: .68rem; letter-spacing: .1em; }
 .salary-section-note.rose { border-left-color: #a94f49; color: #704846; background: #faece9; }
 .salary-section-note.rose strong { color: #913f39; }
+.salary-final-check-link { margin: 22px 0 0 58px; padding: 17px 20px; display: flex; align-items: center; justify-content: center; gap: 14px; border: 2px solid var(--navy); border-radius: 9px; color: #fff; background: linear-gradient(135deg, #294f70, #1c3851); box-shadow: 0 8px 18px rgba(33,63,91,.18); font-weight: 800; text-align: center; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+.salary-final-check-link > span:first-child { font-size: 1.45rem; }
+.salary-final-check-link > span:last-child { display: grid; gap: 2px; }
+.salary-final-check-link small { color: #f0cf73; font-size: var(--type-meta); letter-spacing: .08em; }
+.salary-final-check-link:hover { transform: translateY(-2px); box-shadow: 0 11px 23px rgba(33,63,91,.25); }
+
+.work-shortcut-nav { position: sticky; z-index: 3; top: 0; padding: 18px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; background: linear-gradient(var(--paper) 82%, transparent); scroll-margin-top: 18px; }
+.work-shortcut-nav a { min-height: 62px; padding: 11px 13px; display: flex; align-items: center; gap: 9px; border: 1px solid #cfdad4; border-radius: 8px; color: #3f5e53; background: rgba(248,252,249,.95); box-shadow: 0 4px 11px rgba(58,83,72,.07); font-size: var(--type-note); font-weight: 800; line-height: 1.45; text-decoration: none; }
+.work-shortcut-nav a span { flex: 0 0 auto; font-size: 1.2rem; }
+.work-shortcut-nav a:hover { border-color: #7e9f90; color: #213f36; background: #edf6f1; transform: translateY(-1px); }
+.work-detail-section { scroll-margin-top: 174px; }
+.work-section-icon { font-family: var(--font-body) !important; font-size: 1.15rem !important; font-style: normal !important; }
+.work-content-placeholder { margin-left: 58px; min-height: 96px; padding: 22px; display: grid; place-items: center start; border: 1px dashed #b9c9c1; border-radius: 8px; color: #718079; background: linear-gradient(135deg, rgba(241,247,244,.86), rgba(255,253,247,.88)); }
+.work-content-placeholder p { margin: 0; }
+.work-back-link { margin: 13px 0 0 58px; display: inline-flex; color: #557568; font-size: var(--type-note); font-weight: 800; text-decoration: none; }
+.work-back-link:hover { color: var(--navy); text-decoration: underline; text-underline-offset: 4px; }
 
 /* 全站字體層級：相同內容角色在每個篇章使用同一套字型與字級。 */
 .chapter-heading h1,
@@ -387,15 +409,16 @@ button { color: inherit; }
   .book-stage { width: min(100% - 28px, 760px); margin-bottom: 76px; }
   .book-page { border-radius: 6px; }
   .page-content { padding: 54px 34px 44px 42px; }
-  .bookmark-tabs { position: fixed; z-index: 10; left: 50%; transform: translateX(-50%); top: auto; bottom: 12px; flex-direction: row; gap: 4px; padding: 5px; border-radius: 12px; background: rgba(255,255,255,.87); backdrop-filter: blur(12px); box-shadow: 0 7px 25px rgba(28,35,41,.2); }
-  .bookmark-tabs button, .bookmark-tabs button.active { min-width: 0; min-height: 49px; padding: 7px 10px; border: 0; border-radius: 8px; transform: none; box-shadow: none; font-size: .72rem; flex-direction: column; gap: 2px; }
+  .bookmark-tabs { position: fixed; z-index: 10; left: 14px; right: 14px; width: auto; height: auto; margin: 0; transform: none; top: auto; bottom: max(10px, env(safe-area-inset-bottom)); flex-direction: row; align-items: stretch; gap: 4px; padding: 5px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; border-radius: 12px; background: rgba(255,255,255,.9); backdrop-filter: blur(12px); box-shadow: 0 7px 25px rgba(28,35,41,.2); }
+  .bookmark-tabs::-webkit-scrollbar { display: none; }
+  .bookmark-tabs button, .bookmark-tabs button.active { flex: 0 0 104px; min-width: 104px; min-height: 49px; padding: 7px 10px; border: 0; border-radius: 8px; transform: none; box-shadow: none; font-size: .72rem; flex-direction: column; justify-content: center; gap: 2px; }
   .bookmark-tabs button:hover { transform: none; }
   .chapter-heading { grid-template-columns: 1fr; }
   .progress-card { max-width: 260px; }
   .identity-card fieldset, .insurance-summary { grid-template-columns: 1fr; }
   .system-step-image { width: min(84%, 620px); }
   .document-list.document-grid { grid-template-columns: 1fr; }
-  .section-intro, .safety-resources, .safety-list, .submission-location, .salary-steps, .salary-section-note { margin-left: 0; }
+  .section-intro, .safety-resources, .safety-list, .submission-location, .salary-steps, .salary-section-note, .salary-final-check-link, .work-content-placeholder, .work-back-link { margin-left: 0; }
   .safety-resources { align-items: flex-start; flex-direction: column; }
   .safety-resource-actions { justify-content: flex-start; }
   .example-card { grid-template-columns: 1fr; }
@@ -403,17 +426,26 @@ button { color: inherit; }
 }
 
 @media (max-width: 560px) {
-  .site-shell { padding-bottom: 30px; }
-  .topbar { min-height: 68px; }
+  .site-shell { padding-bottom: calc(98px + env(safe-area-inset-bottom)); }
+  .topbar { min-height: 68px; padding: 9px 16px; justify-content: center; text-align: center; }
+  .brand-mark { display: none; }
   .brand-lockup p { display: none; }
-  .book-stage { width: 100%; margin: 0 0 72px; }
+  .brand-lockup strong { margin: 0; font-size: .82rem; line-height: 1.45; }
+  .book-stage { width: 100%; margin: 0; }
   .book-shadow, .book-spine { display: none; }
-  .book-page { border-left: 0; border-right: 0; min-height: calc(100vh - 68px); }
+  .book-page { border-left: 0; border-right: 0; min-height: 0; }
   .page-content { padding: 44px 21px 40px; }
-  .cover-page { padding-left: 10%; }
-  .cover-illustration { width: 170px; height: 170px; right: -20px; top: 19%; }
-  .cover-page h1 { font-size: 3.35rem; }
+  .cover-page { min-height: 0; padding: 34px 22px 50px; justify-content: flex-start; }
+  .cover-kicker { font-size: .62rem; letter-spacing: .24em; }
+  .cover-rule { margin: 18px 0 25px; }
+  .cover-department { max-width: 100%; font-size: .88rem; line-height: 1.55; letter-spacing: .08em; }
+  .cover-page h1 { font-size: clamp(2.9rem, 15vw, 4.15rem); line-height: 1.02; letter-spacing: .06em; }
+  .cover-illustration { position: relative; width: min(66vw, 230px); height: min(66vw, 230px); right: auto; top: auto; margin: 22px auto 4px; align-self: center; }
+  .cover-message { max-width: none; margin: 18px 0 24px; font-size: .92rem; line-height: 1.75; letter-spacing: 0; }
   .cover-subtitle br { display: none; }
+  .primary-button { width: 100%; display: flex; justify-content: center; align-items: center; }
+  .cover-status { margin-top: 24px; flex-wrap: wrap; line-height: 1.55; }
+  .cover-page .page-number { display: none; }
   .section-nav { overflow-x: auto; padding: 14px 0; }
   .section-nav a { white-space: nowrap; }
   .section-title > span { width: 36px; height: 36px; }
@@ -436,9 +468,13 @@ button { color: inherit; }
   .salary-step-image img { max-height: 340px; }
   .screenshot-card, .example-card { margin-left: 0; margin-right: 0; }
   .page-footer { flex-direction: column; gap: 5px; }
-  .bookmark-tabs { width: calc(100% - 18px); justify-content: stretch; }
-  .bookmark-tabs button, .bookmark-tabs button.active { flex: 1; padding-inline: 4px; }
+  .bookmark-tabs { left: 9px; right: 9px; }
+  .bookmark-tabs button, .bookmark-tabs button.active { flex-basis: 92px; min-width: 92px; padding-inline: 6px; }
   .bookmark-tabs button span { font-size: .55rem; }
+  .work-shortcut-nav { margin-inline: -21px; padding: 12px 21px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .work-shortcut-nav::-webkit-scrollbar { display: none; }
+  .work-shortcut-nav a { flex: 0 0 190px; min-height: 54px; }
+  .work-detail-section { scroll-margin-top: 92px; }
 }
 
 @media print {

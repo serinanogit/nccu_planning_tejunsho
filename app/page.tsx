@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-type Chapter = "cover" | "hiring" | "work" | "salary" | "other";
+type Chapter = "cover" | "hiring" | "checkin" | "work" | "salary" | "other";
 type Identity = "single" | "internal" | "external" | "both";
 type HandbookDocument = {
   id: string;
@@ -21,9 +21,19 @@ type HandbookDocument = {
 const chapters: Array<{ id: Chapter; number: string; label: string; color: string }> = [
   { id: "cover", number: "", label: "封面", color: "#ded7c8" },
   { id: "hiring", number: "01", label: "進用", color: "#e7bd56" },
-  { id: "work", number: "02", label: "工作內容", color: "#9db9ad" },
-  { id: "salary", number: "03", label: "薪資", color: "#8da7bf" },
-  { id: "other", number: "04", label: "其他", color: "#b5a4bb" },
+  { id: "checkin", number: "02", label: "簽到", color: "#e9cfa0" },
+  { id: "work", number: "03", label: "工作百寶袋", color: "#9db9ad" },
+  { id: "salary", number: "04", label: "薪資", color: "#8da7bf" },
+  { id: "other", number: "05", label: "其他", color: "#b5a4bb" },
+];
+
+const workSections = [
+  { id: "work-role", emoji: "🧭", title: "企畫組的工作是什麼？" },
+  { id: "work-project", emoji: "🌱", title: "精進校務經營計畫介紹" },
+  { id: "work-registration", emoji: "📝", title: "活動報名系統" },
+  { id: "work-event-sop", emoji: "🎪", title: "辦理活動 SOP" },
+  { id: "work-tools", emoji: "🧰", title: "平常使用的工具" },
+  { id: "work-tips", emoji: "💡", title: "工作補帖與常見提醒" },
 ];
 
 const baseDocuments: HandbookDocument[] = [
@@ -205,6 +215,13 @@ export default function Home() {
 
       <div className="book-stage">
         <div className="book-shadow" aria-hidden="true" />
+        <nav className="bookmark-tabs" aria-label="手冊章節">
+          {chapters.map((item) => (
+            <button key={item.id} className={chapter === item.id ? "active" : ""} style={{ "--tab-color": item.color } as React.CSSProperties} onClick={() => changeChapter(item.id)} aria-current={chapter === item.id ? "page" : undefined}>
+              {item.number && <span>{item.number}</span>}{item.label}
+            </button>
+          ))}
+        </nav>
         <article className={`book-page chapter-${chapter}`}>
           <div className="book-spine" aria-hidden="true" />
 
@@ -225,7 +242,7 @@ export default function Home() {
               <button className="primary-button" onClick={() => changeChapter("hiring")}>
                 開始閱讀 01 進用 <span aria-hidden="true">→</span>
               </button>
-              <div className="cover-status"><span className="status-dot" />第一版框架｜01 進用完成・03 薪資整理中</div>
+              <div className="cover-status"><span className="status-dot" />第一版框架｜01 進用完成・04 薪資整理中</div>
               <p className="page-number">01</p>
             </section>
           )}
@@ -414,7 +431,7 @@ export default function Home() {
             <section className="page-content handbook-page salary-page">
               <div className="chapter-heading">
                 <div>
-                  <p className="eyebrow">PART 03</p>
+                  <p className="eyebrow">PART 04</p>
                   <h1>薪資</h1>
                   <p>每月依序備妥三份文件，再依下方說明完成列印。</p>
                 </div>
@@ -445,6 +462,15 @@ export default function Home() {
                           <span className="custom-check" aria-hidden="true">{checked[checklistId] ? "✓" : ""}</span>
                           <span><small>{String(index + 1).padStart(2, "0")}</small><strong>{doc.name}</strong></span>
                         </label>
+                        {doc.id === "attendance" && (
+                          <p className="salary-card-reminder"><strong>出勤紀錄單：</strong>確認「時數總計」為 <b>80 小時</b>。</p>
+                        )}
+                        {doc.id === "appointment-proof" && (
+                          <p className="salary-card-reminder"><strong>進用證明單：</strong>請 <mark>記下自己的「員工代號」、「計畫編號」及「進用單號」</mark>，後續薪資造冊時會使用。</p>
+                        )}
+                        {doc.id === "payroll" && (
+                          <p className="salary-card-reminder"><strong>薪資清冊：</strong>在「承辦人」欄位簽上自己的名字。</p>
+                        )}
                         <a href={`#salary-${doc.id}-steps`}>查看列印步驟 <span aria-hidden="true">↓</span></a>
                       </article>
                     );
@@ -466,7 +492,7 @@ export default function Home() {
                   <SalaryStep number={2} title="填寫當月出勤紀錄" image="assets/salary/attendance/steps/2.jpg" imageAlt="出勤紀錄填寫畫面，示範將同一天的八小時拆成兩筆四小時紀錄" onOpen={() => openLightbox("assets/salary/attendance/steps/2.jpg")} note={<>每筆出勤紀錄最多填寫 4 小時，不能直接將 8 小時填成一筆。例如同一天工作 8 小時，應分別填寫「08:00–12:00」及「13:00–17:00」。</>}>
                     <p>依序進入「行政資訊系統 → 助理人員相關作業 → 出勤紀錄填寫」，找到當月份的資料並點選「編輯」。逐筆填寫出勤日期、起始時間及結束時間，再按下「加入」。</p>
                   </SalaryStep>
-                  <SalaryStep number={3} title="確認時數並送出表單" image="assets/salary/attendance/steps/3.jpg" imageAlt="出勤紀錄畫面下方顯示目前總計八十小時及送出表單按鈕" onOpen={() => openLightbox("assets/salary/attendance/steps/3.jpg")} note={<>送出前，務必確認畫面下方的「目前總計」為 80 小時。</>}>
+                  <SalaryStep number={3} title="確認時數並送出表單" image="assets/salary/attendance/steps/3.jpg" imageAlt="出勤紀錄畫面下方顯示目前總計八十小時及送出表單按鈕" onOpen={() => openLightbox("assets/salary/attendance/steps/3.jpg")} note={<>送出前，務必確認畫面下方的「目前總計」為 80 小時。<span className="salary-critical-reminder">填寫完絕對要告訴致緯哥，致緯哥會負責轉告研發長。（不然研發長不會去確認 &gt;﹏&lt;）</span></>}>
                     <p>完成所有出勤紀錄後，確認畫面下方的「目前總計」已達 80 小時，再點選「送出表單」送交審核。</p>
                   </SalaryStep>
                   <SalaryStep number={4} title="等待研發長審核" image="assets/salary/attendance/steps/4.jpg" imageAlt="出勤紀錄列表的流程狀態顯示已送出" onOpen={() => openLightbox("assets/salary/attendance/steps/4.jpg")} note={<>流程狀態仍為「已送出」時，先不要列印出勤紀錄單。</>}>
@@ -493,7 +519,7 @@ export default function Home() {
                     <p>進入「進用證明」頁面後，在「國科會及其他機構計畫資料」區塊確認計畫代號、單位及計畫主持人，再點選該筆資料左側的「列印」。</p>
                   </SalaryStep>
                 </div>
-                <aside className="salary-section-note"><strong>請先記下</strong>列印後，請記下自己的「員工代號」、「計畫編號」及「進用單號」，後續辦理薪資造冊時會使用。</aside>
+                <aside className="salary-section-note"><strong>請先記下</strong>列印後，請 <mark>記下自己的「員工代號」、「計畫編號」及「進用單號」</mark>，後續辦理薪資造冊時會使用。</aside>
               </section>
 
               <section id="salary-payroll-steps" className="content-section salary-detail-section">
@@ -536,18 +562,49 @@ export default function Home() {
                   <SalaryStep number={8} title="列印清冊" image="assets/salary/payroll/steps/8.jpg" imageAlt="薪資造冊主畫面，以紅框標示列印清冊按鈕" onOpen={() => openLightbox("assets/salary/payroll/steps/8.jpg")}>
                     <p>完成造冊並回到主畫面後，點選上方的「列印清冊」。</p>
                   </SalaryStep>
-                  <SalaryStep number={9} title="選擇清冊並產生報表" image="assets/salary/payroll/steps/9.jpg" imageAlt="查詢薪資視窗，顯示清冊號下拉選單及產生報表按鈕" onOpen={() => openLightbox("assets/salary/payroll/steps/9.jpg")}>
+                  <SalaryStep number={9} title="選擇清冊並產生報表" image="assets/salary/payroll/steps/9.jpg" imageAlt="查詢薪資視窗，以紅框標示清冊號下拉選單，並提示選擇最新造冊的薪資清冊" onOpen={() => openLightbox("assets/salary/payroll/steps/9.jpg")}>
                     <p>從「清冊號」下拉選單中，選擇自己最新建立的薪資清冊，再點選「產生報表」，即可產生並列印薪資清冊。</p>
                   </SalaryStep>
                 </div>
-                <aside className="salary-section-note rose"><strong>列印後簽名</strong>列印薪資清冊後，請在下方的「承辦人」欄位親筆簽名。</aside>
+                <aside className="salary-section-note rose"><strong>列印後簽名</strong>列印薪資清冊後，請在下方的「承辦人」欄位親筆簽名，再交給致緯哥蓋章。</aside>
+                <a className="salary-final-check-link" href="#salary-overview-title"><span aria-hidden="true">↑</span><span><small>所有文件都備齊了</small>返回「本月薪資核銷文件」做最後確認</span></a>
               </section>
 
-              <footer className="page-footer"><span>國立政治大學研發處企畫組｜兼任助理交接手冊</span><span>03 — 薪資</span></footer>
+              <footer className="page-footer"><span>國立政治大學研發處企畫組｜兼任助理交接手冊</span><span>04 — 薪資</span></footer>
             </section>
           )}
 
-          {(chapter === "work" || chapter === "other") && (
+          {chapter === "work" && (
+            <section className="page-content handbook-page work-page">
+              <div className="chapter-heading">
+                <div>
+                  <p className="eyebrow">PART 03</p>
+                  <h1>工作百寶袋</h1>
+                  <p>把企畫組常用的系統、工具、活動流程與工作提醒收在一起，需要時就從這裡開始找。</p>
+                </div>
+              </div>
+
+              <nav id="work-menu" className="work-shortcut-nav" aria-label="工作百寶袋快捷目錄">
+                {workSections.map((section) => (
+                  <a key={section.id} href={`#${section.id}`}><span aria-hidden="true">{section.emoji}</span>{section.title}</a>
+                ))}
+              </nav>
+
+              <div className="work-detail-list">
+                {workSections.map((section, index) => (
+                  <section key={section.id} id={section.id} className="content-section work-detail-section">
+                    <div className="section-title"><span className="work-section-icon" aria-hidden="true">{section.emoji}</span><div><p>百寶袋 {String(index + 1).padStart(2, "0")}</p><h2>{section.title}</h2></div></div>
+                    <div className="work-content-placeholder"><p>本節內容待整理。</p></div>
+                    <a className="work-back-link" href="#work-menu">↑ 返回工作百寶袋目錄</a>
+                  </section>
+                ))}
+              </div>
+
+              <footer className="page-footer"><span>國立政治大學研發處企畫組｜兼任助理交接手冊</span><span>03 — 工作百寶袋</span></footer>
+            </section>
+          )}
+
+          {(chapter === "checkin" || chapter === "other") && (
             <section className="page-content placeholder-page">
               <p className="eyebrow">PART {chapters.find((item) => item.id === chapter)?.number}</p>
               <h1>{chapters.find((item) => item.id === chapter)?.label}</h1>
@@ -556,14 +613,6 @@ export default function Home() {
             </section>
           )}
         </article>
-
-        <nav className="bookmark-tabs" aria-label="手冊章節">
-          {chapters.map((item) => (
-            <button key={item.id} className={chapter === item.id ? "active" : ""} style={{ "--tab-color": item.color } as React.CSSProperties} onClick={() => changeChapter(item.id)} aria-current={chapter === item.id ? "page" : undefined}>
-              {item.number && <span>{item.number}</span>}{item.label}
-            </button>
-          ))}
-        </nav>
       </div>
 
       {lightbox && (
