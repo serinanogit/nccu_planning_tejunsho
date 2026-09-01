@@ -217,7 +217,7 @@ function PhoneMemo({ compact = false, printable = false }: { compact?: boolean; 
         <div><dt>來電事項</dt><dd>詢問○○會議時間</dd></div>
         <div><dt>後續處理</dt><dd>請回電／其他：＿＿＿＿＿＿</dd></div>
       </dl>
-      {!printable && <footer>此為桌面參考範例；實際代接時，請將內容手寫在實體便利貼上。</footer>}
+      {!printable && <footer>代接電話後，請將來電資訊手寫在實體便利貼上，再貼至對方桌面。</footer>}
     </article>
   );
 }
@@ -252,7 +252,7 @@ function OfficeDeskCard() {
         </div>
         <div className="office-mini-lower">
           <div className="office-mini-stack"><OfficeMiniSeat id="assistant" /><OfficeMiniSeat id="hsieh" /></div>
-          <div className="office-mini-corridor"><span>走廊</span><b>✂️ 裁紙機</b></div>
+          <div className="office-mini-corridor"><span>走廊</span><b>✂️ 裁紙機、電動訂書機</b></div>
           <div className="office-mini-right"><OfficeMiniSeat id="tai" /><OfficeMiniSeat id="hung" /></div>
         </div>
       </div>
@@ -428,7 +428,6 @@ export default function Home() {
               <button className="primary-button" onClick={() => changeChapter("hiring")}>
                 開始閱讀 01 進用 <span aria-hidden="true">→</span>
               </button>
-              <div className="cover-status"><span className="status-dot" />第一版框架｜01 進用完成・02 簽到完成・04 薪資整理中</div>
               <p className="page-number">01</p>
             </section>
           )}
@@ -908,8 +907,6 @@ export default function Home() {
                             <div className="phone-memo-copy">
                               <small>代接電話後別漏寫</small>
                               <h4>桌面留言格式參考</h4>
-                              <p>這張便利貼是放在桌上，讓新任助理隨時確認要記錄哪些資訊。實際代接電話時，仍將來電內容手寫在實體便利貼上，再貼到被留言人的桌上。</p>
-                              <p><strong>日期與時間務必填寫</strong>，看到留言的人才能依來電先後順序安排回電。這段提醒只會顯示在網站上，不會印進便利貼。</p>
                               <button onClick={() => setPhoneMemoOpen(true)}>放大並列印一張便利貼 <span aria-hidden="true">↗</span></button>
                             </div>
                             <div className="phone-memo-visual">
@@ -927,7 +924,7 @@ export default function Home() {
                             <span aria-hidden="true">🗺️</span>
                             <div><small>接電話時快速找人</small><h3 id="office-guide-title">辦公室座位、分機與業務速查</h3></div>
                           </div>
-                          <p className="office-guide-intro">從螢光標示的「你本人」開始認識辦公室。每張座位卡都有職稱、分機及簡要業務；點擊座位可查看較完整的業務內容。</p>
+                          <p className="office-guide-intro">每張座位卡均標示職稱、分機及重點業務；點擊可查看完整業務內容。</p>
                           <div className="office-legend" aria-label="座位圖顏色說明">
                             <span className="planning">企畫組</span>
                             <span className="topu">高教深耕計畫辦公室</span>
@@ -960,7 +957,7 @@ export default function Home() {
                                   <OfficeSeat person={officePeople.find((person) => person.id === "assistant")!} positionClass="seat-assistant" onSelect={setOfficePersonId} />
                                   <OfficeSeat person={officePeople.find((person) => person.id === "hsieh")!} positionClass="seat-hsieh" onSelect={setOfficePersonId} />
                                 </div>
-                                <div className="office-corridor"><span>走廊</span><div className="paper-cutter"><span aria-hidden="true">✂️</span>裁紙機</div></div>
+                                <div className="office-corridor"><span>走廊</span><div className="paper-cutter"><span aria-hidden="true">✂️</span>裁紙機、電動訂書機</div></div>
                                 <div className="office-right-stack">
                                   <OfficeSeat person={officePeople.find((person) => person.id === "tai")!} positionClass="seat-tai" onSelect={setOfficePersonId} />
                                   <OfficeSeat person={officePeople.find((person) => person.id === "hung")!} positionClass="seat-hung" onSelect={setOfficePersonId} />
@@ -993,7 +990,7 @@ export default function Home() {
           <div className="phone-note-modal-stage" onClick={(event) => event.stopPropagation()}>
             <PhoneMemo printable />
             <div className="phone-note-actions">
-              <p>列印版本只保留實際留言欄位，不會印出網站上的提醒文字。</p>
+              <p>確認內容後，可列印一張電話留言小卡。</p>
               <button onClick={() => printDeskCard("printing-phone-note")}>🖨️ 列印一張便利貼</button>
             </div>
           </div>
@@ -1006,7 +1003,7 @@ export default function Home() {
           <div className="office-map-card-stage" onClick={(event) => event.stopPropagation()}>
             <OfficeDeskCard />
             <div className="phone-note-actions">
-              <p>小卡成品約 14.8 × 10.5 公分，不會放大鋪滿整張 A4。</p>
+              <p>列印尺寸：約 14.8 × 10.5 公分。</p>
               <button onClick={() => printDeskCard("printing-office-map-card")}>🖨️ 列印座位分機小抄</button>
             </div>
           </div>

@@ -418,7 +418,7 @@ button { color: inherit; }
 .office-left-stack, .office-right-stack { display: grid; gap: 11px; }
 .office-right-stack { grid-template-columns: 1fr 1fr; }
 .office-corridor { position: relative; min-height: 372px; display: grid; place-items: center; color: #8b8173; border: 1px dashed #d5ccbf; border-radius: 8px; background: repeating-linear-gradient(90deg, transparent 0 20px, rgba(125,113,92,.025) 20px 21px); font: italic 700 1.1rem var(--font-book); writing-mode: vertical-rl; letter-spacing: .22em; }
-.paper-cutter { position: absolute; left: 50%; bottom: 8px; padding: 7px 9px; display: flex; gap: 5px; border: 2px solid #76a18e; border-radius: 5px; color: #426b59; background: #edf6f1; font: 800 .62rem var(--font-ui); writing-mode: horizontal-tb; letter-spacing: 0; transform: translateX(-50%); white-space: nowrap; }
+.paper-cutter { position: absolute; left: 50%; bottom: 8px; padding: 8px 13px; display: flex; gap: 5px; border: 2px solid #76a18e; border-radius: 5px; color: #426b59; background: #edf6f1; font: 800 .62rem var(--font-ui); writing-mode: horizontal-tb; letter-spacing: 0; transform: translateX(-50%); white-space: nowrap; }
 .office-lower-area .office-seat { min-height: 180px; }
 .office-source-note { margin: 10px 0 0; color: #7a817d; font-size: var(--type-label); }
 .office-map-mobile-preview { display: none; }
@@ -453,7 +453,7 @@ button { color: inherit; }
 .office-mini-meeting > span { font-size: 1.6rem; line-height: .8; }
 .office-mini-meeting small { font-size: .48rem; }
 .office-mini-corridor { position: relative; color: #8b8173; border: 1px dashed #d5ccbf; background: #faf8f2; font: italic 700 .72rem var(--font-book); writing-mode: vertical-rl; letter-spacing: .15em; }
-.office-mini-corridor b { position: absolute; left: 50%; bottom: 5px; padding: 3px 4px; border: 1px solid #76a18e; border-radius: 4px; color: #426b59; background: #edf6f1; font: 800 .43rem var(--font-ui); writing-mode: horizontal-tb; letter-spacing: 0; transform: translateX(-50%); white-space: nowrap; }
+.office-mini-corridor b { position: absolute; left: 50%; bottom: 5px; padding: 4px 7px; border: 1px solid #76a18e; border-radius: 4px; color: #426b59; background: #edf6f1; font: 800 .43rem var(--font-ui); writing-mode: horizontal-tb; letter-spacing: 0; transform: translateX(-50%); white-space: nowrap; }
 .office-desk-card > footer { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
 .office-desk-card > footer span { padding: 3px 7px; border-radius: 999px; font-size: .48rem; font-weight: 800; }
 .office-desk-card > footer .planning { color: #315f4f; background: #e1eee7; }
