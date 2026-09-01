@@ -2,8 +2,19 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-type Chapter = "cover" | "hiring" | "checkin" | "work" | "salary" | "other";
+type Chapter = "cover" | "hiring" | "checkin" | "work" | "salary";
 type Identity = "single" | "internal" | "external" | "both";
+type OfficeTeam = "planning" | "topu";
+type OfficePerson = {
+  id: string;
+  name: string;
+  title: string;
+  extension: string;
+  team: OfficeTeam;
+  summary: string;
+  duties: string[];
+  isAssistant?: boolean;
+};
 type HandbookDocument = {
   id: string;
   name: string;
@@ -24,7 +35,6 @@ const chapters: Array<{ id: Chapter; number: string; label: string; color: strin
   { id: "checkin", number: "02", label: "簽到", color: "#e9cfa0" },
   { id: "work", number: "03", label: "工作百寶袋", tabLines: ["工作", "百寶袋"], color: "#9db9ad" },
   { id: "salary", number: "04", label: "薪資", color: "#8da7bf" },
-  { id: "other", number: "05", label: "其他", color: "#b5a4bb" },
 ];
 
 const workSections = [
@@ -34,6 +44,73 @@ const workSections = [
   { id: "work-event-sop", emoji: "🎪", title: "辦理活動 SOP" },
   { id: "work-tools", emoji: "🧰", title: "平常使用的工具" },
   { id: "work-tips", emoji: "💡", title: "工作補帖與常見提醒" },
+];
+
+const officePeople: OfficePerson[] = [
+  {
+    id: "assistant",
+    name: "企畫組兼任助理",
+    title: "你本人",
+    extension: "62612",
+    team: "planning",
+    summary: "電話代接及企畫組行政協助",
+    duties: ["代接、轉接辦公室電話並留下完整留言", "協助企畫組日常行政業務"],
+    isAssistant: true,
+  },
+  {
+    id: "wang",
+    name: "王芷容",
+    title: "專案經理",
+    extension: "62759",
+    team: "planning",
+    summary: "UAAT、研發業務推展及專案企劃",
+    duties: ["辦理教育部國家重點領域國際合作聯盟（UAAT）相關事宜", "協辦研究發展相關業務推展", "專案企劃、執行及提案簡報"],
+  },
+  {
+    id: "yeh",
+    name: "葉致緯",
+    title: "一級行政專員",
+    extension: "62769",
+    team: "planning",
+    summary: "高教論壇、大型專案、國際學術合作及研發電子報",
+    duties: ["高等教育趨勢論壇、大型或新型專案及諾貝爾大師論壇", "境內外校級學術合作、研究聯盟協議及 UAAT", "百年政大發展計畫、研發電子報及研發處行政庶務"],
+  },
+  {
+    id: "kuo",
+    name: "郭重言",
+    title: "資深行政秘書",
+    extension: "62608",
+    team: "planning",
+    summary: "研發專案、高教深耕窗口、對外文稿及資訊設備",
+    duties: ["新專案與大型專案的規劃、申請及執行", "研發處高教深耕窗口及資料彙辦", "對外文稿與公關、資訊安全及電腦軟硬體管理", "研發替代役及校外重要學術活動公告"],
+  },
+  {
+    id: "hung",
+    name: "洪芷漪",
+    title: "組長",
+    extension: "62755",
+    team: "planning",
+    summary: "綜理企畫組行政業務",
+    duties: ["協助綜理企畫組行政業務"],
+  },
+  {
+    id: "tai",
+    name: "戴嘉賢",
+    title: "專員",
+    extension: "66885",
+    team: "topu",
+    summary: "高教深耕總窗口、執行策略、年度經費及綜合行政",
+    duties: ["高教深耕計畫總窗口及年度重要專案進度追蹤", "計畫執行策略、年度經費規劃與控管", "經費請撥、結報、滾存及管考平台資料填報", "計畫人事規範、助理續聘及深耕辦綜合業務"],
+  },
+  {
+    id: "hsieh",
+    name: "謝宜君",
+    title: "專案經理",
+    extension: "62748",
+    team: "topu",
+    summary: "高教深耕計畫書、績效管考、訪視、平台及簡報",
+    duties: ["高教深耕計畫執行策略與計畫書撰寫修訂", "績效指標、成果報告、考評及訪視", "學院計畫審議與經費核定、管考平台規劃", "計畫簡報及教育部工作圈會議"],
+  },
 ];
 
 const baseDocuments: HandbookDocument[] = [
@@ -118,6 +195,48 @@ function SalaryStep({ number, title, image, imageAlt, onOpen, children, note }: 
   );
 }
 
+function PhoneMemo({ compact = false }: { compact?: boolean }) {
+  return (
+    <article className={`phone-note-sheet ${compact ? "compact" : ""}`}>
+      <span className="phone-note-tape" aria-hidden="true" />
+      <header>
+        <span>🗒️</span>
+        <div><small>電話代接</small><strong>留言格式</strong></div>
+      </header>
+      <div className="phone-note-datetime">
+        <span><small>日期</small>20XX.XX.XX</span>
+        <span><small>時間</small>XX:XX</span>
+      </div>
+      <p className="phone-note-warning">日期與時間務必填寫，看到留言的人才能依來電先後順序安排回電。</p>
+      <dl>
+        <div><dt>來電單位</dt><dd>○○大學／○○公司／○○處室</dd></div>
+        <div><dt>來電者</dt><dd>○○先生／○○小姐</dd></div>
+        <div><dt>聯絡方式</dt><dd>09XXXXXXXX／分機 XXXXX</dd></div>
+        <div><dt>來電事項</dt><dd>詢問○○會議時間</dd></div>
+        <div><dt>後續處理</dt><dd>請回電／其他：＿＿＿＿＿＿</dd></div>
+      </dl>
+      <footer>此為桌面參考範例；實際代接時，請將內容手寫在實體便利貼上。</footer>
+    </article>
+  );
+}
+
+function OfficeSeat({ person, positionClass, onSelect }: {
+  person: OfficePerson;
+  positionClass: string;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <button className={`office-seat ${person.team} ${person.isAssistant ? "is-you" : ""} ${positionClass}`} onClick={() => onSelect(person.id)} aria-label={`查看${person.name}的業務`}>
+      {person.isAssistant && <span className="you-marker">★ 你本人</span>}
+      <small>{person.title}</small>
+      <strong>{person.name}</strong>
+      <b>分機 {person.extension}</b>
+      <p>{person.summary}</p>
+      <span className="seat-more">點擊查看業務</span>
+    </button>
+  );
+}
+
 export default function Home() {
   const [chapter, setChapter] = useState<Chapter>("cover");
   const [identity, setIdentity] = useState<Identity>("single");
@@ -127,6 +246,8 @@ export default function Home() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [copiedInccu, setCopiedInccu] = useState(false);
+  const [phoneMemoOpen, setPhoneMemoOpen] = useState(false);
+  const [officePersonId, setOfficePersonId] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = window.localStorage.getItem("nccu-handbook-progress");
@@ -157,6 +278,18 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleLightboxKey);
   }, [lightbox]);
 
+  useEffect(() => {
+    if (!phoneMemoOpen && !officePersonId) return;
+    function handleDialogKey(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setPhoneMemoOpen(false);
+        setOfficePersonId(null);
+      }
+    }
+    window.addEventListener("keydown", handleDialogKey);
+    return () => window.removeEventListener("keydown", handleDialogKey);
+  }, [phoneMemoOpen, officePersonId]);
+
   const documents = useMemo(
     () => identity === "internal" || identity === "both"
       ? [...baseDocuments, { id: "insurance-share", name: "保險費經費分攤同意書", copies: "印 1 份", system: false, preview: null, note: null, href: null, linkLabel: null, downloadHref: "assets/forms/insurance-cost-sharing-form.doc", downloadName: "兼任多職務保險費分攤同意書.doc" }]
@@ -173,6 +306,7 @@ export default function Home() {
   const salaryChecklistIds = salaryDocuments.map((doc) => `salary-${doc.id}`);
   const salaryCompletedCount = salaryChecklistIds.filter((id) => checked[id]).length;
   const salaryProgress = Math.round((salaryCompletedCount / salaryChecklistIds.length) * 100);
+  const selectedOfficePerson = officePeople.find((person) => person.id === officePersonId) ?? null;
 
   function toggle(id: string) {
     setChecked((previous) => ({ ...previous, [id]: !previous[id] }));
@@ -197,6 +331,14 @@ export default function Home() {
     } catch {
       window.prompt("請複製 iNCCU 網址", url);
     }
+  }
+
+  function printPhoneMemo() {
+    document.body.classList.add("printing-phone-note");
+    const cleanup = () => document.body.classList.remove("printing-phone-note");
+    window.addEventListener("afterprint", cleanup, { once: true });
+    window.print();
+    window.setTimeout(cleanup, 1500);
   }
 
   return (
@@ -706,7 +848,81 @@ export default function Home() {
                 {workSections.map((section, index) => (
                   <section key={section.id} id={section.id} className="content-section work-detail-section">
                     <div className="section-title"><span className="work-section-icon" aria-hidden="true">{section.emoji}</span><div><p>百寶袋 {String(index + 1).padStart(2, "0")}</p><h2>{section.title}</h2></div></div>
-                    <div className="work-content-placeholder"><p>本節內容待整理。</p></div>
+                    {section.id === "work-tools" ? (
+                      <div className="work-tools-content">
+                        <section className="phone-guide" aria-labelledby="phone-guide-title">
+                          <div className="work-subheading">
+                            <span aria-hidden="true">☎️</span>
+                            <div><small>辦公室基本操作</small><h3 id="phone-guide-title">電話使用方式</h3></div>
+                          </div>
+                          <aside className="phone-greeting"><span aria-hidden="true">👋</span><p><small>接起電話時先說</small><strong>「研發處您好。」</strong></p></aside>
+                          <div className="phone-operation-grid">
+                            <article><span>01</span><div><h4>轉接電話</h4><p>按下電話機上的「轉接」按鈕，再輸入對方的分機號碼，最後掛回話筒，即完成轉接。</p></div></article>
+                            <article><span>02</span><div><h4>代接電話</h4><p>依序按下「1」和「3」，即可代接其他分機的來電。</p></div></article>
+                            <article><span>03</span><div><h4>撥打外線</h4><p>先按「0」，再輸入手機號碼或市內電話號碼。撥打臺北市話時，不需要另外輸入「02」。</p></div></article>
+                          </div>
+
+                          <div className="phone-memo-block">
+                            <div className="phone-memo-copy">
+                              <small>代接電話後別漏寫</small>
+                              <h4>桌面留言格式參考</h4>
+                              <p>這張便利貼是放在桌上，讓新任助理隨時確認要記錄哪些資訊。實際代接電話時，仍將來電內容手寫在實體便利貼上，再貼到被留言人的桌上。</p>
+                              <button onClick={() => setPhoneMemoOpen(true)}>放大並列印一張便利貼 <span aria-hidden="true">↗</span></button>
+                            </div>
+                            <button className="phone-memo-preview" onClick={() => setPhoneMemoOpen(true)} aria-label="放大查看電話代接留言格式並列印">
+                              <PhoneMemo compact />
+                              <span className="memo-click-label">點擊放大・可單張列印</span>
+                            </button>
+                          </div>
+                        </section>
+
+                        <section className="office-guide" aria-labelledby="office-guide-title">
+                          <div className="work-subheading">
+                            <span aria-hidden="true">🗺️</span>
+                            <div><small>接電話時快速找人</small><h3 id="office-guide-title">辦公室座位、分機與業務速查</h3></div>
+                          </div>
+                          <p className="office-guide-intro">從螢光標示的「你本人」開始認識辦公室。每張座位卡都有職稱、分機及簡要業務；點擊座位可查看較完整的業務內容。</p>
+                          <div className="office-legend" aria-label="座位圖顏色說明">
+                            <span className="planning">企畫組</span>
+                            <a className="topu" href="https://topu.nccu.edu.tw/" target="_blank" rel="noreferrer">高教深耕計畫辦公室 ↗</a>
+                            <span className="shared">空間與動線</span>
+                            <span className="swipe-hint">手機可左右滑動查看</span>
+                          </div>
+
+                          <div className="office-map-scroll">
+                            <div className="office-map" aria-label="企畫組與高教深耕計畫辦公室座位圖">
+                              <div className="office-top-row">
+                                <div className="office-door"><span aria-hidden="true">🚪</span><strong>門口</strong></div>
+                                <OfficeSeat person={officePeople.find((person) => person.id === "wang")!} positionClass="seat-wang" onSelect={setOfficePersonId} />
+                                <div className="meeting-nook" aria-label="圓桌與兩張椅子，位置緊鄰葉致緯座位">
+                                  <span className="chair top" aria-hidden="true" />
+                                  <span className="round-table">圓桌</span>
+                                  <span className="chair bottom" aria-hidden="true" />
+                                  <small>兩張椅子</small>
+                                </div>
+                                <OfficeSeat person={officePeople.find((person) => person.id === "yeh")!} positionClass="seat-yeh" onSelect={setOfficePersonId} />
+                                <OfficeSeat person={officePeople.find((person) => person.id === "kuo")!} positionClass="seat-kuo" onSelect={setOfficePersonId} />
+                              </div>
+
+                              <div className="office-lower-area">
+                                <div className="office-left-stack">
+                                  <OfficeSeat person={officePeople.find((person) => person.id === "assistant")!} positionClass="seat-assistant" onSelect={setOfficePersonId} />
+                                  <OfficeSeat person={officePeople.find((person) => person.id === "hsieh")!} positionClass="seat-hsieh" onSelect={setOfficePersonId} />
+                                </div>
+                                <div className="office-corridor"><span>走廊</span><div className="paper-cutter"><span aria-hidden="true">✂️</span>裁紙機</div></div>
+                                <div className="office-right-stack">
+                                  <OfficeSeat person={officePeople.find((person) => person.id === "tai")!} positionClass="seat-tai" onSelect={setOfficePersonId} />
+                                  <OfficeSeat person={officePeople.find((person) => person.id === "hung")!} positionClass="seat-hung" onSelect={setOfficePersonId} />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <p className="office-source-note">分機與業務依政大研發處及高教深耕計畫辦公室官方人員資料整理。</p>
+                        </section>
+                      </div>
+                    ) : (
+                      <div className="work-content-placeholder"><p>本節內容待整理。</p></div>
+                    )}
                     <a className="work-back-link" href="#work-menu">↑ 返回工作百寶袋目錄</a>
                   </section>
                 ))}
@@ -716,16 +932,35 @@ export default function Home() {
             </section>
           )}
 
-          {chapter === "other" && (
-            <section className="page-content placeholder-page">
-              <p className="eyebrow">PART {chapters.find((item) => item.id === chapter)?.number}</p>
-              <h1>{chapters.find((item) => item.id === chapter)?.label}</h1>
-              <div className="placeholder-rule" /><p>本章內容將在資料整理完成後補上。</p><span className="placeholder-stamp">內容待整理</span>
-              <p className="page-number">{chapters.findIndex((item) => item.id === chapter) + 1}</p>
-            </section>
-          )}
         </article>
       </div>
+
+      {phoneMemoOpen && (
+        <div className="phone-note-modal" role="dialog" aria-modal="true" aria-label="電話代接留言格式列印預覽" onClick={() => setPhoneMemoOpen(false)}>
+          <button className="dialog-close" onClick={() => setPhoneMemoOpen(false)} aria-label="關閉電話留言格式">×</button>
+          <div className="phone-note-modal-stage" onClick={(event) => event.stopPropagation()}>
+            <PhoneMemo />
+            <div className="phone-note-actions">
+              <p>列印時只會印出上方這一張桌面參考便利貼。</p>
+              <button onClick={printPhoneMemo}>🖨️ 列印一張便利貼</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedOfficePerson && (
+        <div className="office-person-modal" role="dialog" aria-modal="true" aria-label={`${selectedOfficePerson.name}業務資訊`} onClick={() => setOfficePersonId(null)}>
+          <button className="dialog-close" onClick={() => setOfficePersonId(null)} aria-label="關閉人員業務資訊">×</button>
+          <article className={`office-person-card ${selectedOfficePerson.team} ${selectedOfficePerson.isAssistant ? "is-you" : ""}`} onClick={(event) => event.stopPropagation()}>
+            {selectedOfficePerson.isAssistant && <span className="you-marker">★ 你本人</span>}
+            <small>{selectedOfficePerson.team === "planning" ? "企畫組" : "高教深耕計畫辦公室"}</small>
+            <h3>{selectedOfficePerson.name}</h3>
+            <p className="office-person-meta">{selectedOfficePerson.title}・分機 {selectedOfficePerson.extension}</p>
+            <strong>主要業務</strong>
+            <ul>{selectedOfficePerson.duties.map((duty) => <li key={duty}>{duty}</li>)}</ul>
+          </article>
+        </div>
+      )}
 
       {lightbox && (
         <div className="lightbox" role="dialog" aria-modal="true" aria-label="圖片預覽" onClick={() => setLightbox(null)}>
