@@ -444,6 +444,7 @@ button { color: inherit; }
 .office-mini-seat small { font-size: .52rem; font-weight: 800; white-space: nowrap; }
 .office-mini-seat strong { margin-top: 2px; color: var(--navy); font: 700 .82rem/1.2 var(--font-book); white-space: nowrap; }
 .office-mini-seat b { margin-top: 2px; font-size: .57rem; white-space: nowrap; }
+.office-mini-seat p { margin: 4px 0 0; font-size: .46rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
 .office-mini-door, .office-mini-meeting, .office-mini-corridor { min-width: 0; min-height: 0; display: grid; place-content: center; text-align: center; border-radius: 6px; }
 .office-mini-door { gap: 3px; color: #5d554b; border: 2px solid #b9ad9d; border-left-width: 6px; background: #f1ede4; }
 .office-mini-door span { font-size: 1.1rem; }
@@ -720,6 +721,7 @@ button { color: inherit; }
   .office-mini-seat small { font-size: .34rem; }
   .office-mini-seat strong { font-size: .52rem; }
   .office-mini-seat b { font-size: .36rem; }
+  .office-map-mobile-preview .office-mini-seat p { display: none; }
   .office-mini-door { border-left-width: 4px; }
   .office-mini-door span { font-size: .72rem; }
   .office-mini-door strong, .office-mini-meeting strong { font-size: .43rem; }
@@ -744,6 +746,7 @@ button { color: inherit; }
   .office-map-card-stage .office-mini-seat small { font-size: .52rem; }
   .office-map-card-stage .office-mini-seat strong { font-size: .82rem; }
   .office-map-card-stage .office-mini-seat b { font-size: .57rem; }
+  .office-map-card-stage .office-mini-seat p { display: block; margin-top: 4px; font-size: .46rem; line-height: 1.35; }
   .office-map-card-stage .office-mini-door { border-left-width: 6px; }
   .office-map-card-stage .office-mini-door span { font-size: 1.1rem; }
   .office-map-card-stage .office-mini-door strong, .office-map-card-stage .office-mini-meeting strong { font-size: .68rem; }

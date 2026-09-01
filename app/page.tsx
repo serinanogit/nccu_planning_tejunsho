@@ -230,6 +230,7 @@ function OfficeMiniSeat({ id }: { id: string }) {
       <small>{person.title}</small>
       <strong>{person.name}</strong>
       <b>分機 {person.extension}</b>
+      <p>{person.summary}</p>
     </div>
   );
 }
@@ -929,7 +930,7 @@ export default function Home() {
                           <p className="office-guide-intro">從螢光標示的「你本人」開始認識辦公室。每張座位卡都有職稱、分機及簡要業務；點擊座位可查看較完整的業務內容。</p>
                           <div className="office-legend" aria-label="座位圖顏色說明">
                             <span className="planning">企畫組</span>
-                            <a className="topu" href="https://topu.nccu.edu.tw/" target="_blank" rel="noreferrer">高教深耕計畫辦公室 ↗</a>
+                            <span className="topu">高教深耕計畫辦公室</span>
                             <span className="shared">空間與動線</span>
                             <span className="swipe-hint">手機點擊縮圖放大</span>
                           </div>
