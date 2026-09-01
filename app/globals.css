@@ -33,7 +33,7 @@ body {
 }
 button, input { font: inherit; }
 button { color: inherit; }
-.site-shell { min-height: 100vh; padding-bottom: 64px; }
+.site-shell { min-height: 100vh; padding-bottom: 64px; overflow-x: clip; }
 .topbar { width: min(1280px, calc(100% - 48px)); margin: 0 auto; min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand-lockup { display: flex; align-items: center; gap: 13px; }
 .brand-mark { width: 58px; height: 52px; display: block; overflow: hidden; flex: 0 0 auto; }
@@ -319,7 +319,8 @@ button { color: inherit; }
 .work-section-icon { font-family: var(--font-body) !important; font-size: 1.15rem !important; font-style: normal !important; }
 .work-content-placeholder { margin-left: 58px; min-height: 96px; padding: 22px; display: grid; place-items: center start; border: 1px dashed #b9c9c1; border-radius: 8px; color: #718079; background: linear-gradient(135deg, rgba(241,247,244,.86), rgba(255,253,247,.88)); }
 .work-content-placeholder p { margin: 0; }
-.work-tools-content { margin-left: 58px; display: grid; gap: 46px; }
+.work-tools-content { min-width: 0; margin-left: 58px; display: grid; gap: 46px; }
+.work-tools-content > section, .phone-guide, .office-guide, .phone-operation-grid, .phone-operation-grid article, .phone-operation-grid article > div, .phone-memo-block, .phone-memo-copy, .phone-memo-visual { min-width: 0; max-width: 100%; }
 .work-subheading { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
 .work-subheading > span { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: #edf5f1; box-shadow: 0 0 0 5px rgba(112,148,132,.08); font-size: 1.15rem; }
 .work-subheading small, .work-subheading h3 { margin: 0; }
@@ -335,13 +336,16 @@ button { color: inherit; }
 .phone-operation-grid article { min-width: 0; padding: 17px; display: flex; align-items: flex-start; gap: 11px; border: 1px solid #d4ddd8; border-radius: 8px; background: rgba(250,253,251,.92); }
 .phone-operation-grid article > span { flex: 0 0 auto; color: #7b987f; font: italic 700 .68rem var(--font-book); }
 .phone-operation-grid h4 { margin: 0 0 7px; color: var(--navy); font: 700 var(--type-subtitle)/1.35 var(--font-book); }
-.phone-operation-grid p { margin: 0; color: #5c6d66; font-size: var(--type-body); line-height: 1.75; }
+.phone-operation-grid p { margin: 0; color: #5c6d66; font-size: var(--type-body); line-height: 1.75; overflow-wrap: anywhere; }
 .phone-memo-block { margin-top: 20px; padding: 20px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(300px, 1.1fr); align-items: center; gap: 24px; border: 1px solid #dfd3a4; border-radius: 10px; background: linear-gradient(135deg, #faf7ed, #fffdf6); }
 .phone-memo-copy small { color: #947018; font-size: var(--type-meta); font-weight: 800; letter-spacing: .08em; }
 .phone-memo-copy h4 { margin: 4px 0 10px; color: var(--navy); font: 700 1.28rem var(--font-book); }
 .phone-memo-copy p { margin: 0; color: #63706b; font-size: var(--type-body); line-height: 1.8; }
+.phone-memo-copy p + p { margin-top: 10px; }
+.phone-memo-copy p strong { color: #9a3d33; }
 .phone-memo-copy button { margin-top: 15px; padding: 10px 13px; border: 1px solid #856f2c; border-radius: 6px; color: #68520f; background: #fff8d9; font-size: var(--type-note); font-weight: 800; cursor: pointer; }
 .phone-memo-copy button:hover { color: #fff; background: #806516; }
+.phone-memo-visual { display: grid; gap: 12px; }
 .phone-memo-preview { position: relative; padding: 22px; border: 0; background: transparent; cursor: zoom-in; }
 .phone-memo-preview:hover .phone-note-sheet { transform: rotate(-1deg) translateY(-3px); box-shadow: 0 16px 29px rgba(97,75,21,.2); }
 .memo-click-label { position: absolute; right: 29px; bottom: 29px; padding: 6px 9px; border-radius: 999px; color: #fff; background: rgba(58,55,43,.83); font-size: var(--type-label); font-weight: 800; }
@@ -370,6 +374,13 @@ button { color: inherit; }
 .phone-note-sheet.compact dt { font-size: .58rem; }
 .phone-note-sheet.compact dd { font-size: .65rem; }
 .phone-note-sheet.compact footer { font-size: .54rem; }
+.phone-note-sheet.printable { width: min(90vw, 700px); aspect-ratio: 125 / 85; padding: 30px 34px 25px; transform: none; }
+.phone-note-sheet.printable .phone-note-datetime { margin-top: 0; font-size: 1.12rem; }
+.phone-note-sheet.printable .phone-note-datetime small { font-size: .7rem; }
+.phone-note-sheet.printable dl { flex: 1; grid-template-rows: repeat(5, minmax(0, 1fr)); gap: 7px; }
+.phone-note-sheet.printable dl > div { grid-template-columns: 90px minmax(0, 1fr); padding-bottom: 7px; }
+.phone-note-sheet.printable dt { font-size: .78rem; }
+.phone-note-sheet.printable dd { font-size: .92rem; }
 
 .office-guide { padding-top: 2px; }
 .office-guide-intro { margin: 0 0 15px; color: #5f6d68; font-size: var(--type-body); line-height: 1.8; }
@@ -410,11 +421,49 @@ button { color: inherit; }
 .paper-cutter { position: absolute; left: 50%; bottom: 8px; padding: 7px 9px; display: flex; gap: 5px; border: 2px solid #76a18e; border-radius: 5px; color: #426b59; background: #edf6f1; font: 800 .62rem var(--font-ui); writing-mode: horizontal-tb; letter-spacing: 0; transform: translateX(-50%); white-space: nowrap; }
 .office-lower-area .office-seat { min-height: 180px; }
 .office-source-note { margin: 10px 0 0; color: #7a817d; font-size: var(--type-label); }
+.office-map-mobile-preview { display: none; }
+.office-map-print-button { margin-top: 12px; padding: 10px 13px; border: 1px solid #668878; border-radius: 6px; color: #315f4f; background: #edf6f1; font-size: var(--type-note); font-weight: 800; cursor: pointer; }
+.office-map-print-button:hover { color: #fff; background: #426b59; }
 
-.phone-note-modal, .office-person-modal { position: fixed; z-index: 30; inset: 0; padding: 4vh 4vw; display: grid; place-items: center; background: rgba(17,25,31,.88); }
+.office-desk-card { width: min(100%, 920px); aspect-ratio: 148 / 105; padding: 16px; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 9px; color: #243847; border: 1px solid #cfc5b5; border-radius: 10px; background: repeating-linear-gradient(0deg, rgba(90,78,54,.018) 0 1px, transparent 1px 5px), #fffdf7; box-shadow: 0 12px 30px rgba(36,44,48,.16); overflow: hidden; }
+.office-desk-card > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 7px; border-bottom: 1px solid #ddd4c4; }
+.office-desk-card > header div { display: grid; }
+.office-desk-card > header small { color: #748079; font-size: .62rem; font-weight: 800; letter-spacing: .08em; }
+.office-desk-card > header strong { color: var(--navy); font: 700 1.15rem var(--font-book); letter-spacing: .06em; }
+.office-desk-card > header > span { font-size: 1.3rem; }
+.office-mini-map { min-height: 0; display: grid; grid-template-rows: .8fr 1.2fr; gap: 7px; }
+.office-mini-top { min-height: 0; display: grid; grid-template-columns: .62fr 1.08fr .78fr 1.08fr 1.08fr; gap: 6px; }
+.office-mini-lower { min-height: 0; display: grid; grid-template-columns: 1.08fr .58fr 2.23fr; gap: 7px; }
+.office-mini-stack, .office-mini-right { min-height: 0; display: grid; gap: 6px; }
+.office-mini-right { grid-template-columns: 1fr 1fr; }
+.office-mini-seat { min-width: 0; min-height: 0; padding: 8px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; border: 1px solid; border-radius: 6px; overflow: hidden; }
+.office-mini-seat.planning { color: #315344; border-color: #a9c1b4; background: #e3efe8; }
+.office-mini-seat.topu { color: #31536a; border-color: #acc8d8; background: #e3f0f7; }
+.office-mini-seat.is-you { color: #644b00; border: 3px solid #e2b316; background: #ffed7a; box-shadow: inset 0 0 0 3px rgba(255,255,255,.36); }
+.office-mini-seat > span { padding: 2px 5px; color: #644b00; background: #fff04c; font-size: .52rem; font-weight: 900; }
+.office-mini-seat small { font-size: .52rem; font-weight: 800; white-space: nowrap; }
+.office-mini-seat strong { margin-top: 2px; color: var(--navy); font: 700 .82rem/1.2 var(--font-book); white-space: nowrap; }
+.office-mini-seat b { margin-top: 2px; font-size: .57rem; white-space: nowrap; }
+.office-mini-door, .office-mini-meeting, .office-mini-corridor { min-width: 0; min-height: 0; display: grid; place-content: center; text-align: center; border-radius: 6px; }
+.office-mini-door { gap: 3px; color: #5d554b; border: 2px solid #b9ad9d; border-left-width: 6px; background: #f1ede4; }
+.office-mini-door span { font-size: 1.1rem; }
+.office-mini-door strong, .office-mini-meeting strong { font: 700 .68rem var(--font-book); }
+.office-mini-meeting { color: #6b655b; border: 1px dashed #cfc4b2; background: #f7f3eb; transform: translateX(8%); }
+.office-mini-meeting > span { font-size: 1.6rem; line-height: .8; }
+.office-mini-meeting small { font-size: .48rem; }
+.office-mini-corridor { position: relative; color: #8b8173; border: 1px dashed #d5ccbf; background: #faf8f2; font: italic 700 .72rem var(--font-book); writing-mode: vertical-rl; letter-spacing: .15em; }
+.office-mini-corridor b { position: absolute; left: 50%; bottom: 5px; padding: 3px 4px; border: 1px solid #76a18e; border-radius: 4px; color: #426b59; background: #edf6f1; font: 800 .43rem var(--font-ui); writing-mode: horizontal-tb; letter-spacing: 0; transform: translateX(-50%); white-space: nowrap; }
+.office-desk-card > footer { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+.office-desk-card > footer span { padding: 3px 7px; border-radius: 999px; font-size: .48rem; font-weight: 800; }
+.office-desk-card > footer .planning { color: #315f4f; background: #e1eee7; }
+.office-desk-card > footer .topu { color: #315f79; background: #e1eff7; }
+.office-desk-card > footer .you { color: #644b00; background: #fff04c; }
+
+.phone-note-modal, .office-map-card-modal, .office-person-modal { position: fixed; z-index: 30; inset: 0; padding: 4vh 4vw; display: grid; place-items: center; background: rgba(17,25,31,.88); }
 .dialog-close { position: fixed; z-index: 31; right: 22px; top: 16px; width: 42px; height: 42px; border: 0; border-radius: 50%; color: #243847; background: #fff; font-size: 1.7rem; cursor: pointer; }
-.phone-note-modal-stage { width: min(92vw, 620px); max-height: 92vh; overflow-y: auto; display: grid; gap: 15px; }
-.phone-note-modal .phone-note-sheet { width: min(82vw, 540px); }
+.phone-note-modal-stage { width: min(94vw, 760px); max-height: 92vh; overflow-y: auto; display: grid; gap: 15px; }
+.phone-note-modal .phone-note-sheet { width: min(90vw, 700px); }
+.office-map-card-stage { width: min(95vw, 1000px); max-height: 92vh; overflow-y: auto; display: grid; gap: 15px; }
 .phone-note-actions { padding: 13px 15px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border-radius: 8px; color: #fff; background: rgba(35,55,69,.96); }
 .phone-note-actions p { margin: 0; font-size: var(--type-note); }
 .phone-note-actions button { flex: 0 0 auto; padding: 10px 13px; border: 1px solid rgba(255,255,255,.6); border-radius: 6px; color: var(--navy); background: #fff; font-weight: 800; cursor: pointer; }
@@ -572,6 +621,10 @@ button { color: inherit; }
   .example-card button { max-height: 450px; border-right: 0; border-bottom: 1px solid #ddd5c9; }
   .phone-operation-grid, .phone-memo-block { grid-template-columns: 1fr; }
   .office-legend .swipe-hint { display: inline-flex; }
+  .office-map-desktop { display: none; }
+  .office-map-mobile-preview { width: 100%; padding: 8px; display: block; position: relative; border: 1px solid #d8d1c5; border-radius: 10px; background: #faf8f2; cursor: zoom-in; overflow: hidden; }
+  .office-map-mobile-preview > span { position: absolute; right: 15px; bottom: 15px; padding: 6px 9px; border-radius: 999px; color: #fff; background: rgba(35,55,69,.88); font-size: var(--type-label); font-weight: 800; }
+  .office-map-mobile-preview .office-desk-card { width: 100%; }
 }
 
 @media (max-width: 560px) {
@@ -635,19 +688,72 @@ button { color: inherit; }
   .work-shortcut-nav::-webkit-scrollbar { display: none; }
   .work-shortcut-nav a { flex: 0 0 190px; min-height: 54px; }
   .work-detail-section { scroll-margin-top: 92px; }
-  .work-tools-content { gap: 36px; }
+  .work-page, .work-detail-list, .work-detail-section, .work-tools-content { min-width: 0; max-width: 100%; }
+  .work-tools-content { gap: 36px; overflow: hidden; }
   .work-subheading { align-items: flex-start; }
   .work-subheading h3 { font-size: 1.35rem; }
-  .phone-memo-block { padding: 15px; }
+  .phone-operation-grid article { width: 100%; padding: 15px; }
+  .phone-operation-grid article > div { width: 100%; }
+  .phone-operation-grid p, .phone-memo-copy p { overflow-wrap: anywhere; word-break: normal; }
+  .phone-memo-block { width: 100%; padding: 15px; overflow: hidden; }
+  .phone-memo-visual { width: 100%; }
+  .phone-greeting { width: 100%; padding: 13px 14px; }
   .phone-memo-preview { padding: 8px; }
   .phone-note-sheet.compact { padding: 22px 20px 18px; }
   .phone-note-modal { padding: 58px 12px 20px; }
   .phone-note-modal-stage { width: 100%; }
-  .phone-note-modal .phone-note-sheet { width: min(94vw, 420px); }
+  .phone-note-modal .phone-note-sheet { width: min(94vw, 520px); }
   .phone-note-actions { flex-direction: column; align-items: stretch; }
   .phone-note-actions button { width: 100%; }
-  .office-map-scroll { margin-inline: -21px; border-right: 0; border-left: 0; border-radius: 0; }
   .office-legend .swipe-hint { width: 100%; margin-left: 0; justify-content: center; }
+  .office-map-mobile-preview { padding: 5px; }
+  .office-desk-card { padding: 8px; gap: 4px; border-radius: 6px; }
+  .office-desk-card > header { padding-bottom: 3px; }
+  .office-desk-card > header small { font-size: .4rem; }
+  .office-desk-card > header strong { font-size: .82rem; }
+  .office-desk-card > header > span { font-size: .9rem; }
+  .office-mini-map { gap: 4px; }
+  .office-mini-top, .office-mini-lower, .office-mini-stack, .office-mini-right { gap: 3px; }
+  .office-mini-seat { padding: 4px; border-radius: 4px; }
+  .office-mini-seat.is-you { border-width: 2px; }
+  .office-mini-seat > span { padding: 1px 3px; font-size: .34rem; }
+  .office-mini-seat small { font-size: .34rem; }
+  .office-mini-seat strong { font-size: .52rem; }
+  .office-mini-seat b { font-size: .36rem; }
+  .office-mini-door { border-left-width: 4px; }
+  .office-mini-door span { font-size: .72rem; }
+  .office-mini-door strong, .office-mini-meeting strong { font-size: .43rem; }
+  .office-mini-meeting > span { font-size: .95rem; }
+  .office-mini-meeting small { font-size: .3rem; }
+  .office-mini-corridor { font-size: .45rem; }
+  .office-mini-corridor b { bottom: 3px; padding: 2px; font-size: .27rem; }
+  .office-desk-card > footer { gap: 3px; }
+  .office-desk-card > footer span { padding: 2px 4px; font-size: .3rem; }
+  .office-map-card-modal { padding: 58px 10px 20px; }
+  .office-map-card-stage { width: 100%; overflow-x: auto; align-items: start; }
+  .office-map-card-stage .office-desk-card { width: 720px; min-width: 720px; padding: 16px; gap: 9px; border-radius: 10px; }
+  .office-map-card-stage .office-desk-card > header { padding-bottom: 7px; }
+  .office-map-card-stage .office-desk-card > header small { font-size: .62rem; }
+  .office-map-card-stage .office-desk-card > header strong { font-size: 1.15rem; }
+  .office-map-card-stage .office-desk-card > header > span { font-size: 1.3rem; }
+  .office-map-card-stage .office-mini-map { gap: 7px; }
+  .office-map-card-stage .office-mini-top, .office-map-card-stage .office-mini-lower, .office-map-card-stage .office-mini-stack, .office-map-card-stage .office-mini-right { gap: 6px; }
+  .office-map-card-stage .office-mini-seat { padding: 8px; border-radius: 6px; }
+  .office-map-card-stage .office-mini-seat.is-you { border-width: 3px; }
+  .office-map-card-stage .office-mini-seat > span { padding: 2px 5px; font-size: .52rem; }
+  .office-map-card-stage .office-mini-seat small { font-size: .52rem; }
+  .office-map-card-stage .office-mini-seat strong { font-size: .82rem; }
+  .office-map-card-stage .office-mini-seat b { font-size: .57rem; }
+  .office-map-card-stage .office-mini-door { border-left-width: 6px; }
+  .office-map-card-stage .office-mini-door span { font-size: 1.1rem; }
+  .office-map-card-stage .office-mini-door strong, .office-map-card-stage .office-mini-meeting strong { font-size: .68rem; }
+  .office-map-card-stage .office-mini-meeting > span { font-size: 1.6rem; }
+  .office-map-card-stage .office-mini-meeting small { font-size: .48rem; }
+  .office-map-card-stage .office-mini-corridor { font-size: .72rem; }
+  .office-map-card-stage .office-mini-corridor b { bottom: 5px; padding: 3px 4px; font-size: .43rem; }
+  .office-map-card-stage .office-desk-card > footer { gap: 6px; }
+  .office-map-card-stage .office-desk-card > footer span { padding: 3px 7px; font-size: .48rem; }
+  .office-map-card-stage .phone-note-actions { width: 720px; }
   .office-person-card { padding: 24px 20px; }
 }
 
@@ -666,7 +772,16 @@ button { color: inherit; }
   body.printing-phone-note .phone-note-modal * { visibility: visible !important; }
   body.printing-phone-note .phone-note-modal { position: absolute; inset: 0; padding: 0; display: grid; place-items: start center; background: #fff; }
   body.printing-phone-note .phone-note-modal-stage { width: 100%; max-height: none; overflow: visible; display: block; }
-  body.printing-phone-note .phone-note-sheet { width: 120mm !important; height: 120mm !important; margin: 0 auto; box-shadow: none; transform: none; }
+  body.printing-phone-note .phone-note-sheet { width: 125mm !important; height: 85mm !important; margin: 0 auto; box-shadow: none; transform: none; }
   body.printing-phone-note .phone-note-actions,
   body.printing-phone-note .dialog-close { display: none !important; }
+
+  body.printing-office-map-card * { visibility: hidden !important; }
+  body.printing-office-map-card .office-map-card-modal,
+  body.printing-office-map-card .office-map-card-modal * { visibility: visible !important; }
+  body.printing-office-map-card .office-map-card-modal { position: absolute; inset: 0; padding: 0; display: grid; place-items: start center; background: #fff; }
+  body.printing-office-map-card .office-map-card-stage { width: 100%; max-height: none; overflow: visible; display: block; }
+  body.printing-office-map-card .office-desk-card { width: 148mm !important; height: 105mm !important; margin: 0 auto; box-shadow: none; }
+  body.printing-office-map-card .phone-note-actions,
+  body.printing-office-map-card .dialog-close { display: none !important; }
 }
