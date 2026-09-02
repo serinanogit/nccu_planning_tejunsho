@@ -121,6 +121,10 @@ button { color: inherit; }
 .system-step-image img { display: block; width: 100%; height: auto; max-height: 430px; object-fit: contain; object-position: top center; }
 .system-step-image > span { position: absolute; inset: auto 10px 10px auto; padding: 7px 10px; border-radius: 999px; color: #fff !important; background: rgba(28,47,63,.88); font-size: .66rem !important; font-weight: 800; }
 .system-step-image:hover img { filter: brightness(.97); }
+.registration-note { margin-top: 18px; padding: 17px; border: 1px solid #d7c58f; border-left: 5px solid #c3992d; border-radius: 8px; color: #68572d; background: #fff8df; }
+.registration-note > strong { display: block; color: #80610d; font-size: .86rem; letter-spacing: .04em; }
+.registration-note > p { margin: 6px 0 0; font-size: .77rem; line-height: 1.7; }
+.registration-note .system-step-image { margin-bottom: 0; }
 .system-plan-values { margin: 8px 0 3px; display: grid; gap: 5px; }
 .system-plan-values > div { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 8px; align-items: start; padding: 6px 8px; border-left: 2px solid #d4b552; background: rgba(255,255,255,.58); }
 .system-plan-values dt { color: #6e6248; font-size: .69rem; font-weight: 800; }
@@ -794,26 +798,24 @@ button { color: inherit; }
   .page-content { padding: 18mm; }
   .content-section { break-inside: avoid; }
 
-  body.printing-phone-note * { visibility: hidden !important; }
-  body.printing-phone-note .phone-note-modal,
-  body.printing-phone-note .phone-note-modal * { visibility: visible !important; }
+  body.printing-phone-note .site-shell,
+  body.printing-office-map-card .site-shell { min-height: 0 !important; height: auto !important; overflow: visible !important; }
+  body.printing-phone-note .site-shell > *:not(.phone-note-modal),
+  body.printing-office-map-card .site-shell > *:not(.office-map-card-modal) { display: none !important; }
   body.printing-phone-note .phone-note-modal { position: absolute; inset: 0; padding: 0; display: grid; place-items: start center; background: #fff; }
   body.printing-phone-note .phone-note-modal-stage { width: 100%; max-height: none; overflow: visible; display: block; }
   body.printing-phone-note .phone-note-sheet,
   body.printing-phone-note .phone-note-sheet * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  body.printing-phone-note .phone-note-sheet { width: 65mm !important; height: 65mm !important; margin: 0 auto; padding: 4mm; background: #ffeb68 !important; border: .35mm solid #d1a61d; box-shadow: none; transform: none; }
-  body.printing-phone-note .phone-note-datetime { gap: 2mm; font-size: 8pt; }
-  body.printing-phone-note .phone-note-datetime small { font-size: 5.5pt; }
-  body.printing-phone-note .phone-note-sheet dl { gap: 1mm; }
-  body.printing-phone-note .phone-note-sheet dl > div { grid-template-columns: 15mm minmax(0, 1fr); gap: 1.5mm; padding-bottom: .9mm; }
-  body.printing-phone-note .phone-note-sheet dt { font-size: 6pt; }
-  body.printing-phone-note .phone-note-sheet dd { font-size: 7pt; }
+  body.printing-phone-note .phone-note-sheet { width: 80mm !important; height: 80mm !important; margin: 0 auto; padding: 5mm; background: #ffeb68 !important; border: .43mm solid #d1a61d; box-shadow: none; transform: none; }
+  body.printing-phone-note .phone-note-datetime { gap: 2.5mm; font-size: 9.8pt; }
+  body.printing-phone-note .phone-note-datetime small { font-size: 6.8pt; }
+  body.printing-phone-note .phone-note-sheet dl { gap: 1.2mm; }
+  body.printing-phone-note .phone-note-sheet dl > div { grid-template-columns: 18.5mm minmax(0, 1fr); gap: 1.8mm; padding-bottom: 1.1mm; }
+  body.printing-phone-note .phone-note-sheet dt { font-size: 7.4pt; }
+  body.printing-phone-note .phone-note-sheet dd { font-size: 8.6pt; }
   body.printing-phone-note .phone-note-actions,
   body.printing-phone-note .dialog-close { display: none !important; }
 
-  body.printing-office-map-card * { visibility: hidden !important; }
-  body.printing-office-map-card .office-map-card-modal,
-  body.printing-office-map-card .office-map-card-modal * { visibility: visible !important; }
   body.printing-office-map-card .office-map-card-modal { position: absolute; inset: 0; padding: 0; display: grid; place-items: start center; background: #fff; }
   body.printing-office-map-card .office-map-card-stage { width: 100%; max-height: none; overflow: visible; display: block; }
   body.printing-office-map-card .office-desk-card,
