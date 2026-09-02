@@ -229,7 +229,7 @@ function OfficeMiniSeat({ id }: { id: string }) {
       {person.isAssistant && <span>★ 你本人</span>}
       <small>{person.title}</small>
       <strong>{person.name}</strong>
-      <b>分機 {person.extension}</b>
+      <b>☎️ 分機 {person.extension}</b>
       <p>{person.summary}</p>
     </div>
   );
@@ -271,7 +271,7 @@ function OfficeSeat({ person, positionClass, onSelect }: {
       {person.isAssistant && <span className="you-marker">★ 你本人</span>}
       <small>{person.title}</small>
       <strong>{person.name}</strong>
-      <b>分機 {person.extension}</b>
+      <b>☎️ 分機 {person.extension}</b>
       <p>{person.summary}</p>
       <span className="seat-more">點擊查看業務</span>
     </button>
@@ -1017,7 +1017,7 @@ export default function Home() {
             {selectedOfficePerson.isAssistant && <span className="you-marker">★ 你本人</span>}
             <small>{selectedOfficePerson.team === "planning" ? "企畫組" : "高教深耕計畫辦公室"}</small>
             <h3>{selectedOfficePerson.name}</h3>
-            <p className="office-person-meta">{selectedOfficePerson.title}・分機 {selectedOfficePerson.extension}</p>
+            <p className="office-person-meta">{selectedOfficePerson.title}・☎️ 分機 {selectedOfficePerson.extension}</p>
             <strong>主要業務</strong>
             <ul>{selectedOfficePerson.duties.map((duty) => <li key={duty}>{duty}</li>)}</ul>
           </article>
