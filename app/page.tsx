@@ -213,7 +213,7 @@ function PhoneMemo({ compact = false, printable = false }: { compact?: boolean; 
         <div><dt>來電單位</dt><dd>○○大學／○○公司／○○處室</dd></div>
         <div><dt>來電者</dt><dd>○先生／○小姐／○組長／○主任／○秘書</dd></div>
         <div><dt>聯絡方式</dt><dd>09XXXXXXXX／分機 XXXXX</dd></div>
-        <div><dt>來電事項</dt><dd>詢問○○會議時間</dd></div>
+        <div><dt>來電事項</dt><dd>詢問○○○○○○</dd></div>
         <div><dt>後續處理</dt><dd>請回電／其他：＿＿＿＿＿＿</dd></div>
       </dl>
     </article>
@@ -978,24 +978,24 @@ export default function Home() {
                               <li>
                                 <b>開啟活動報到(網路版)</b>
                                 <span>登入新平台校務系統後，於左側選單「活動與繳費作業」下點選「活動報到(網路版)」。</span>
-                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-1.png")} aria-label="放大查看活動報到網路版位置">
-                                  <img src="assets/registration/step-1.png" alt="校務系統左側選單，以紅框標示「活動報到(網路版)」" />
+                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-1.jpg")} aria-label="放大查看活動報到網路版位置">
+                                  <img src="assets/registration/step-1.jpg" alt="校務系統左側選單，以紅框標示「活動報到(網路版)」" />
                                   <span>操作畫面 1｜點圖放大</span>
                                 </button>
                               </li>
                               <li>
                                 <b>搜尋活動並勾選報到選項</b>
                                 <span>用活動代碼或活動日期搜尋到當天的活動並點選該筆資料，勾選「接受登記/候補或未報名者報到」與「對於登記/候補或未報名者跳出詢問視窗」兩個選項，再點選「進入報到模式」。</span>
-                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-2.png")} aria-label="放大查看勾選報到選項畫面">
-                                  <img src="assets/registration/step-2.png" alt="活動報到(網路版)搜尋結果，以紅框標示活動列與兩個報到選項" />
+                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-2.jpg")} aria-label="放大查看勾選報到選項畫面">
+                                  <img src="assets/registration/step-2.jpg" alt="活動報到(網路版)搜尋結果，以紅框標示活動列與兩個報到選項" />
                                   <span>操作畫面 2｜點圖放大</span>
                                 </button>
                               </li>
                               <li>
                                 <b>讓學員嗶卡或手動輸入編號</b>
                                 <span>進入報到模式後，請學員使用手機報到條碼（需使用條碼掃描器）或學生／職員證（需使用 MIFARE 讀卡機）嗶卡，也可以手動輸入學號或員工編號完成報到。</span>
-                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-3.png")} aria-label="放大查看報到模式畫面">
-                                  <img src="assets/registration/step-3.png" alt="活動報到(網路版)報到模式，以紅框標示掃描或手動輸入欄位" />
+                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-3.jpg")} aria-label="放大查看報到模式畫面">
+                                  <img src="assets/registration/step-3.jpg" alt="活動報到(網路版)報到模式，以紅框標示掃描或手動輸入欄位" />
                                   <span>操作畫面 3｜點圖放大</span>
                                 </button>
                               </li>
@@ -1003,8 +1003,8 @@ export default function Home() {
                             <aside className="registration-note">
                               <strong>補充說明｜未正式報名者</strong>
                               <p>若嗶卡或輸入的人員不是這場活動的正式報名者，系統會跳出提醒視窗，詢問是否要補報名並完成報到。</p>
-                              <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-4.png")} aria-label="放大查看未正式報名者提醒視窗">
-                                <img src="assets/registration/step-4.png" alt="未正式報名者跳出的提醒視窗，詢問是否要報名並完成報到" />
+                              <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-4.jpg")} aria-label="放大查看未正式報名者提醒視窗">
+                                <img src="assets/registration/step-4.jpg" alt="未正式報名者跳出的提醒視窗，詢問是否要報名並完成報到" />
                                 <span>補充說明｜點圖放大</span>
                               </button>
                             </aside>
