@@ -1003,7 +1003,7 @@ export default function Home() {
           <div className="office-map-card-stage" onClick={(event) => event.stopPropagation()}>
             <OfficeDeskCard />
             <div className="phone-note-actions">
-              <p>列印尺寸：6.5 × 4.6 公分（橫式）。</p>
+              <p>列印尺寸：13 × 9.2 公分（橫式）。</p>
               <button onClick={() => printDeskCard("printing-office-map-card")}>🖨️ 列印座位分機小抄</button>
             </div>
           </div>
