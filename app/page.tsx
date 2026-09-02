@@ -217,7 +217,6 @@ function PhoneMemo({ compact = false, printable = false }: { compact?: boolean; 
         <div><dt>來電事項</dt><dd>詢問○○會議時間</dd></div>
         <div><dt>後續處理</dt><dd>請回電／其他：＿＿＿＿＿＿</dd></div>
       </dl>
-      {!printable && <footer>代接電話後，請將來電資訊手寫在實體便利貼上，再貼至對方桌面。</footer>}
     </article>
   );
 }
@@ -226,7 +225,6 @@ function OfficeMiniSeat({ id }: { id: string }) {
   const person = officePeople.find((item) => item.id === id)!;
   return (
     <div className={`office-mini-seat ${person.team} ${person.isAssistant ? "is-you" : ""}`}>
-      {person.isAssistant && <span>★ 你本人</span>}
       <small>{person.title}</small>
       <strong>{person.name}</strong>
       <b>☎️ 分機 {person.extension}</b>
@@ -251,6 +249,7 @@ function OfficeDeskCard() {
           <OfficeMiniSeat id="kuo" />
         </div>
         <div className="office-mini-lower">
+          <div className="office-mini-horizontal-corridor" aria-label="橫向走廊"><strong>走廊</strong></div>
           <div className="office-mini-stack"><OfficeMiniSeat id="assistant" /><OfficeMiniSeat id="hsieh" /></div>
           <div className="office-mini-corridor"><span>走廊</span><b>✂️ 裁紙機、電動訂書機</b></div>
           <div className="office-mini-right"><OfficeMiniSeat id="tai" /><OfficeMiniSeat id="hung" /></div>
@@ -268,7 +267,6 @@ function OfficeSeat({ person, positionClass, onSelect }: {
 }) {
   return (
     <button className={`office-seat ${person.team} ${person.isAssistant ? "is-you" : ""} ${positionClass}`} onClick={() => onSelect(person.id)} aria-label={`查看${person.name}的業務`}>
-      {person.isAssistant && <span className="you-marker">★ 你本人</span>}
       <small>{person.title}</small>
       <strong>{person.name}</strong>
       <b>☎️ 分機 {person.extension}</b>
@@ -898,9 +896,9 @@ export default function Home() {
                             <div><small>辦公室基本操作</small><h3 id="phone-guide-title">電話使用方式</h3></div>
                           </div>
                           <div className="phone-operation-grid">
-                            <article><span>01</span><div><h4>轉接電話</h4><p>按下電話機上的「轉接」按鈕，再輸入對方的分機號碼，最後掛回話筒，即完成轉接。</p></div></article>
-                            <article><span>02</span><div><h4>代接電話</h4><p>依序按下「1」和「3」，即可代接其他分機的來電。</p></div></article>
-                            <article><span>03</span><div><h4>撥打外線</h4><p>先按「0」，再輸入手機號碼或市內電話號碼。撥打臺北市話時，不需要另外輸入「02」。</p></div></article>
+                            <article><span>01</span><div><h4>轉接電話</h4><p>按下電話機上的 <kbd className="phone-key phone-key-wide">轉接</kbd> 按鍵，再輸入對方的分機號碼，最後掛回話筒，即完成轉接。</p></div></article>
+                            <article><span>02</span><div><h4>代接電話</h4><p>依序按下 <span className="phone-key-sequence"><kbd className="phone-key">1</kbd><span aria-hidden="true">→</span><kbd className="phone-key">3</kbd></span>，即可代接其他分機的來電。</p></div></article>
+                            <article><span>03</span><div><h4>撥打外線</h4><p>先按 <kbd className="phone-key">0</kbd>，再輸入手機號碼或市內電話號碼。撥打臺北市話時，<strong className="phone-no-code">不需輸入 02</strong>。</p></div></article>
                           </div>
 
                           <div className="phone-memo-block">
@@ -911,6 +909,7 @@ export default function Home() {
                             </div>
                             <div className="phone-memo-visual">
                               <aside className="phone-greeting"><span aria-hidden="true">👋</span><p><small>接起電話時先說</small><strong>「研發處您好。」</strong></p></aside>
+                              <aside className="phone-greeting phone-after-call"><span aria-hidden="true">📝</span><p><small>代接電話後</small><strong>請將來電資訊手寫在實體便利貼上，再貼至對方桌面。</strong></p></aside>
                               <button className="phone-memo-preview" onClick={() => setPhoneMemoOpen(true)} aria-label="放大查看電話代接留言格式並列印">
                                 <PhoneMemo compact />
                                 <span className="memo-click-label">點擊放大・可單張列印</span>
@@ -953,6 +952,7 @@ export default function Home() {
                               </div>
 
                               <div className="office-lower-area">
+                                <div className="office-horizontal-corridor" aria-label="橫向走廊"><strong>走廊</strong></div>
                                 <div className="office-left-stack">
                                   <OfficeSeat person={officePeople.find((person) => person.id === "assistant")!} positionClass="seat-assistant" onSelect={setOfficePersonId} />
                                   <OfficeSeat person={officePeople.find((person) => person.id === "hsieh")!} positionClass="seat-hsieh" onSelect={setOfficePersonId} />
@@ -1003,7 +1003,7 @@ export default function Home() {
           <div className="office-map-card-stage" onClick={(event) => event.stopPropagation()}>
             <OfficeDeskCard />
             <div className="phone-note-actions">
-              <p>列印尺寸：約 14.8 × 10.5 公分。</p>
+              <p>列印尺寸：A5 橫式（21 × 14.8 公分）。</p>
               <button onClick={() => printDeskCard("printing-office-map-card")}>🖨️ 列印座位分機小抄</button>
             </div>
           </div>
@@ -1014,7 +1014,6 @@ export default function Home() {
         <div className="office-person-modal" role="dialog" aria-modal="true" aria-label={`${selectedOfficePerson.name}業務資訊`} onClick={() => setOfficePersonId(null)}>
           <button className="dialog-close" onClick={() => setOfficePersonId(null)} aria-label="關閉人員業務資訊">×</button>
           <article className={`office-person-card ${selectedOfficePerson.team} ${selectedOfficePerson.isAssistant ? "is-you" : ""}`} onClick={(event) => event.stopPropagation()}>
-            {selectedOfficePerson.isAssistant && <span className="you-marker">★ 你本人</span>}
             <small>{selectedOfficePerson.team === "planning" ? "企畫組" : "高教深耕計畫辦公室"}</small>
             <h3>{selectedOfficePerson.name}</h3>
             <p className="office-person-meta">{selectedOfficePerson.title}・☎️ 分機 {selectedOfficePerson.extension}</p>
