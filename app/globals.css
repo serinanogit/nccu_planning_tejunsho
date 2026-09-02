@@ -380,7 +380,7 @@ button { color: inherit; }
 .phone-note-sheet.compact dt { font-size: .58rem; }
 .phone-note-sheet.compact dd { font-size: .65rem; }
 .phone-note-sheet.compact footer { font-size: .54rem; }
-.phone-note-sheet.printable { width: min(90vw, 700px); aspect-ratio: 125 / 85; padding: 30px 34px 25px; transform: none; }
+.phone-note-sheet.printable { width: min(90vw, 600px); aspect-ratio: 1 / 1; padding: 34px; transform: none; }
 .phone-note-sheet.printable .phone-note-datetime { margin-top: 0; font-size: 1.12rem; }
 .phone-note-sheet.printable .phone-note-datetime small { font-size: .7rem; }
 .phone-note-sheet.printable dl { flex: 1; grid-template-rows: repeat(5, minmax(0, 1fr)); gap: 7px; }
@@ -784,7 +784,6 @@ button { color: inherit; }
 }
 
 @page { size: A4; margin: 15mm; }
-@page office-map-card { size: A5 landscape; margin: 7mm; }
 
 @media print {
   body { background: white; }
@@ -800,7 +799,15 @@ button { color: inherit; }
   body.printing-phone-note .phone-note-modal * { visibility: visible !important; }
   body.printing-phone-note .phone-note-modal { position: absolute; inset: 0; padding: 0; display: grid; place-items: start center; background: #fff; }
   body.printing-phone-note .phone-note-modal-stage { width: 100%; max-height: none; overflow: visible; display: block; }
-  body.printing-phone-note .phone-note-sheet { width: 125mm !important; height: 85mm !important; margin: 0 auto; box-shadow: none; transform: none; }
+  body.printing-phone-note .phone-note-sheet,
+  body.printing-phone-note .phone-note-sheet * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body.printing-phone-note .phone-note-sheet { width: 65mm !important; height: 65mm !important; margin: 0 auto; padding: 4mm; background: #ffeb68 !important; border: .35mm solid #d1a61d; box-shadow: none; transform: none; }
+  body.printing-phone-note .phone-note-datetime { gap: 2mm; font-size: 8pt; }
+  body.printing-phone-note .phone-note-datetime small { font-size: 5.5pt; }
+  body.printing-phone-note .phone-note-sheet dl { gap: 1mm; }
+  body.printing-phone-note .phone-note-sheet dl > div { grid-template-columns: 15mm minmax(0, 1fr); gap: 1.5mm; padding-bottom: .9mm; }
+  body.printing-phone-note .phone-note-sheet dt { font-size: 6pt; }
+  body.printing-phone-note .phone-note-sheet dd { font-size: 7pt; }
   body.printing-phone-note .phone-note-actions,
   body.printing-phone-note .dialog-close { display: none !important; }
 
@@ -809,22 +816,41 @@ button { color: inherit; }
   body.printing-office-map-card .office-map-card-modal * { visibility: visible !important; }
   body.printing-office-map-card .office-map-card-modal { position: absolute; inset: 0; padding: 0; display: grid; place-items: start center; background: #fff; }
   body.printing-office-map-card .office-map-card-stage { width: 100%; max-height: none; overflow: visible; display: block; }
-  body.printing-office-map-card .office-desk-card { page: office-map-card; width: 196mm !important; height: 134mm !important; margin: 0 auto; padding: 4mm; gap: 2mm; border-radius: 3mm; box-shadow: none; }
-  body.printing-office-map-card .office-mini-map { grid-template-rows: .72fr 1.28fr; gap: 0; }
-  body.printing-office-map-card .office-mini-top { grid-template-columns: .65fr 1.1fr .9fr 1.1fr 1.1fr; gap: 2mm; }
-  body.printing-office-map-card .office-mini-lower { grid-template-columns: 1.12fr .78fr 2.25fr; column-gap: 2mm; }
+  body.printing-office-map-card .office-desk-card,
+  body.printing-office-map-card .office-desk-card * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body.printing-office-map-card .office-desk-card { width: 65mm !important; height: 46mm !important; margin: 0 auto; padding: 1mm; grid-template-rows: auto minmax(0, 1fr); gap: .6mm; border: .3mm solid #b9aa91; border-radius: 1.5mm; background: #fffaf0 !important; box-shadow: none; overflow: hidden; }
+  body.printing-office-map-card .office-desk-card > header { min-height: 3.5mm; padding: 0 0 .4mm; }
+  body.printing-office-map-card .office-desk-card > header small { display: none; }
+  body.printing-office-map-card .office-desk-card > header strong { font-size: 6pt; line-height: 1; letter-spacing: .04em; }
+  body.printing-office-map-card .office-desk-card > header > span { font-size: 6pt; }
+  body.printing-office-map-card .office-desk-card > footer { display: none; }
+  body.printing-office-map-card .office-mini-map { grid-template-rows: .74fr 1.26fr; gap: 0; }
+  body.printing-office-map-card .office-mini-top { grid-template-columns: .65fr 1.1fr .9fr 1.1fr 1.1fr; gap: .6mm; }
+  body.printing-office-map-card .office-mini-lower { grid-template-columns: 1.12fr .78fr 2.25fr; column-gap: .6mm; }
   body.printing-office-map-card .office-mini-stack,
-  body.printing-office-map-card .office-mini-right { gap: 2mm; }
+  body.printing-office-map-card .office-mini-right { gap: .6mm; }
   body.printing-office-map-card .office-mini-stack,
-  body.printing-office-map-card .office-mini-corridor { margin-top: 3mm; }
-  body.printing-office-map-card .office-mini-right { margin-top: 8mm; }
-  body.printing-office-map-card .office-mini-horizontal-corridor { height: 8mm; }
-  body.printing-office-map-card .office-mini-horizontal-corridor strong { font-size: 8.5pt; }
-  body.printing-office-map-card .office-mini-seat { padding: 3mm; justify-content: flex-start; }
-  body.printing-office-map-card .office-mini-seat small { padding: 1mm 1.7mm; font-size: 9pt; }
-  body.printing-office-map-card .office-mini-seat strong { margin-top: 1.7mm; font-size: 12pt; line-height: 1.18; }
-  body.printing-office-map-card .office-mini-seat b { margin-top: 1.3mm; padding: 1mm 1.6mm; font-size: 12pt; line-height: 1.15; }
-  body.printing-office-map-card .office-mini-seat p { margin-top: 1.7mm; font-size: 9.5pt; line-height: 1.38; }
+  body.printing-office-map-card .office-mini-corridor { margin-top: .8mm; }
+  body.printing-office-map-card .office-mini-right { margin-top: 2.2mm; }
+  body.printing-office-map-card .office-mini-horizontal-corridor { height: 2.2mm; }
+  body.printing-office-map-card .office-mini-horizontal-corridor strong { font-size: 3pt; }
+  body.printing-office-map-card .office-mini-seat { padding: .65mm; justify-content: flex-start; border-width: .25mm; border-radius: .8mm; box-shadow: none; }
+  body.printing-office-map-card .office-mini-seat.planning { color: #214d3c; border-color: #5f8f76 !important; background: #cfe8da !important; }
+  body.printing-office-map-card .office-mini-seat.topu { color: #244f69; border-color: #5f91ad !important; background: #d3eaf6 !important; }
+  body.printing-office-map-card .office-mini-seat.is-you { color: #5d4700; border: .4mm solid #c79800 !important; background: #ffe66b !important; box-shadow: none; }
+  body.printing-office-map-card .office-mini-seat small { padding: .25mm .45mm; font-size: 3pt; line-height: 1.05; }
+  body.printing-office-map-card .office-mini-seat strong { margin-top: .45mm; font-size: 4.8pt; line-height: 1.05; }
+  body.printing-office-map-card .office-mini-seat b { margin-top: .35mm; padding: .25mm .4mm; font-size: 4.3pt; line-height: 1.05; border-width: .2mm; border-radius: .55mm; }
+  body.printing-office-map-card .office-mini-seat p { margin-top: .4mm; font-size: 3.1pt; line-height: 1.16; }
+  body.printing-office-map-card .office-mini-door { border-color: #9b856b !important; background: #eadfce !important; }
+  body.printing-office-map-card .office-mini-door span { font-size: 5pt; }
+  body.printing-office-map-card .office-mini-door strong,
+  body.printing-office-map-card .office-mini-meeting strong { font-size: 3.4pt; }
+  body.printing-office-map-card .office-mini-meeting { border-color: #b29f82 !important; background: #efe4d2 !important; transform: none; }
+  body.printing-office-map-card .office-mini-meeting > span { font-size: 7pt; }
+  body.printing-office-map-card .office-mini-meeting small { font-size: 2.5pt; }
+  body.printing-office-map-card .office-mini-corridor { color: #6f6250; border-color: #b8a88f !important; background: #f1e7d8 !important; font-size: 3.2pt; }
+  body.printing-office-map-card .office-mini-corridor b { bottom: .6mm; padding: .3mm .45mm; border-width: .2mm; font-size: 2.3pt; }
   body.printing-office-map-card .phone-note-actions,
   body.printing-office-map-card .dialog-close { display: none !important; }
 }
