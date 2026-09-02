@@ -337,6 +337,11 @@ button { color: inherit; }
 .phone-operation-grid article > span { flex: 0 0 auto; color: #7b987f; font: italic 700 .68rem var(--font-book); }
 .phone-operation-grid h4 { margin: 0 0 7px; color: var(--navy); font: 700 var(--type-subtitle)/1.35 var(--font-book); }
 .phone-operation-grid p { margin: 0; color: #5c6d66; font-size: var(--type-body); line-height: 1.75; overflow-wrap: anywhere; }
+.phone-key { min-width: 2rem; min-height: 1.9rem; margin: 0 .12rem; padding: .1rem .5rem; display: inline-grid; place-items: center; vertical-align: middle; color: #294136; border: 1px solid #81958a; border-bottom-width: 3px; border-radius: 6px; background: linear-gradient(#fff, #edf1ee); box-shadow: 0 2px 4px rgba(42,57,49,.16); font: 900 .9rem/1 var(--font-ui); }
+.phone-key-wide { min-width: 3.5rem; }
+.phone-key-sequence { display: inline-flex; align-items: center; gap: .12rem; white-space: nowrap; }
+.phone-key-sequence > span { color: #789084; font-weight: 900; }
+.phone-no-code { padding: .12rem .42rem; display: inline-block; color: #8b3a32; border: 1px solid #d9a9a2; border-radius: 5px; background: #fff1ee; font-weight: 900; line-height: 1.4; }
 .phone-memo-block { margin-top: 20px; padding: 20px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(300px, 1.1fr); align-items: center; gap: 24px; border: 1px solid #dfd3a4; border-radius: 10px; background: linear-gradient(135deg, #faf7ed, #fffdf6); }
 .phone-memo-copy small { color: #947018; font-size: var(--type-meta); font-weight: 800; letter-spacing: .08em; }
 .phone-memo-copy h4 { margin: 4px 0 10px; color: var(--navy); font: 700 1.28rem var(--font-book); }
@@ -346,6 +351,7 @@ button { color: inherit; }
 .phone-memo-copy button { margin-top: 15px; padding: 10px 13px; border: 1px solid #856f2c; border-radius: 6px; color: #68520f; background: #fff8d9; font-size: var(--type-note); font-weight: 800; cursor: pointer; }
 .phone-memo-copy button:hover { color: #fff; background: #806516; }
 .phone-memo-visual { display: grid; gap: 12px; }
+.phone-after-call strong { font-size: 1rem; line-height: 1.55; }
 .phone-memo-preview { position: relative; padding: 22px; border: 0; background: transparent; cursor: zoom-in; }
 .phone-memo-preview:hover .phone-note-sheet { transform: rotate(-1deg) translateY(-3px); box-shadow: 0 16px 29px rgba(97,75,21,.2); }
 .memo-click-label { position: absolute; right: 29px; bottom: 29px; padding: 6px 9px; border-radius: 999px; color: #fff; background: rgba(58,55,43,.83); font-size: var(--type-label); font-weight: 800; }
@@ -414,11 +420,12 @@ button { color: inherit; }
 .office-seat > p { margin: 7px 0 0; font-size: .67rem; line-height: 1.55; }
 .seat-more { margin-top: auto; padding-top: 8px; font-size: .56rem; font-weight: 800; opacity: .72; }
 .office-seat.is-you { border: 3px solid #e2b316; background: linear-gradient(145deg, #fff5a8, #ffe76d); box-shadow: 0 0 0 6px rgba(255,230,56,.25), 0 8px 19px rgba(115,86,8,.16); }
-.you-marker { display: inline-block; padding: 3px 9px; color: #644b00; background: linear-gradient(transparent 8%, #fff04c 8% 90%, transparent 90%); font-size: .68rem; font-weight: 900; transform: rotate(-2deg); }
-.office-seat.is-you > small { margin-top: 6px; }
-.office-lower-area { margin-top: 13px; display: grid; grid-template-columns: 1.12fr .78fr 2.25fr; gap: 13px; align-items: stretch; }
-.office-left-stack, .office-right-stack { display: grid; gap: 11px; }
-.office-right-stack { grid-template-columns: 1fr 1fr; }
+.office-lower-area { position: relative; margin-top: 0; display: grid; grid-template-columns: 1.12fr .78fr 2.25fr; gap: 13px; align-items: stretch; }
+.office-left-stack, .office-right-stack { position: relative; z-index: 1; display: grid; gap: 11px; }
+.office-left-stack, .office-corridor { margin-top: 16px; }
+.office-right-stack { margin-top: 42px; grid-template-columns: 1fr 1fr; }
+.office-horizontal-corridor { position: absolute; z-index: 0; inset: 0 0 auto; height: 42px; display: grid; grid-template-columns: 2.02fr 2.25fr; pointer-events: none; }
+.office-horizontal-corridor strong { grid-column: 2; place-self: center; color: #8b8173; font: italic 700 .86rem var(--font-book); letter-spacing: .18em; }
 .office-corridor { position: relative; min-height: 372px; display: grid; place-items: center; color: #8b8173; border: 1px dashed #d5ccbf; border-radius: 8px; background: repeating-linear-gradient(90deg, transparent 0 20px, rgba(125,113,92,.025) 20px 21px); font: italic 700 1.1rem var(--font-book); writing-mode: vertical-rl; letter-spacing: .22em; }
 .paper-cutter { position: absolute; left: 50%; bottom: 8px; padding: 8px 13px; display: flex; gap: 5px; border: 2px solid #76a18e; border-radius: 5px; color: #426b59; background: #edf6f1; font: 800 .62rem var(--font-ui); writing-mode: horizontal-tb; letter-spacing: 0; transform: translateX(-50%); white-space: nowrap; }
 .office-lower-area .office-seat { min-height: 180px; }
@@ -427,22 +434,24 @@ button { color: inherit; }
 .office-map-print-button { margin-top: 12px; padding: 10px 13px; border: 1px solid #668878; border-radius: 6px; color: #315f4f; background: #edf6f1; font-size: var(--type-note); font-weight: 800; cursor: pointer; }
 .office-map-print-button:hover { color: #fff; background: #426b59; }
 
-.office-desk-card { width: min(100%, 920px); aspect-ratio: 148 / 105; padding: 16px; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 9px; color: #243847; border: 1px solid #cfc5b5; border-radius: 10px; background: repeating-linear-gradient(0deg, rgba(90,78,54,.018) 0 1px, transparent 1px 5px), #fffdf7; box-shadow: 0 12px 30px rgba(36,44,48,.16); overflow: hidden; }
+.office-desk-card { width: min(100%, 920px); aspect-ratio: 210 / 148; padding: 16px; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 9px; color: #243847; border: 1px solid #cfc5b5; border-radius: 10px; background: repeating-linear-gradient(0deg, rgba(90,78,54,.018) 0 1px, transparent 1px 5px), #fffdf7; box-shadow: 0 12px 30px rgba(36,44,48,.16); overflow: hidden; }
 .office-desk-card > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 7px; border-bottom: 1px solid #ddd4c4; }
 .office-desk-card > header div { display: grid; }
 .office-desk-card > header small { color: #748079; font-size: .62rem; font-weight: 800; letter-spacing: .08em; }
 .office-desk-card > header strong { color: var(--navy); font: 700 1.15rem var(--font-book); letter-spacing: .06em; }
 .office-desk-card > header > span { font-size: 1.3rem; }
-.office-mini-map { min-height: 0; display: grid; grid-template-rows: .82fr 1.18fr; gap: 8px; }
+.office-mini-map { min-height: 0; display: grid; grid-template-rows: .72fr 1.28fr; gap: 0; }
 .office-mini-top { min-height: 0; display: grid; grid-template-columns: .65fr 1.1fr .9fr 1.1fr 1.1fr; gap: 7px; }
-.office-mini-lower { min-height: 0; display: grid; grid-template-columns: 1.12fr .78fr 2.25fr; gap: 8px; }
-.office-mini-stack, .office-mini-right { min-height: 0; display: grid; gap: 6px; }
-.office-mini-right { grid-template-columns: 1fr 1fr; }
+.office-mini-lower { position: relative; min-height: 0; display: grid; grid-template-columns: 1.12fr .78fr 2.25fr; column-gap: 8px; }
+.office-mini-stack, .office-mini-right { position: relative; z-index: 1; min-height: 0; display: grid; gap: 6px; }
+.office-mini-stack, .office-mini-corridor { margin-top: 8px; }
+.office-mini-right { margin-top: 24px; grid-template-columns: 1fr 1fr; }
+.office-mini-horizontal-corridor { position: absolute; z-index: 0; inset: 0 0 auto; height: 24px; display: grid; grid-template-columns: 2.02fr 2.25fr; pointer-events: none; }
+.office-mini-horizontal-corridor strong { grid-column: 2; place-self: center; color: #8b8173; font: italic 700 .62rem var(--font-book); letter-spacing: .14em; }
 .office-mini-seat { min-width: 0; min-height: 0; padding: 11px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; border: 1px solid; border-radius: 6px; overflow: hidden; }
 .office-mini-seat.planning { color: #315344; border-color: #a9c1b4; background: #e3efe8; }
 .office-mini-seat.topu { color: #31536a; border-color: #acc8d8; background: #e3f0f7; }
 .office-mini-seat.is-you { color: #644b00; border: 3px solid #e2b316; background: #ffed7a; box-shadow: inset 0 0 0 3px rgba(255,255,255,.36); }
-.office-mini-seat > span { padding: 2px 5px; color: #644b00; background: #fff04c; font-size: .62rem; font-weight: 900; }
 .office-mini-seat small { padding: 3px 6px; border-radius: 999px; background: rgba(255,255,255,.68); font-size: .7rem; font-weight: 800; white-space: nowrap; }
 .office-mini-seat strong { margin-top: 7px; color: var(--navy); font: 700 1rem/1.2 var(--font-book); }
 .office-mini-seat b { margin-top: 5px; padding: 4px 6px; display: inline-flex; align-items: center; color: #274d40; border: 1px solid rgba(49,95,79,.3); border-radius: 5px; background: rgba(255,255,255,.72); font-size: 1rem; font-weight: 800; line-height: 1.15; white-space: nowrap; }
@@ -717,11 +726,15 @@ button { color: inherit; }
   .office-desk-card > header small { font-size: .4rem; }
   .office-desk-card > header strong { font-size: .82rem; }
   .office-desk-card > header > span { font-size: .9rem; }
-  .office-mini-map { gap: 4px; }
-  .office-mini-top, .office-mini-lower, .office-mini-stack, .office-mini-right { gap: 3px; }
+  .office-mini-map { gap: 0; }
+  .office-mini-top, .office-mini-stack, .office-mini-right { gap: 3px; }
+  .office-mini-lower { column-gap: 3px; }
+  .office-mini-stack, .office-mini-corridor { margin-top: 4px; }
+  .office-mini-right { margin-top: 12px; }
+  .office-mini-horizontal-corridor { height: 12px; }
+  .office-mini-horizontal-corridor strong { font-size: .32rem; }
   .office-mini-seat { padding: 4px; border-radius: 4px; }
   .office-mini-seat.is-you { border-width: 2px; }
-  .office-mini-seat > span { padding: 1px 3px; font-size: .34rem; }
   .office-mini-seat small { font-size: .34rem; }
   .office-mini-seat strong { font-size: .52rem; }
   .office-mini-seat b { padding: 1px 3px; font-size: .36rem; }
@@ -742,13 +755,17 @@ button { color: inherit; }
   .office-map-card-stage .office-desk-card > header small { font-size: .62rem; }
   .office-map-card-stage .office-desk-card > header strong { font-size: 1.15rem; }
   .office-map-card-stage .office-desk-card > header > span { font-size: 1.3rem; }
-  .office-map-card-stage .office-mini-map { grid-template-rows: .82fr 1.18fr; gap: 8px; }
+  .office-map-card-stage .office-mini-map { grid-template-rows: .72fr 1.28fr; gap: 0; }
   .office-map-card-stage .office-mini-top { grid-template-columns: .65fr 1.1fr .9fr 1.1fr 1.1fr; }
   .office-map-card-stage .office-mini-lower { grid-template-columns: 1.12fr .78fr 2.25fr; }
-  .office-map-card-stage .office-mini-top, .office-map-card-stage .office-mini-lower, .office-map-card-stage .office-mini-stack, .office-map-card-stage .office-mini-right { gap: 7px; }
+  .office-map-card-stage .office-mini-top, .office-map-card-stage .office-mini-stack, .office-map-card-stage .office-mini-right { gap: 7px; }
+  .office-map-card-stage .office-mini-lower { column-gap: 7px; }
+  .office-map-card-stage .office-mini-stack, .office-map-card-stage .office-mini-corridor { margin-top: 8px; }
+  .office-map-card-stage .office-mini-right { margin-top: 24px; }
+  .office-map-card-stage .office-mini-horizontal-corridor { height: 24px; }
+  .office-map-card-stage .office-mini-horizontal-corridor strong { font-size: .62rem; }
   .office-map-card-stage .office-mini-seat { padding: 11px; justify-content: flex-start; border-radius: 6px; }
   .office-map-card-stage .office-mini-seat.is-you { border-width: 3px; }
-  .office-map-card-stage .office-mini-seat > span { padding: 2px 5px; font-size: .62rem; }
   .office-map-card-stage .office-mini-seat small { padding: 3px 6px; font-size: .7rem; }
   .office-map-card-stage .office-mini-seat strong { margin-top: 7px; font-size: 1rem; }
   .office-map-card-stage .office-mini-seat b { margin-top: 5px; padding: 4px 6px; font-size: 1rem; }
@@ -766,8 +783,10 @@ button { color: inherit; }
   .office-person-card { padding: 24px 20px; }
 }
 
+@page { size: A4; margin: 15mm; }
+@page office-map-card { size: A5 landscape; margin: 7mm; }
+
 @media print {
-  @page { size: A4; margin: 15mm; }
   body { background: white; }
   .topbar, .bookmark-tabs, .section-nav, .primary-button { display: none !important; }
   .site-shell, .book-stage { width: 100%; margin: 0; padding: 0; }
@@ -790,18 +809,22 @@ button { color: inherit; }
   body.printing-office-map-card .office-map-card-modal * { visibility: visible !important; }
   body.printing-office-map-card .office-map-card-modal { position: absolute; inset: 0; padding: 0; display: grid; place-items: start center; background: #fff; }
   body.printing-office-map-card .office-map-card-stage { width: 100%; max-height: none; overflow: visible; display: block; }
-  body.printing-office-map-card .office-desk-card { width: 148mm !important; height: 105mm !important; margin: 0 auto; padding: 3.5mm; gap: 2mm; box-shadow: none; }
-  body.printing-office-map-card .office-mini-map { grid-template-rows: .82fr 1.18fr; gap: 2mm; }
-  body.printing-office-map-card .office-mini-top { grid-template-columns: .65fr 1.1fr .9fr 1.1fr 1.1fr; gap: 1.7mm; }
-  body.printing-office-map-card .office-mini-lower { grid-template-columns: 1.12fr .78fr 2.25fr; gap: 2mm; }
+  body.printing-office-map-card .office-desk-card { page: office-map-card; width: 196mm !important; height: 134mm !important; margin: 0 auto; padding: 4mm; gap: 2mm; border-radius: 3mm; box-shadow: none; }
+  body.printing-office-map-card .office-mini-map { grid-template-rows: .72fr 1.28fr; gap: 0; }
+  body.printing-office-map-card .office-mini-top { grid-template-columns: .65fr 1.1fr .9fr 1.1fr 1.1fr; gap: 2mm; }
+  body.printing-office-map-card .office-mini-lower { grid-template-columns: 1.12fr .78fr 2.25fr; column-gap: 2mm; }
   body.printing-office-map-card .office-mini-stack,
-  body.printing-office-map-card .office-mini-right { gap: 1.7mm; }
-  body.printing-office-map-card .office-mini-seat { padding: 2.7mm; justify-content: flex-start; }
-  body.printing-office-map-card .office-mini-seat > span { font-size: 8pt; }
-  body.printing-office-map-card .office-mini-seat small { padding: 1mm 1.6mm; font-size: 8.5pt; }
-  body.printing-office-map-card .office-mini-seat strong { margin-top: 1.7mm; font-size: 11pt; line-height: 1.18; }
-  body.printing-office-map-card .office-mini-seat b { margin-top: 1.3mm; padding: 1mm 1.5mm; font-size: 11pt; line-height: 1.15; }
-  body.printing-office-map-card .office-mini-seat p { margin-top: 1.7mm; font-size: 9pt; line-height: 1.38; }
+  body.printing-office-map-card .office-mini-right { gap: 2mm; }
+  body.printing-office-map-card .office-mini-stack,
+  body.printing-office-map-card .office-mini-corridor { margin-top: 3mm; }
+  body.printing-office-map-card .office-mini-right { margin-top: 8mm; }
+  body.printing-office-map-card .office-mini-horizontal-corridor { height: 8mm; }
+  body.printing-office-map-card .office-mini-horizontal-corridor strong { font-size: 8.5pt; }
+  body.printing-office-map-card .office-mini-seat { padding: 3mm; justify-content: flex-start; }
+  body.printing-office-map-card .office-mini-seat small { padding: 1mm 1.7mm; font-size: 9pt; }
+  body.printing-office-map-card .office-mini-seat strong { margin-top: 1.7mm; font-size: 12pt; line-height: 1.18; }
+  body.printing-office-map-card .office-mini-seat b { margin-top: 1.3mm; padding: 1mm 1.6mm; font-size: 12pt; line-height: 1.15; }
+  body.printing-office-map-card .office-mini-seat p { margin-top: 1.7mm; font-size: 9.5pt; line-height: 1.38; }
   body.printing-office-map-card .phone-note-actions,
   body.printing-office-map-card .dialog-close { display: none !important; }
 }
