@@ -909,11 +909,11 @@ export default function Home() {
                             </div>
                             <div className="phone-memo-visual">
                               <aside className="phone-greeting"><span aria-hidden="true">👋</span><p><small>接起電話時先說</small><strong>「研發處您好。」</strong></p></aside>
-                              <aside className="phone-greeting phone-after-call"><span aria-hidden="true">📝</span><p><small>代接電話後</small><strong>請將來電資訊手寫在實體便利貼上，再貼至對方桌面。</strong></p></aside>
                               <button className="phone-memo-preview" onClick={() => setPhoneMemoOpen(true)} aria-label="放大查看電話代接留言格式並列印">
                                 <PhoneMemo compact />
                                 <span className="memo-click-label">點擊放大・可單張列印</span>
                               </button>
+                              <aside className="phone-greeting phone-after-call"><span aria-hidden="true">📝</span><p><small>代接電話後</small><strong>請將來電資訊手寫在實體便利貼上，再貼至對方桌面。</strong></p></aside>
                             </div>
                           </div>
                         </section>
@@ -990,7 +990,7 @@ export default function Home() {
           <div className="phone-note-modal-stage" onClick={(event) => event.stopPropagation()}>
             <PhoneMemo printable />
             <div className="phone-note-actions">
-              <p>確認內容後，可列印一張電話留言小卡。</p>
+              <p>列印尺寸：6.5 × 6.5 公分。</p>
               <button onClick={() => printDeskCard("printing-phone-note")}>🖨️ 列印一張便利貼</button>
             </div>
           </div>
@@ -1003,7 +1003,7 @@ export default function Home() {
           <div className="office-map-card-stage" onClick={(event) => event.stopPropagation()}>
             <OfficeDeskCard />
             <div className="phone-note-actions">
-              <p>列印尺寸：A5 橫式（21 × 14.8 公分）。</p>
+              <p>列印尺寸：6.5 × 4.6 公分（橫式）。</p>
               <button onClick={() => printDeskCard("printing-office-map-card")}>🖨️ 列印座位分機小抄</button>
             </div>
           </div>
