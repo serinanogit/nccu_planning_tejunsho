@@ -41,6 +41,7 @@ const workSections = [
   { id: "work-overview", emoji: "🧭", title: "工作內容總覽" },
   { id: "work-phone", emoji: "☎️", title: "電話代接" },
   { id: "work-event-support", emoji: "🎪", title: "學術會議與活動協助" },
+  { id: "work-procurement", emoji: "🧾", title: "採購與核銷操作手冊" },
   { id: "work-registration", emoji: "📝", title: "政大活動報名系統操作" },
   { id: "work-admin", emoji: "🗂️", title: "行政庶務與辦公設備" },
 ];
@@ -60,6 +61,13 @@ const toolLogos = {
   word: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Microsoft_Office_Word_(2025%E2%80%93present).svg",
   excel: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Microsoft_Office_Excel_(2025%E2%80%93present).svg",
 };
+
+const meetingVendorNote = `您好，此為國立政治大學研發處企畫組的會議便當訂單，請務必提供以下其中一種憑證：
+
+1. 發票：須載明商品明細，買方統一編號請填「國立政治大學」的統一編號：03807654。
+2. 商品收據：須載明商品明細，買受人請填「國立政治大學」，並須加蓋包含賣方店名、統一編號及地址等資訊的店章。
+
+謝謝。`;
 
 const officePeople: OfficePerson[] = [
   {
@@ -309,6 +317,7 @@ export default function Home() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [copiedInccu, setCopiedInccu] = useState(false);
+  const [copiedVendorNote, setCopiedVendorNote] = useState(false);
   const [phoneMemoOpen, setPhoneMemoOpen] = useState(false);
   const [officeMapCardOpen, setOfficeMapCardOpen] = useState(false);
   const [officePersonId, setOfficePersonId] = useState<string | null>(null);
@@ -395,6 +404,16 @@ export default function Home() {
       window.setTimeout(() => setCopiedInccu(false), 2200);
     } catch {
       window.prompt("請複製 iNCCU 網址", url);
+    }
+  }
+
+  async function copyMeetingVendorNote() {
+    try {
+      await window.navigator.clipboard.writeText(meetingVendorNote);
+      setCopiedVendorNote(true);
+      window.setTimeout(() => setCopiedVendorNote(false), 2200);
+    } catch {
+      window.prompt("請複製訂餐備註", meetingVendorNote);
     }
   }
 
@@ -937,8 +956,8 @@ export default function Home() {
                               <header><span>01</span><h4>活動管考平台維護</h4></header>
                               <div className="work-tool-row" aria-label="使用工具">
                                 <small>使用工具</small>
-                                <ToolBadge name="Google Sites" logo={toolLogos.googleSites} />
                                 <ToolBadge name="AI 工具" fallback="✦" />
+                                <ToolBadge name="Google Sites" logo={toolLogos.googleSites} />
                               </div>
                               <p>依各次活動需求，運用 AI 協助產生或調整程式碼，再將程式碼嵌入 Google Sites；也會進行文字與圖片更新、頁面調整，並運用基礎程式邏輯排除顯示問題。</p>
                               <div className="official-learning-links">
@@ -982,9 +1001,9 @@ export default function Home() {
                     ) : section.id === "work-phone" ? (
                       <div className="work-tools-content">
                         <section className="phone-guide" aria-labelledby="phone-guide-title">
-                          <div className="work-subheading">
-                            <span aria-hidden="true">☎️</span>
-                            <div><small>辦公室基本操作</small><h3 id="phone-guide-title">電話使用方式</h3></div>
+                          <div className="registration-subsection-title phone-subsection-title">
+                            <span>01</span>
+                            <h3 id="phone-guide-title">電話使用方式</h3>
                           </div>
                           <div className="phone-operation-grid">
                             <article><span>01</span><div><h4>轉接電話</h4><p>按下電話機上的 <kbd className="phone-key phone-key-wide">轉接</kbd> 按鍵，再輸入對方的分機號碼，最後掛回話筒，即完成轉接。</p></div></article>
@@ -1010,9 +1029,9 @@ export default function Home() {
                         </section>
 
                         <section className="office-guide" aria-labelledby="office-guide-title">
-                          <div className="work-subheading">
-                            <span aria-hidden="true">🗺️</span>
-                            <div><small>接電話時快速找人</small><h3 id="office-guide-title">辦公室座位、分機與業務速查</h3></div>
+                          <div className="registration-subsection-title phone-subsection-title">
+                            <span>02</span>
+                            <h3 id="office-guide-title">辦公室座位、分機與業務速查</h3>
                           </div>
                           <p className="office-guide-intro">每張座位卡均標示職稱、分機及重點業務；點擊可查看完整業務內容。</p>
                           <div className="office-legend" aria-label="座位圖顏色說明">
@@ -1059,6 +1078,79 @@ export default function Home() {
                           <button className="office-map-print-button" onClick={() => setOfficeMapCardOpen(true)}>🖨️ 查看並列印座位與分機小抄</button>
                           <p className="office-source-note">分機與業務依政大研發處及高教深耕計畫辦公室官方人員資料整理。</p>
                         </section>
+                      </div>
+                    ) : section.id === "work-event-support" ? (
+                      <div className="work-tools-content registration-work-content">
+                        <nav className="registration-shortcut-nav" aria-label="學術會議與活動協助子目錄">
+                          <a href="#meeting-lunch"><span>01</span>訂購會議便當</a>
+                          <a href="#meeting-preparation"><span>02</span>會議預備事項</a>
+                        </nav>
+
+                        <section id="meeting-lunch" className="registration-subsection meeting-section">
+                          <div className="registration-subsection-title"><span>01</span><h3>訂購會議便當</h3></div>
+                          <div className="meeting-reminder-grid">
+                            <article><span aria-hidden="true">💰</span><div><strong>確認每人預算</strong><p>每人每餐最高可報銷新臺幣 120 元。訂購前請先確認人數、葷素需求、送達時間及付款方式。</p></div></article>
+                            <article><span aria-hidden="true">🧾</span><div><strong>索取合規憑證</strong><p>必須取得載明商品明細的發票，或符合規定並蓋有店章的商品收據。</p></div></article>
+                          </div>
+
+                          <article className="vendor-note-card">
+                            <header><div><small>可直接提供給店家</small><h4>訂餐備註</h4></div><button onClick={copyMeetingVendorNote}>{copiedVendorNote ? "已複製 ✓" : "複製訂餐備註"}</button></header>
+                            <p>您好，此為國立政治大學研發處企畫組的會議便當訂單，請務必提供以下其中一種憑證：</p>
+                            <ol>
+                              <li><strong>發票：</strong>須載明商品明細，買方統一編號請填「國立政治大學」的統一編號：<b>03807654</b>。</li>
+                              <li><strong>商品收據：</strong>須載明商品明細，買受人請填「國立政治大學」，並須加蓋包含賣方店名、統一編號及地址等資訊的店章。</li>
+                            </ol>
+                            <p>謝謝。</p>
+                          </article>
+
+                          <div className="restaurant-heading">
+                            <div><small>2026 年 9 月查詢</small><h4>會議便當店家參考</h4></div>
+                            <p>若距離查詢時間較久，請重新確認最新菜單、價格、營業時間及外送方式。</p>
+                          </div>
+                          <div className="restaurant-grid">
+                            <article><span>01</span><h4>甘擔廚房</h4><p>可由官網查看餐點並預訂。</p><a href="https://www.gandankit.com/" target="_blank" rel="noreferrer">前往官網 <span aria-hidden="true">↗</span></a></article>
+                            <article><span>02</span><h4>楽坡 BonBox－台北政大店</h4><p>加入官方 LINE 預訂外送；若訊息長時間未回覆，可致電門市確認。</p><div className="restaurant-actions"><a href="https://line.me/R/ti/p/@308ojufp" target="_blank" rel="noreferrer">官方 LINE</a><a href="tel:0907072831">0907-072-831</a></div></article>
+                            <article><span>03</span><h4>蘭亭便當</h4><p>以電話預訂，地址為臺北市文山區新光路一段 48 號。</p><div className="restaurant-actions"><a href="tel:0286614372">02-8661-4372</a><a href="tel:0286614373">02-8661-4373</a></div></article>
+                            <article><span>04</span><h4>素還真・素食便當</h4><p>電話預訂時，可直接向店家說明需要每份 120 元的會議便當。</p><a href="tel:0955651277">0955-651-277</a></article>
+                          </div>
+
+                          <figure className="lanting-menu-card">
+                            <button onClick={() => openLightbox("assets/meetings/lanting-menu.jpg")} aria-label="放大查看蘭亭便當菜單">
+                              <img src="assets/meetings/lanting-menu.jpg" alt="蘭亭便當菜單，包含便當品項、價格及訂購電話" />
+                              <span>點圖放大</span>
+                            </button>
+                            <figcaption><strong>蘭亭便當菜單參考</strong><span>菜單價格可能調整，訂購前請再次確認，並留意每人每餐最高報銷金額。</span></figcaption>
+                          </figure>
+                        </section>
+
+                        <section id="meeting-preparation" className="registration-subsection meeting-section">
+                          <div className="registration-subsection-title"><span>02</span><h3>會議預備事項</h3></div>
+                          <article className="meeting-download-card">
+                            <span aria-hidden="true">📄</span>
+                            <div><strong>會議前先列印並分配工作</strong><p>會議前請下載並列印「會議預備事項」，再與相關同仁逐項確認並分配工作。</p></div>
+                            <a href="assets/meetings/meeting-preparation.docx" download="會議預備事項-114.08.28.docx">下載「會議預備事項」</a>
+                          </article>
+                        </section>
+                      </div>
+                    ) : section.id === "work-procurement" ? (
+                      <div className="work-tools-content procurement-content">
+                        <aside className="procurement-caution">
+                          <span aria-hidden="true">⚠️</span>
+                          <p><strong>辦理前請確認最新規定</strong>以下為學校公開的系統操作手冊，主要用於查詢操作步驟。採購金額門檻、核銷規定及系統畫面可能調整，實際辦理時請以學校最新公告及承辦單位說明為準。</p>
+                        </aside>
+                        <div className="procurement-guide-grid">
+                          <article>
+                            <div className="procurement-guide-title"><span>01</span><div><small>PDF・11 頁</small><h3>財產物品請購</h3></div></div>
+                            <p>說明如何由系統建立財產物品請購單，填寫請購品項、預估金額與經費來源，上傳相關資料並確認請購單。</p>
+                            <div><a href="assets/procurement/property-purchase-guide.pdf" target="_blank" rel="noreferrer">線上閱讀 PDF</a><a href="assets/procurement/property-purchase-guide.pdf" download="財產物品請購單.pdf">下載 PDF</a></div>
+                          </article>
+                          <article>
+                            <div className="procurement-guide-title"><span>02</span><div><small>PDF・18 頁</small><h3>自行採購核銷與零用金</h3></div></div>
+                            <p>說明自行採購案的核銷、廠商與發票資料、驗收資訊，以及零用金入款造冊與列印文件等操作。</p>
+                            <div><a href="assets/procurement/self-purchase-reimbursement-guide.pdf" target="_blank" rel="noreferrer">線上閱讀 PDF</a><a href="assets/procurement/self-purchase-reimbursement-guide.pdf" download="自行採購案核銷與零用金入款造冊.pdf">下載 PDF</a></div>
+                          </article>
+                        </div>
+                        <a className="current-policy-link" href="https://acc.nccu.edu.tw/sites/default/files/%E5%9C%8B%E7%AB%8B%E6%94%BF%E6%B2%BB%E5%A4%A7%E5%AD%B8%E5%9F%B7%E8%A1%8C%E5%90%84%E9%A0%85%E6%94%AF%E5%87%BA%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85%28115%E5%B9%B41%E6%9C%88%29.pdf" target="_blank" rel="noreferrer"><span aria-hidden="true">📌</span><span><small>最新規定參考</small><strong>國立政治大學執行各項支出注意事項</strong></span><b aria-hidden="true">↗</b></a>
                       </div>
                     ) : section.id === "work-registration" ? (
                       <div className="work-tools-content registration-work-content">
@@ -1126,6 +1218,37 @@ export default function Home() {
                         <section id="registration-attendance" className="registration-subsection is-pending">
                           <div><span>04</span><h3>出缺席／學習時數</h3></div>
                           <p>本節內容待整理。</p>
+                        </section>
+                      </div>
+                    ) : section.id === "work-admin" ? (
+                      <div className="work-tools-content registration-work-content admin-work-content">
+                        <nav className="registration-shortcut-nav" aria-label="行政庶務與辦公設備子目錄">
+                          <a href="#admin-scan"><span>01</span>影印機掃描與檔案位置</a>
+                          <a href="#admin-folders"><span>02</span>工作資料夾與檔案整理方式</a>
+                        </nav>
+
+                        <section id="admin-scan" className="registration-subsection admin-section">
+                          <div className="registration-subsection-title"><span>01</span><h3>影印機掃描與檔案位置</h3></div>
+                          <article className="scan-folder-card"><span aria-hidden="true">📁</span><p>影印機掃描完成後，請至辦公室電腦桌面的<strong>「scan - 捷徑」</strong>查看掃描檔案。</p></article>
+                        </section>
+
+                        <section id="admin-folders" className="registration-subsection admin-section">
+                          <div className="registration-subsection-title"><span>02</span><h3>工作資料夾與檔案整理方式</h3></div>
+                          <p className="folder-intro">這個職務主要處理交辦工作，因此桌面上的資料夾會隨當時承辦的計畫與活動而變動。前任助理留下的資料不一定會直接使用，但仍可能具有參考價值；若不清楚檔案用途或版本，請先向相關承辦同仁確認，不要任意刪除或覆蓋。</p>
+                          <div className="folder-flow" aria-label="資料夾整理原則">
+                            <article><span>進行中</span><strong>桌面獨立資料夾</strong><p>為每一項正在辦理的計畫或活動建立資料夾。</p></article>
+                            <article><span>已結束・近期可能使用</span><strong>📁 常用文件</strong><p>保留近期可能查詢或再次使用的資料。</p></article>
+                            <article><span>已結束・短期不再使用</span><strong>📁 少用檔案</strong><p>收納短期內不太會再使用，但仍需保留的資料。</p></article>
+                          </div>
+                          <h4 className="folder-list-heading">目前可能會使用的資料夾</h4>
+                          <div className="folder-card-grid">
+                            <article><span>📁</span><div><strong>114 校務經營計畫</strong><p>114 學年度教育部補助大專校院精進校務經營計畫相關資料。年度更新時請另外建立新年度資料夾，不要覆蓋舊資料。</p></div></article>
+                            <article><span>📁</span><div><strong>人才永續計畫</strong><p>教育部補助大學校院高等教育人才永續發展促進計畫相關資料。</p></div></article>
+                            <article><span>📁</span><div><strong>AI 講座</strong><p>AI 智能文具 Cool－政大行政數位轉型與「智能共享生態系」植基計畫相關資料。</p></div></article>
+                            <article><span>📁</span><div><strong>QS &amp; THE_互動網站</strong><p>政治大學 QS／THE 世界大學排名互動儀表板相關資料。</p></div></article>
+                            <article><span>📁</span><div><strong>UAAT常用</strong><p>國家重點領域國際合作聯盟人才培育國際合作深化計畫相關資料；其中「115年度UAAT」為 115 年度計畫資料。</p></div></article>
+                            <article><span>📁</span><div><strong>常用文件／少用檔案</strong><p>前任助理留下的彙整資料夾。若用途或版本不明，請先詢問再使用或移動。</p></div></article>
+                          </div>
                         </section>
                       </div>
                     ) : (
