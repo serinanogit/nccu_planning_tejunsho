@@ -38,12 +38,28 @@ const chapters: Array<{ id: Chapter; number: string; label: string; color: strin
 ];
 
 const workSections = [
-  { id: "work-role", emoji: "🧭", title: "企畫組的工作是什麼？" },
-  { id: "work-registration", emoji: "📝", title: "活動報名系統" },
-  { id: "work-event-sop", emoji: "🎪", title: "辦理活動 SOP" },
-  { id: "work-tools", emoji: "🧰", title: "平常使用的工具" },
-  { id: "work-tips", emoji: "💡", title: "工作補帖與常見提醒" },
+  { id: "work-overview", emoji: "🧭", title: "工作內容總覽" },
+  { id: "work-phone", emoji: "☎️", title: "電話代接" },
+  { id: "work-event-support", emoji: "🎪", title: "學術會議與活動協助" },
+  { id: "work-registration", emoji: "📝", title: "政大活動報名系統操作" },
+  { id: "work-admin", emoji: "🗂️", title: "行政庶務與辦公設備" },
 ];
+
+const workOverviewItems = [
+  { title: "電話代接", href: "#work-phone", status: "查看詳細說明" },
+  { title: "活動管考平台維護", status: "依任務調整" },
+  { title: "學術計畫書彙整", status: "依任務調整" },
+  { title: "計畫經費年度統計", status: "依任務調整" },
+  { title: "學術會議與活動協助", href: "#work-event-support", status: "查看詳細說明" },
+  { title: "政大活動報名系統操作", href: "#work-registration", status: "查看詳細說明" },
+  { title: "行政庶務工作", href: "#work-admin", status: "查看詳細說明" },
+];
+
+const toolLogos = {
+  googleSites: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Google_Sites_Logo_05.2026.svg",
+  word: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Microsoft_Office_Word_(2025%E2%80%93present).svg",
+  excel: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Microsoft_Office_Excel_(2025%E2%80%93present).svg",
+};
 
 const officePeople: OfficePerson[] = [
   {
@@ -164,6 +180,15 @@ function CheckItem({ id, checked, onChange, children }: {
       <span className="custom-check" aria-hidden="true">{checked ? "✓" : ""}</span>
       <span>{children}</span>
     </label>
+  );
+}
+
+function ToolBadge({ name, logo, fallback }: { name: string; logo?: string; fallback?: string }) {
+  return (
+    <span className="work-tool-badge">
+      {logo ? <img src={logo} alt="" loading="lazy" referrerPolicy="no-referrer" /> : <span className="work-tool-fallback" aria-hidden="true">{fallback ?? "✦"}</span>}
+      <strong>{name}</strong>
+    </span>
   );
 }
 
@@ -873,7 +898,7 @@ export default function Home() {
                 <div>
                   <p className="eyebrow">PART 03</p>
                   <h1>工作百寶袋</h1>
-                  <p>把企畫組常用的系統、工具、活動流程與工作提醒收在一起，需要時就從這裡開始找。</p>
+                  <p>先從工作內容總覽認識常見任務，再依實際交辦事項找到對應的操作說明。</p>
                 </div>
               </div>
 
@@ -887,7 +912,74 @@ export default function Home() {
                 {workSections.map((section, index) => (
                   <section key={section.id} id={section.id} className="content-section work-detail-section">
                     <div className="section-title"><span className="work-section-icon" aria-hidden="true">{section.emoji}</span><div><p>百寶袋 {String(index + 1).padStart(2, "0")}</p><h2>{section.title}</h2></div></div>
-                    {section.id === "work-tools" ? (
+                    {section.id === "work-overview" ? (
+                      <div className="work-overview-content">
+                        <p className="work-overview-lead">這份工作沒有固定的例行業務，主要依企畫組當時的工作需求處理各項交辦事項。常見的工作內容大致可分為以下七類：</p>
+                        <div className="work-overview-grid">
+                          {workOverviewItems.map((item, itemIndex) => (
+                            <article key={item.title} className={`work-overview-card ${item.href ? "has-detail" : "is-variable"}`}>
+                              <span>{String(itemIndex + 1).padStart(2, "0")}</span>
+                              <h3>{item.title}</h3>
+                              {item.href ? <a href={item.href}>{item.status}<span aria-hidden="true">↓</span></a> : <small>{item.status}</small>}
+                            </article>
+                          ))}
+                        </div>
+
+                        <section className="variable-work-section" aria-labelledby="variable-work-title">
+                          <div className="variable-work-heading">
+                            <p>依任務內容調整</p>
+                            <h3 id="variable-work-title">沒有固定流程的交辦工作</h3>
+                            <span>以下工作會依不同活動、計畫或年度需求調整。接到任務時，請先向交辦人確認資料來源、參考範本、處理範圍、完成格式及繳交期限。</span>
+                          </div>
+
+                          <div className="variable-work-grid">
+                            <article className="variable-work-card sites-card">
+                              <header><span>01</span><h4>活動管考平台維護</h4></header>
+                              <div className="work-tool-row" aria-label="使用工具">
+                                <small>使用工具</small>
+                                <ToolBadge name="Google Sites" logo={toolLogos.googleSites} />
+                                <ToolBadge name="AI 工具" fallback="✦" />
+                              </div>
+                              <p>依各次活動需求，運用 AI 協助產生或調整程式碼，再將程式碼嵌入 Google Sites；也會進行文字與圖片更新、頁面調整，並運用基礎程式邏輯排除顯示問題。</p>
+                              <div className="official-learning-links">
+                                <small>官方教學</small>
+                                <a href="https://support.google.com/sites/answer/6372878?hl=zh-Hant" target="_blank" rel="noreferrer">如何使用 Google 協作平台 <span aria-hidden="true">↗</span></a>
+                              </div>
+                            </article>
+
+                            <article className="variable-work-card word-card">
+                              <header><span>02</span><h4>學術計畫書彙整</h4></header>
+                              <div className="work-tool-row" aria-label="使用工具">
+                                <small>使用工具</small>
+                                <ToolBadge name="AI 工具" fallback="✦" />
+                                <ToolBadge name="Microsoft Word" logo={toolLogos.word} />
+                              </div>
+                              <p>運用 AI 將各項原始資料整合成完整內容，再於 Microsoft Word 中手動調整文件的樣式與格式。</p>
+                              <aside className="variable-work-note"><strong>操作重點</strong>章節標題必須套用正確的「標題樣式」。完成設定後，才能正常建立自動目錄，並在文件導覽窗格中顯示各層級標題。</aside>
+                              <div className="official-learning-links">
+                                <small>官方教學</small>
+                                <a href="https://support.microsoft.com/zh-tw/word/training/insert-a-table-of-contents" target="_blank" rel="noreferrer">標題樣式與插入自動目錄 <span aria-hidden="true">↗</span></a>
+                                <a href="https://support.microsoft.com/zh-tw/word/use-the-navigation-pane-in-word" target="_blank" rel="noreferrer">使用 Word 中的功能窗格 <span aria-hidden="true">↗</span></a>
+                              </div>
+                            </article>
+
+                            <article className="variable-work-card excel-card">
+                              <header><span>03</span><h4>計畫經費年度統計</h4></header>
+                              <div className="work-tool-row" aria-label="使用工具">
+                                <small>使用工具</small>
+                                <ToolBadge name="Microsoft Excel" logo={toolLogos.excel} />
+                              </div>
+                              <p>依當年度需求整理及統計計畫經費資料。過程中常使用樞紐分析表（PivotTable）進行資料分類與彙總，並使用 VLOOKUP 函數比對及帶入不同表格中的資料。</p>
+                              <div className="official-learning-links">
+                                <small>官方教學</small>
+                                <a href="https://support.microsoft.com/zh-tw/excel/get-started/create-a-pivottable-to-analyze-worksheet-data" target="_blank" rel="noreferrer">建立樞紐分析表 <span aria-hidden="true">↗</span></a>
+                                <a href="https://support.microsoft.com/zh-tw/excel/functions/vlookup-function" target="_blank" rel="noreferrer">VLOOKUP 函數 <span aria-hidden="true">↗</span></a>
+                              </div>
+                            </article>
+                          </div>
+                        </section>
+                      </div>
+                    ) : section.id === "work-phone" ? (
                       <div className="work-tools-content">
                         <section className="phone-guide" aria-labelledby="phone-guide-title">
                           <div className="work-subheading">
@@ -969,47 +1061,72 @@ export default function Home() {
                         </section>
                       </div>
                     ) : section.id === "work-registration" ? (
-                      <div className="work-tools-content">
-                        <div className="system-guide">
-                          <div className="system-guide-copy">
-                            <p className="system-guide-kicker">校務系統操作</p>
-                            <h3>用「活動報到(網路版)」幫學員報到</h3>
-                            <ol>
-                              <li>
-                                <b>開啟活動報到(網路版)</b>
-                                <span>登入新平台校務系統後，於左側選單「活動與繳費作業」下點選「活動報到(網路版)」。</span>
-                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-1.jpg")} aria-label="放大查看活動報到網路版位置">
-                                  <img src="assets/registration/step-1.jpg" alt="校務系統左側選單，以紅框標示「活動報到(網路版)」" />
-                                  <span>操作畫面 1｜點圖放大</span>
+                      <div className="work-tools-content registration-work-content">
+                        <nav className="registration-shortcut-nav" aria-label="政大活動報名系統操作子目錄">
+                          <a href="#registration-maintenance"><span>01</span>活動報名資料維護</a>
+                          <a href="#registration-roster"><span>02</span>報名名單管理</a>
+                          <a href="#registration-online"><span>03</span>活動報到（網路版）</a>
+                          <a href="#registration-attendance"><span>04</span>出缺席／學習時數</a>
+                        </nav>
+
+                        <section id="registration-maintenance" className="registration-subsection is-pending">
+                          <div><span>01</span><h3>活動報名資料維護</h3></div>
+                          <p>本節內容待整理。</p>
+                        </section>
+
+                        <section id="registration-roster" className="registration-subsection is-pending">
+                          <div><span>02</span><h3>報名名單管理</h3></div>
+                          <p>本節內容待整理。</p>
+                        </section>
+
+                        <section id="registration-online" className="registration-subsection">
+                          <div className="registration-subsection-title"><span>03</span><h3>活動報到（網路版）</h3></div>
+                          <div className="system-guide">
+                            <div className="system-guide-copy">
+                              <p className="system-guide-kicker">校務系統操作</p>
+                              <h3>用「活動報到(網路版)」幫學員報到</h3>
+                              <ol>
+                                <li>
+                                  <b>開啟活動報到(網路版)</b>
+                                  <span>登入新平台校務系統後，於左側選單「活動與繳費作業」下點選「活動報到(網路版)」。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-1.jpg")} aria-label="放大查看活動報到網路版位置">
+                                    <img src="assets/registration/step-1.jpg" alt="校務系統左側選單，以紅框標示「活動報到(網路版)」" />
+                                    <span>操作畫面 1｜點圖放大</span>
+                                  </button>
+                                </li>
+                                <li>
+                                  <b>搜尋活動並勾選報到選項</b>
+                                  <span>用活動代碼或活動日期搜尋到當天的活動並點選該筆資料，勾選「接受登記/候補或未報名者報到」與「對於登記/候補或未報名者跳出詢問視窗」兩個選項，再點選「進入報到模式」。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-2.jpg")} aria-label="放大查看勾選報到選項畫面">
+                                    <img src="assets/registration/step-2.jpg" alt="活動報到(網路版)搜尋結果，以紅框標示活動列與兩個報到選項" />
+                                    <span>操作畫面 2｜點圖放大</span>
+                                  </button>
+                                </li>
+                                <li>
+                                  <b>讓學員嗶卡或手動輸入編號</b>
+                                  <span>進入報到模式後，請學員使用學生／職員證（需使用 MIFARE 讀卡機）嗶卡，也可以手動輸入學號或員工編號完成報到。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-3.jpg")} aria-label="放大查看報到模式畫面">
+                                    <img src="assets/registration/step-3.jpg" alt="活動報到(網路版)報到模式，以紅框標示讀卡或手動輸入欄位" />
+                                    <span>操作畫面 3｜點圖放大</span>
+                                  </button>
+                                </li>
+                              </ol>
+                              <aside className="registration-note">
+                                <strong>補充說明｜未正式報名者</strong>
+                                <p>若嗶卡或輸入的人員不是這場活動的正式報名者，系統會跳出提醒視窗，詢問是否要補報名並完成報到。</p>
+                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-4.jpg")} aria-label="放大查看未正式報名者提醒視窗">
+                                  <img src="assets/registration/step-4.jpg" alt="未正式報名者跳出的提醒視窗，詢問是否要報名並完成報到" />
+                                  <span>補充說明｜點圖放大</span>
                                 </button>
-                              </li>
-                              <li>
-                                <b>搜尋活動並勾選報到選項</b>
-                                <span>用活動代碼或活動日期搜尋到當天的活動並點選該筆資料，勾選「接受登記/候補或未報名者報到」與「對於登記/候補或未報名者跳出詢問視窗」兩個選項，再點選「進入報到模式」。</span>
-                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-2.jpg")} aria-label="放大查看勾選報到選項畫面">
-                                  <img src="assets/registration/step-2.jpg" alt="活動報到(網路版)搜尋結果，以紅框標示活動列與兩個報到選項" />
-                                  <span>操作畫面 2｜點圖放大</span>
-                                </button>
-                              </li>
-                              <li>
-                                <b>讓學員嗶卡或手動輸入編號</b>
-                                <span>進入報到模式後，請學員使用手機報到條碼（需使用條碼掃描器）或學生／職員證（需使用 MIFARE 讀卡機）嗶卡，也可以手動輸入學號或員工編號完成報到。</span>
-                                <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-3.jpg")} aria-label="放大查看報到模式畫面">
-                                  <img src="assets/registration/step-3.jpg" alt="活動報到(網路版)報到模式，以紅框標示掃描或手動輸入欄位" />
-                                  <span>操作畫面 3｜點圖放大</span>
-                                </button>
-                              </li>
-                            </ol>
-                            <aside className="registration-note">
-                              <strong>補充說明｜未正式報名者</strong>
-                              <p>若嗶卡或輸入的人員不是這場活動的正式報名者，系統會跳出提醒視窗，詢問是否要補報名並完成報到。</p>
-                              <button className="system-step-image" onClick={() => openLightbox("assets/registration/step-4.jpg")} aria-label="放大查看未正式報名者提醒視窗">
-                                <img src="assets/registration/step-4.jpg" alt="未正式報名者跳出的提醒視窗，詢問是否要報名並完成報到" />
-                                <span>補充說明｜點圖放大</span>
-                              </button>
-                            </aside>
+                              </aside>
+                            </div>
                           </div>
-                        </div>
+                        </section>
+
+                        <section id="registration-attendance" className="registration-subsection is-pending">
+                          <div><span>04</span><h3>出缺席／學習時數</h3></div>
+                          <p>本節內容待整理。</p>
+                        </section>
                       </div>
                     ) : (
                       <div className="work-content-placeholder"><p>本節內容待整理。</p></div>
