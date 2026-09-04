@@ -1227,37 +1227,31 @@ export default function Home() {
                                 <li>
                                   <b>開啟報名名單管理並選取活動</b>
                                   <span>確認上方維護單位後，在左側「活動與繳費作業」點選「報名名單管理」，再選取要處理的活動。</span>
-                                  <div className="system-step-gallery">
-                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-1.jpg", "assets/registration/roster-2.jpg"])} aria-label="放大查看報名名單管理選單">
-                                      <img src="assets/registration/roster-1.jpg" alt="新平台校務系統左側選單，以紅框標示報名名單管理" />
-                                      <span>操作畫面 1｜進入名單管理</span>
-                                    </button>
-                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-1.jpg", "assets/registration/roster-2.jpg"])} aria-label="放大查看報名名單管理畫面">
-                                      <img src="assets/registration/roster-2.jpg" alt="報名名單管理畫面與活動報名資料" />
-                                      <span>操作畫面 2｜選取活動</span>
-                                    </button>
-                                  </div>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/roster-1.jpg")} aria-label="放大查看報名名單管理選單">
+                                    <img src="assets/registration/roster-1.jpg" alt="新平台校務系統左側選單，以紅框標示報名名單管理" />
+                                    <span>操作畫面 1｜進入名單管理</span>
+                                  </button>
                                 </li>
                                 <li>
                                   <b>搜尋並修改或刪除單筆資料</b>
                                   <span>以代號或姓名關鍵字快速搜尋，選取要處理的人員後按「修改／刪除」。修改時可調整報名狀態、聯絡電話與電子郵件，完成後按「儲存」；若要移除資料，使用視窗右上方「刪除」。</span>
                                   <div className="system-step-gallery">
-                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-5.jpg", "assets/registration/roster-3.jpg"])} aria-label="放大查看搜尋與選取報名者">
-                                      <img src="assets/registration/roster-5.jpg" alt="報名名單管理畫面，以紅框標示搜尋欄位與選取的報名者" />
-                                      <span>操作畫面 3｜搜尋並選取</span>
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-2.jpg", "assets/registration/roster-3.jpg"])} aria-label="放大查看搜尋與選取報名者">
+                                      <img src="assets/registration/roster-2.jpg" alt="報名名單管理畫面，以紅框標示搜尋欄位、修改刪除按鈕與選取的報名者" />
+                                      <span>操作畫面 2｜搜尋並選取</span>
                                     </button>
-                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-5.jpg", "assets/registration/roster-3.jpg"])} aria-label="放大查看單筆報名資料維護視窗">
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-2.jpg", "assets/registration/roster-3.jpg"])} aria-label="放大查看單筆報名資料維護視窗">
                                       <img src="assets/registration/roster-3.jpg" alt="單筆報名資料維護視窗，可修改報名狀態、電話與電子郵件" />
-                                      <span>操作畫面 4｜修改或刪除</span>
+                                      <span>操作畫面 3｜修改或刪除</span>
                                     </button>
                                   </div>
                                 </li>
                                 <li>
                                   <b>直接調整報名狀態</b>
                                   <span>若只需變更報名狀態，可直接在名單的「報名狀態」欄位開啟下拉選單調整，不必進入單筆資料視窗。</span>
-                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/roster-4.jpg")} aria-label="放大查看報名狀態下拉選單">
-                                    <img src="assets/registration/roster-4.jpg" alt="報名名單管理畫面，以紅框標示報名狀態下拉選單" />
-                                    <span>操作畫面 5｜點圖放大</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/roster-5.jpg")} aria-label="放大查看報名狀態下拉選單">
+                                    <img src="assets/registration/roster-5.jpg" alt="報名名單管理畫面，以紅框標示報名狀態下拉選單" />
+                                    <span>操作畫面 4｜點圖放大</span>
                                   </button>
                                 </li>
                                 <li>
@@ -1265,7 +1259,7 @@ export default function Home() {
                                   <span>需要彙整報名資料或問卷答案時，點選「匯出名單（含問卷結果）」下載檔案。</span>
                                   <button className="system-step-image" onClick={() => openLightbox("assets/registration/roster-6.jpg")} aria-label="放大查看匯出名單含問卷結果按鈕">
                                     <img src="assets/registration/roster-6.jpg" alt="報名名單管理畫面，以紅框標示匯出名單含問卷結果按鈕" />
-                                    <span>操作畫面 6｜點圖放大</span>
+                                    <span>操作畫面 5｜點圖放大</span>
                                   </button>
                                 </li>
                               </ol>
