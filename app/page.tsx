@@ -944,7 +944,7 @@ export default function Home() {
                     <div className="section-title"><span className="work-section-icon" aria-hidden="true">{section.emoji}</span><div><p>百寶袋 {String(index + 1).padStart(2, "0")}</p><h2>{section.title}</h2></div></div>
                     {section.id === "work-overview" ? (
                       <div className="work-overview-content">
-                        <p className="work-overview-lead">這份工作沒有固定的例行業務，主要依企畫組當時的工作需求處理各項交辦事項。常見的工作內容大致可分為以下七類：</p>
+                        <p className="work-overview-lead">這份工作沒有固定的例行業務，主要依企畫組當時的工作需求處理各項交辦事項。常見的工作內容大致可分為以下 {workOverviewItems.length} 類：</p>
                         <div className="work-overview-grid">
                           {workOverviewItems.map((item, itemIndex) => (
                             <article key={item.title} className={`work-overview-card ${item.href ? "has-detail" : "is-variable"}`}>
