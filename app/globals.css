@@ -13,12 +13,14 @@
   --font-book: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Noto Serif TC", "Songti TC", serif;
   --font-ui: var(--font-body);
   --type-chapter-title: clamp(2.8rem, 6vw, 5.4rem);
-  --type-section-title: 1.75rem;
+  --type-section-title: 2rem;
+  --type-subsection-title: 1.35rem;
+  --type-card-title: 1.12rem;
   --type-subtitle: 1.16rem;
-  --type-body: .9rem;
-  --type-note: .84rem;
-  --type-meta: .76rem;
-  --type-label: .7rem;
+  --type-body: 1rem;
+  --type-note: .9rem;
+  --type-meta: .8rem;
+  --type-label: .75rem;
   color-scheme: light;
 }
 
@@ -668,11 +670,51 @@ button { color: inherit; }
   line-height: 1.25;
 }
 
+.work-detail-section > .section-title > span {
+  width: 60px;
+  height: 60px;
+}
+
+.work-detail-section > .section-title .work-section-icon {
+  font-size: 1.45rem !important;
+}
+
+.registration-subsection-title > span,
+.registration-subsection.is-pending > div > span,
+.procurement-guide-title > span {
+  width: 48px;
+  height: 48px;
+}
+
+.registration-subsection h3,
+.phone-subsection-title h3,
+.variable-work-heading h3 {
+  font-family: var(--font-book);
+  font-size: var(--type-subsection-title);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
 .system-guide-copy h3,
-.system-guide li b,
 .salary-step-copy h3 {
   font-family: var(--font-book);
-  font-size: var(--type-subtitle);
+  font-size: var(--type-subsection-title);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.system-guide li b,
+.checkin-step-grid h3,
+.phone-operation-grid h4,
+.variable-work-card h4,
+.restaurant-grid h4,
+.procurement-guide-title h3,
+.folder-list-heading,
+.meeting-reminder-grid strong,
+.meeting-download-card strong,
+.scan-folder-card strong {
+  font-family: var(--font-book);
+  font-size: var(--type-card-title);
   font-weight: 700;
   line-height: 1.4;
 }
@@ -681,6 +723,19 @@ button { color: inherit; }
 .insurance-summary p,
 .system-route,
 .system-guide li span,
+.work-overview-lead,
+.variable-work-heading > span,
+.variable-work-card > p,
+.phone-operation-grid p,
+.phone-memo-copy p,
+.meeting-reminder-grid p,
+.vendor-note-card > p,
+.vendor-note-card li,
+.meeting-download-card p,
+.procurement-caution p,
+.procurement-guide-grid article > p,
+.scan-folder-card p,
+.folder-intro,
 .document-note,
 .conditional-note,
 .download-placeholder p,
@@ -798,7 +853,7 @@ button { color: inherit; }
   .office-map-desktop { display: none; }
   .office-map-mobile-preview { width: 100%; padding: 8px; display: block; position: relative; border: 1px solid #d8d1c5; border-radius: 10px; background: #faf8f2; cursor: zoom-in; overflow: hidden; }
   .office-map-mobile-preview > span { position: static; margin: 8px 3px 3px; padding: 10px 13px; display: flex; align-items: center; justify-content: center; border-radius: 7px; color: #fff; background: var(--navy); font-size: var(--type-note); font-weight: 900; letter-spacing: .03em; }
-  .office-map-mobile-preview .office-desk-card { width: 100%; }
+  .office-map-mobile-preview .office-desk-card { width: 100%; aspect-ratio: 210 / 148; contain: layout paint; font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif; }
 }
 
 @media (max-width: 560px) {
@@ -905,6 +960,15 @@ button { color: inherit; }
   .phone-note-actions button { width: 100%; }
   .office-legend .swipe-hint { width: 100%; margin-left: 0; justify-content: center; }
   .office-map-mobile-preview { padding: 5px; }
+  .work-detail-section > .section-title > span { width: 54px; height: 54px; }
+  .work-detail-section > .section-title h2 { font-size: 1.75rem; }
+  .work-detail-section > .section-title .work-section-icon { font-size: 1.4rem !important; }
+  .registration-subsection-title > span,
+  .registration-subsection.is-pending > div > span,
+  .procurement-guide-title > span { width: 44px; height: 44px; }
+  .registration-subsection h3,
+  .phone-subsection-title h3,
+  .variable-work-heading h3 { font-size: 1.28rem; }
   .office-desk-card { padding: 8px; gap: 4px; border-radius: 6px; }
   .office-desk-card > header { padding-bottom: 3px; }
   .office-desk-card > header small { font-size: .4rem; }
@@ -932,11 +996,11 @@ button { color: inherit; }
   .office-mini-corridor b { bottom: 3px; padding: 2px; font-size: .27rem; }
   .office-desk-card > footer { gap: 3px; }
   .office-desk-card > footer span { padding: 2px 4px; font-size: .3rem; }
-  .office-map-card-modal { padding: 58px 10px 20px; }
-  .office-map-card-stage { width: 100%; overflow-x: hidden; align-items: start; }
+  .office-map-card-modal { min-height: 100svh; height: 100dvh; padding: 58px 10px 20px; overflow: hidden; }
+  .office-map-card-stage { width: 100%; max-height: calc(100svh - 78px); overflow-x: hidden; align-items: start; }
   .office-map-scroll-hint { position: sticky; z-index: 2; top: 0; padding: 10px 12px; display: grid; gap: 3px; border: 1px solid #d4b54a; border-radius: 8px; color: #523f14; background: #fff2ad; box-shadow: 0 3px 10px rgba(33,43,49,.18); font-size: .76rem; font-weight: 900; }
-  .office-map-card-scroll { max-height: calc(100vh - 210px); padding: 3px 3px 10px; overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; }
-  .office-map-card-stage .office-desk-card { width: 820px; min-width: 820px; min-height: 680px; aspect-ratio: auto; margin: 0; padding: 16px; gap: 9px; border-radius: 10px; overflow: visible; }
+  .office-map-card-scroll { height: min(62svh, 620px); max-height: none; padding: 3px 3px 10px; overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; }
+  .office-map-card-stage .office-desk-card { width: 820px; min-width: 820px; height: 680px; min-height: 680px; aspect-ratio: auto; margin: 0; padding: 16px; gap: 9px; border-radius: 10px; overflow: visible; contain: layout paint; font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif; }
   .office-map-card-stage .office-desk-card > header { padding-bottom: 7px; }
   .office-map-card-stage .office-desk-card > header small { font-size: .62rem; }
   .office-map-card-stage .office-desk-card > header strong { font-size: 1.15rem; }
