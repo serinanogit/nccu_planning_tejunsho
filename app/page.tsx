@@ -315,6 +315,7 @@ export default function Home() {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [lightbox, setLightbox] = useState<string[] | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxZoom, setLightboxZoom] = useState(1);
   const [hydrated, setHydrated] = useState(false);
   const [copiedInccu, setCopiedInccu] = useState(false);
   const [copiedVendorNote, setCopiedVendorNote] = useState(false);
@@ -344,8 +345,16 @@ export default function Home() {
     if (!lightbox) return;
     function handleLightboxKey(event: KeyboardEvent) {
       if (event.key === "Escape") setLightbox(null);
-      if (event.key === "ArrowLeft") setLightboxIndex((index) => (index - 1 + lightbox.length) % lightbox.length);
-      if (event.key === "ArrowRight") setLightboxIndex((index) => (index + 1) % lightbox.length);
+      if (event.key === "ArrowLeft") {
+        setLightboxIndex((index) => (index - 1 + lightbox.length) % lightbox.length);
+        setLightboxZoom(1);
+      }
+      if (event.key === "ArrowRight") {
+        setLightboxIndex((index) => (index + 1) % lightbox.length);
+        setLightboxZoom(1);
+      }
+      if (event.key === "+" || event.key === "=") setLightboxZoom((zoom) => Math.min(3, zoom + .25));
+      if (event.key === "-") setLightboxZoom((zoom) => Math.max(.75, zoom - .25));
     }
     window.addEventListener("keydown", handleLightboxKey);
     return () => window.removeEventListener("keydown", handleLightboxKey);
@@ -394,6 +403,7 @@ export default function Home() {
   function openLightbox(pages: string | string[]) {
     setLightbox(Array.isArray(pages) ? pages : [pages]);
     setLightboxIndex(0);
+    setLightboxZoom(1);
   }
 
   async function copyInccuUrl() {
@@ -1002,7 +1012,7 @@ export default function Home() {
                       <div className="work-tools-content">
                         <section className="phone-guide" aria-labelledby="phone-guide-title">
                           <div className="registration-subsection-title phone-subsection-title">
-                            <span>01</span>
+                            <span>1</span>
                             <h3 id="phone-guide-title">電話使用方式</h3>
                           </div>
                           <div className="phone-operation-grid">
@@ -1030,7 +1040,7 @@ export default function Home() {
 
                         <section className="office-guide" aria-labelledby="office-guide-title">
                           <div className="registration-subsection-title phone-subsection-title">
-                            <span>02</span>
+                            <span>2</span>
                             <h3 id="office-guide-title">辦公室座位、分機與業務速查</h3>
                           </div>
                           <p className="office-guide-intro">每張座位卡均標示職稱、分機及重點業務；點擊可查看完整業務內容。</p>
@@ -1087,10 +1097,10 @@ export default function Home() {
                         </nav>
 
                         <section id="meeting-lunch" className="registration-subsection meeting-section">
-                          <div className="registration-subsection-title"><span>01</span><h3>訂購會議便當</h3></div>
+                          <div className="registration-subsection-title"><span>1</span><h3>訂購會議便當</h3></div>
                           <div className="meeting-reminder-grid">
-                            <article><span aria-hidden="true">💰</span><div><strong>確認每人預算</strong><p>每人每餐最高可報銷新臺幣 120 元。訂購前請先確認人數、葷素需求、送達時間及付款方式。</p></div></article>
-                            <article><span aria-hidden="true">🧾</span><div><strong>索取合規憑證</strong><p>必須取得載明商品明細的發票，或符合規定並蓋有店章的商品收據。</p></div></article>
+                            <article><span aria-hidden="true">💰</span><div><strong>確認每人預算</strong><p>每人每餐便當費報銷上限為新臺幣 <mark className="important-highlight">120 元</mark>。訂購前請先確認人數、葷素需求、送達時間及付款方式。</p></div></article>
+                            <article><span aria-hidden="true">🧾</span><div><strong>索取合規憑證</strong><p>請索取符合規定的發票或商品明細收據；買方統一編號請填「國立政治大學」的統一編號：<mark className="important-highlight">03807654</mark>。</p></div></article>
                           </div>
 
                           <article className="vendor-note-card">
@@ -1104,27 +1114,20 @@ export default function Home() {
                           </article>
 
                           <div className="restaurant-heading">
-                            <div><small>2026 年 9 月查詢</small><h4>會議便當店家參考</h4></div>
+                            <small>2026 年 9 月查詢</small>
+                            <h4>會議便當店家參考</h4>
                             <p>若距離查詢時間較久，請重新確認最新菜單、價格、營業時間及外送方式。</p>
                           </div>
                           <div className="restaurant-grid">
-                            <article><span>01</span><h4>甘擔廚房</h4><p>可由官網查看餐點並預訂。</p><a href="https://www.gandankit.com/" target="_blank" rel="noreferrer">前往官網 <span aria-hidden="true">↗</span></a></article>
-                            <article><span>02</span><h4>楽坡 BonBox－台北政大店</h4><p>加入官方 LINE 預訂外送；若訊息長時間未回覆，可致電門市確認。</p><div className="restaurant-actions"><a href="https://line.me/R/ti/p/@308ojufp" target="_blank" rel="noreferrer">官方 LINE</a><a href="tel:0907072831">0907-072-831</a></div></article>
-                            <article><span>03</span><h4>蘭亭便當</h4><p>以電話預訂，地址為臺北市文山區新光路一段 48 號。</p><div className="restaurant-actions"><a href="tel:0286614372">02-8661-4372</a><a href="tel:0286614373">02-8661-4373</a></div></article>
-                            <article><span>04</span><h4>素還真・素食便當</h4><p>電話預訂時，可直接向店家說明需要每份 120 元的會議便當。</p><a href="tel:0955651277">0955-651-277</a></article>
+                            <article className="restaurant-card has-menu"><span>01</span><h4>甘擔廚房</h4><p>可由官網查看餐點並預訂。</p><a href="https://www.gandankit.com/" target="_blank" rel="noreferrer">前往官網 <span aria-hidden="true">↗</span></a><figure className="restaurant-menu"><button onClick={() => openLightbox("assets/meetings/gandan-menu.webp")} aria-label="放大查看甘擔廚房菜單"><img src="assets/meetings/gandan-menu.webp" alt="甘擔廚房 2026 年 5 月菜單" /><span>點圖放大</span></button><figcaption><strong>菜單參考</strong><small>圖片版本：2026 年 5 月</small></figcaption></figure></article>
+                            <article className="restaurant-card has-menu"><span>02</span><h4>楽坡 BonBox－台北政大店</h4><p>加入官方 LINE 預訂外送；若訊息長時間未回覆，可致電門市確認。</p><div className="restaurant-actions"><a className="line-contact" href="https://line.me/R/ti/p/@308ojufp" target="_blank" rel="noreferrer"><img src="assets/meetings/line-brand-icon.png" alt="" aria-hidden="true" />官方 LINE</a><a href="tel:0907072831">☎️ 0907-072-831</a></div><figure className="restaurant-menu"><button onClick={() => openLightbox("assets/meetings/bonbox-menu.webp")} aria-label="放大查看楽坡 BonBox 菜單"><img src="assets/meetings/bonbox-menu.webp" alt="楽坡 BonBox 便當菜單" /><span>點圖放大</span></button><figcaption><strong>菜單參考</strong></figcaption></figure></article>
+                            <article className="restaurant-card has-menu"><span>03</span><h4>蘭亭便當</h4><p>以電話預訂，地址為臺北市文山區新光路一段 48 號。</p><div className="restaurant-actions"><a href="tel:0286614372">☎️ 02-8661-4372</a><a href="tel:0286614373">☎️ 02-8661-4373</a></div><figure className="restaurant-menu"><button onClick={() => openLightbox("assets/meetings/lanting-menu.jpg")} aria-label="放大查看蘭亭便當菜單"><img src="assets/meetings/lanting-menu.jpg" alt="蘭亭便當菜單，包含便當品項、價格及訂購電話" /><span>點圖放大</span></button><figcaption><strong>菜單參考</strong><small>價格可能調整，訂購前請再次確認。</small></figcaption></figure></article>
+                            <article><span>04</span><h4>素還真・素食便當</h4><p>電話預訂時，可直接向店家說明需要每份 120 元的會議便當。</p><a href="tel:0955651277">☎️ 0955-651-277</a></article>
                           </div>
-
-                          <figure className="lanting-menu-card">
-                            <button onClick={() => openLightbox("assets/meetings/lanting-menu.jpg")} aria-label="放大查看蘭亭便當菜單">
-                              <img src="assets/meetings/lanting-menu.jpg" alt="蘭亭便當菜單，包含便當品項、價格及訂購電話" />
-                              <span>點圖放大</span>
-                            </button>
-                            <figcaption><strong>蘭亭便當菜單參考</strong><span>菜單價格可能調整，訂購前請再次確認，並留意每人每餐最高報銷金額。</span></figcaption>
-                          </figure>
                         </section>
 
                         <section id="meeting-preparation" className="registration-subsection meeting-section">
-                          <div className="registration-subsection-title"><span>02</span><h3>會議預備事項</h3></div>
+                          <div className="registration-subsection-title"><span>2</span><h3>會議預備事項</h3></div>
                           <article className="meeting-download-card">
                             <span aria-hidden="true">📄</span>
                             <div><strong>會議前先列印並分配工作</strong><p>會議前請下載並列印「會議預備事項」，再與相關同仁逐項確認並分配工作。</p></div>
@@ -1140,14 +1143,14 @@ export default function Home() {
                         </aside>
                         <div className="procurement-guide-grid">
                           <article>
-                            <div className="procurement-guide-title"><span>01</span><div><small>PDF・11 頁</small><h3>財產物品請購</h3></div></div>
+                            <div className="procurement-guide-title"><span>1</span><div><small>學校公開操作手冊</small><h3>財產物品請購</h3></div></div>
                             <p>說明如何由系統建立財產物品請購單，填寫請購品項、預估金額與經費來源，上傳相關資料並確認請購單。</p>
-                            <div><a href="assets/procurement/property-purchase-guide.pdf" target="_blank" rel="noreferrer">線上閱讀 PDF</a><a href="assets/procurement/property-purchase-guide.pdf" download="財產物品請購單.pdf">下載 PDF</a></div>
+                            <div><a href="https://schwebap.nccu.edu.tw/nccumisdoc/FAQ/ga0501n.pdf" target="_blank" rel="noreferrer">開啟學校操作手冊 <span aria-hidden="true">↗</span></a></div>
                           </article>
                           <article>
-                            <div className="procurement-guide-title"><span>02</span><div><small>PDF・18 頁</small><h3>自行採購核銷與零用金</h3></div></div>
+                            <div className="procurement-guide-title"><span>2</span><div><small>學校公開操作手冊</small><h3>自行採購核銷與零用金</h3></div></div>
                             <p>說明自行採購案的核銷、廠商與發票資料、驗收資訊，以及零用金入款造冊與列印文件等操作。</p>
-                            <div><a href="assets/procurement/self-purchase-reimbursement-guide.pdf" target="_blank" rel="noreferrer">線上閱讀 PDF</a><a href="assets/procurement/self-purchase-reimbursement-guide.pdf" download="自行採購案核銷與零用金入款造冊.pdf">下載 PDF</a></div>
+                            <div><a href="https://schwebap.nccu.edu.tw/nccumisdoc/FAQ/ga0502n.pdf" target="_blank" rel="noreferrer">開啟學校操作手冊 <span aria-hidden="true">↗</span></a></div>
                           </article>
                         </div>
                         <a className="current-policy-link" href="https://acc.nccu.edu.tw/sites/default/files/%E5%9C%8B%E7%AB%8B%E6%94%BF%E6%B2%BB%E5%A4%A7%E5%AD%B8%E5%9F%B7%E8%A1%8C%E5%90%84%E9%A0%85%E6%94%AF%E5%87%BA%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85%28115%E5%B9%B41%E6%9C%88%29.pdf" target="_blank" rel="noreferrer"><span aria-hidden="true">📌</span><span><small>最新規定參考</small><strong>國立政治大學執行各項支出注意事項</strong></span><b aria-hidden="true">↗</b></a>
@@ -1228,12 +1231,12 @@ export default function Home() {
                         </nav>
 
                         <section id="admin-scan" className="registration-subsection admin-section">
-                          <div className="registration-subsection-title"><span>01</span><h3>影印機掃描與檔案位置</h3></div>
+                          <div className="registration-subsection-title"><span>1</span><h3>影印機掃描與檔案位置</h3></div>
                           <article className="scan-folder-card"><span aria-hidden="true">📁</span><p>影印機掃描完成後，請至辦公室電腦桌面的<strong>「scan - 捷徑」</strong>查看掃描檔案。</p></article>
                         </section>
 
                         <section id="admin-folders" className="registration-subsection admin-section">
-                          <div className="registration-subsection-title"><span>02</span><h3>工作資料夾與檔案整理方式</h3></div>
+                          <div className="registration-subsection-title"><span>2</span><h3>工作資料夾與檔案整理方式</h3></div>
                           <p className="folder-intro">這個職務主要處理交辦工作，因此桌面上的資料夾會隨當時承辦的計畫與活動而變動。前任助理留下的資料不一定會直接使用，但仍可能具有參考價值；若不清楚檔案用途或版本，請先向相關承辦同仁確認，不要任意刪除或覆蓋。</p>
                           <div className="folder-flow" aria-label="資料夾整理原則">
                             <article><span>進行中</span><strong>桌面獨立資料夾</strong><p>為每一項正在辦理的計畫或活動建立資料夾。</p></article>
@@ -1309,14 +1312,18 @@ export default function Home() {
         <div className="lightbox" role="dialog" aria-modal="true" aria-label="圖片預覽" onClick={() => setLightbox(null)}>
           <button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="關閉圖片預覽">×</button>
           <div className="lightbox-stage" onClick={(event) => event.stopPropagation()}>
-            <img src={lightbox[lightboxIndex]} alt={`放大預覽${lightbox.length > 1 ? `，第 ${lightboxIndex + 1} 張，共 ${lightbox.length} 張` : ""}`} />
-            {lightbox.length > 1 && (
-              <div className="lightbox-controls" aria-label="範例圖片切換">
-                <button onClick={() => setLightboxIndex((index) => (index - 1 + lightbox.length) % lightbox.length)} aria-label="上一張">← 上一張</button>
-                <span>{lightboxIndex + 1} / {lightbox.length}</span>
-                <button onClick={() => setLightboxIndex((index) => (index + 1) % lightbox.length)} aria-label="下一張">下一張 →</button>
-              </div>
-            )}
+            <div className="lightbox-viewport">
+              <img style={{ transform: `scale(${lightboxZoom})` }} src={lightbox[lightboxIndex]} alt={`放大預覽${lightbox.length > 1 ? `，第 ${lightboxIndex + 1} 張，共 ${lightbox.length} 張` : ""}`} />
+            </div>
+            <div className="lightbox-controls" aria-label="圖片檢視控制">
+              {lightbox.length > 1 && <button onClick={() => { setLightboxIndex((index) => (index - 1 + lightbox.length) % lightbox.length); setLightboxZoom(1); }} aria-label="上一張">← 上一張</button>}
+              <button onClick={() => setLightboxZoom((zoom) => Math.max(.75, zoom - .25))} aria-label="縮小圖片">－ 縮小</button>
+              <span>{Math.round(lightboxZoom * 100)}%</span>
+              <button onClick={() => setLightboxZoom((zoom) => Math.min(3, zoom + .25))} aria-label="放大圖片">＋ 放大</button>
+              <button onClick={() => setLightboxZoom(1)} aria-label="重設圖片大小">重設</button>
+              <a href={lightbox[lightboxIndex]} target="_blank" rel="noreferrer">開啟原圖 ↗</a>
+              {lightbox.length > 1 && <button onClick={() => { setLightboxIndex((index) => (index + 1) % lightbox.length); setLightboxZoom(1); }} aria-label="下一張">下一張 →</button>}
+            </div>
           </div>
         </div>
       )}
