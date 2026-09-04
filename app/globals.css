@@ -535,6 +535,9 @@ button { color: inherit; }
 .phone-note-modal-stage { width: min(92vw, 540px); max-height: 92vh; overflow-y: auto; display: grid; gap: 15px; }
 .phone-note-modal .phone-note-sheet { width: min(78vw, 500px); }
 .office-map-card-stage { width: min(95vw, 1000px); max-height: 92vh; overflow-y: auto; display: grid; gap: 15px; }
+.office-map-card-scroll { width: 100%; overflow: auto; padding: 2px; }
+.office-map-card-scroll .office-desk-card { margin: 0 auto; }
+.office-map-scroll-hint { display: none; }
 .phone-note-actions { padding: 13px 15px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border-radius: 8px; color: #fff; background: rgba(35,55,69,.96); }
 .phone-note-actions p { margin: 0; font-size: var(--type-note); }
 .phone-note-actions button { flex: 0 0 auto; padding: 10px 13px; border: 1px solid rgba(255,255,255,.6); border-radius: 6px; color: var(--navy); background: #fff; font-weight: 800; cursor: pointer; }
@@ -794,7 +797,7 @@ button { color: inherit; }
   .office-legend .swipe-hint { display: inline-flex; }
   .office-map-desktop { display: none; }
   .office-map-mobile-preview { width: 100%; padding: 8px; display: block; position: relative; border: 1px solid #d8d1c5; border-radius: 10px; background: #faf8f2; cursor: zoom-in; overflow: hidden; }
-  .office-map-mobile-preview > span { position: absolute; right: 15px; bottom: 15px; padding: 6px 9px; border-radius: 999px; color: #fff; background: rgba(35,55,69,.88); font-size: var(--type-label); font-weight: 800; }
+  .office-map-mobile-preview > span { position: static; margin: 8px 3px 3px; padding: 10px 13px; display: flex; align-items: center; justify-content: center; border-radius: 7px; color: #fff; background: var(--navy); font-size: var(--type-note); font-weight: 900; letter-spacing: .03em; }
   .office-map-mobile-preview .office-desk-card { width: 100%; }
 }
 
@@ -930,8 +933,10 @@ button { color: inherit; }
   .office-desk-card > footer { gap: 3px; }
   .office-desk-card > footer span { padding: 2px 4px; font-size: .3rem; }
   .office-map-card-modal { padding: 58px 10px 20px; }
-  .office-map-card-stage { width: 100%; overflow-x: auto; align-items: start; }
-  .office-map-card-stage .office-desk-card { width: 720px; min-width: 720px; padding: 16px; gap: 9px; border-radius: 10px; }
+  .office-map-card-stage { width: 100%; overflow-x: hidden; align-items: start; }
+  .office-map-scroll-hint { position: sticky; z-index: 2; top: 0; padding: 10px 12px; display: grid; gap: 3px; border: 1px solid #d4b54a; border-radius: 8px; color: #523f14; background: #fff2ad; box-shadow: 0 3px 10px rgba(33,43,49,.18); font-size: .76rem; font-weight: 900; }
+  .office-map-card-scroll { max-height: calc(100vh - 210px); padding: 3px 3px 10px; overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; }
+  .office-map-card-stage .office-desk-card { width: 820px; min-width: 820px; min-height: 680px; aspect-ratio: auto; margin: 0; padding: 16px; gap: 9px; border-radius: 10px; overflow: visible; }
   .office-map-card-stage .office-desk-card > header { padding-bottom: 7px; }
   .office-map-card-stage .office-desk-card > header small { font-size: .62rem; }
   .office-map-card-stage .office-desk-card > header strong { font-size: 1.15rem; }
@@ -960,7 +965,7 @@ button { color: inherit; }
   .office-map-card-stage .office-mini-corridor b { bottom: 5px; padding: 3px 4px; font-size: .43rem; }
   .office-map-card-stage .office-desk-card > footer { gap: 6px; }
   .office-map-card-stage .office-desk-card > footer span { padding: 3px 7px; font-size: .48rem; }
-  .office-map-card-stage .phone-note-actions { width: 720px; }
+  .office-map-card-stage .phone-note-actions { width: 100%; }
   .office-person-card { padding: 24px 20px; }
 }
 

@@ -51,6 +51,7 @@ const workOverviewItems = [
   { title: "活動管考平台維護", status: "依任務調整" },
   { title: "學術計畫書彙整", status: "依任務調整" },
   { title: "計畫經費年度統計", status: "依任務調整" },
+  { title: "採購與核銷操作手冊", href: "#work-procurement", status: "查看詳細說明" },
   { title: "學術會議與活動協助", href: "#work-event-support", status: "查看詳細說明" },
   { title: "政大活動報名系統操作", href: "#work-registration", status: "查看詳細說明" },
   { title: "行政庶務工作", href: "#work-admin", status: "查看詳細說明" },
@@ -1048,12 +1049,12 @@ export default function Home() {
                             <span className="planning">企畫組</span>
                             <span className="topu">高教深耕計畫辦公室</span>
                             <span className="shared">空間與動線</span>
-                            <span className="swipe-hint">手機點擊縮圖放大</span>
+                            <span className="swipe-hint">📱 點一下下方座位圖即可放大</span>
                           </div>
 
                           <button className="office-map-mobile-preview" onClick={() => setOfficeMapCardOpen(true)} aria-label="放大查看辦公室座位與分機小抄">
                             <OfficeDeskCard />
-                            <span>點擊放大・可單張列印</span>
+                            <span>🔍 點一下放大座位圖</span>
                           </button>
 
                           <div className="office-map-scroll office-map-desktop">
@@ -1406,7 +1407,10 @@ export default function Home() {
         <div className="office-map-card-modal" role="dialog" aria-modal="true" aria-label="辦公室座位與分機小抄列印預覽" onClick={() => setOfficeMapCardOpen(false)}>
           <button className="dialog-close" onClick={() => setOfficeMapCardOpen(false)} aria-label="關閉座位與分機小抄">×</button>
           <div className="office-map-card-stage" onClick={(event) => event.stopPropagation()}>
-            <OfficeDeskCard />
+            <div className="office-map-scroll-hint"><span>↔ 左右滑動查看完整座位圖</span><span>↕ 上下捲動閱讀完整文字</span></div>
+            <div className="office-map-card-scroll">
+              <OfficeDeskCard />
+            </div>
             <div className="phone-note-actions">
               <p>列印尺寸：13 × 9.2 公分（橫式）。</p>
               <button onClick={() => printDeskCard("printing-office-map-card")}>🖨️ 列印座位分機小抄</button>
