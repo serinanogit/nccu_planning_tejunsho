@@ -1150,6 +1150,14 @@ export default function Home() {
                           <article>
                             <div className="procurement-guide-title"><span>2</span><div><small>學校公開操作手冊</small><h3>自行採購核銷與零用金</h3></div></div>
                             <p>說明自行採購案的核銷、廠商與發票資料、驗收資訊，以及零用金入款造冊與列印文件等操作。</p>
+                            <aside className="procurement-special-note">
+                              <strong><span aria-hidden="true">⚠️</span> 特別提醒</strong>
+                              <p>操作手冊第 <b>10、12 頁</b>的「結報方式」，請選擇 <mark className="important-highlight">小額支付</mark>。</p>
+                              <button className="system-step-image" onClick={() => openLightbox("assets/procurement/small-payment-method.jpg")} aria-label="放大查看小額支付結報方式畫面">
+                                <img src="assets/procurement/small-payment-method.jpg" alt="自行採購結報規定畫面，以紅框標示結報方式中的小額支付" />
+                                <span>小額支付操作畫面｜點圖放大</span>
+                              </button>
+                            </aside>
                             <div><a href="https://schwebap.nccu.edu.tw/nccumisdoc/FAQ/ga0502n.pdf" target="_blank" rel="noreferrer">開啟學校操作手冊 <span aria-hidden="true">↗</span></a></div>
                           </article>
                         </div>
