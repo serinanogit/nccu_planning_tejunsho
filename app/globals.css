@@ -121,6 +121,9 @@ button { color: inherit; }
 .system-step-image img { display: block; width: 100%; height: auto; max-height: 430px; object-fit: contain; object-position: top center; }
 .system-step-image > span { position: absolute; inset: auto 10px 10px auto; padding: 7px 10px; border-radius: 999px; color: #fff !important; background: rgba(28,47,63,.88); font-size: .66rem !important; font-weight: 800; }
 .system-step-image:hover img { filter: brightness(.97); }
+.system-step-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 13px; }
+.system-step-gallery .system-step-image { width: 100%; height: 100%; margin: 0; align-self: stretch; }
+.system-step-gallery .system-step-image img { height: 100%; min-height: 210px; max-height: 330px; object-fit: contain; }
 .registration-note { margin-top: 18px; padding: 17px; border: 1px solid #d7c58f; border-left: 5px solid #c3992d; border-radius: 8px; color: #68572d; background: #fff8df; }
 .registration-note > strong { display: block; color: #80610d; font-size: .86rem; letter-spacing: .04em; }
 .registration-note > p { margin: 6px 0 0; font-size: .77rem; line-height: 1.7; }
@@ -830,6 +833,8 @@ button { color: inherit; }
   .system-badge { margin-left: 0; }
   .download-placeholder { align-items: flex-start; }
   .system-step-image, .salary-step-image { width: 100%; }
+  .system-step-gallery { grid-template-columns: 1fr; }
+  .system-step-gallery .system-step-image img { min-height: 0; max-height: 380px; }
   .salary-step-image img { max-height: 340px; }
   .screenshot-card, .example-card { margin-left: 0; margin-right: 0; }
   .page-footer { flex-direction: column; gap: 5px; }

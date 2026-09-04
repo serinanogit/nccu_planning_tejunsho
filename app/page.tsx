@@ -1164,22 +1164,119 @@ export default function Home() {
                           <a href="#registration-attendance"><span>04</span>出缺席／學習時數</a>
                         </nav>
 
-                        <section id="registration-maintenance" className="registration-subsection is-pending">
-                          <div><span>01</span><h3>活動報名資料維護</h3></div>
-                          <p>本節內容待整理。</p>
+                        <section id="registration-maintenance" className="registration-subsection">
+                          <div className="registration-subsection-title"><span>1</span><h3>活動報名資料維護</h3></div>
+                          <div className="system-guide">
+                            <div className="system-guide-copy">
+                              <ol>
+                                <li>
+                                  <b>使用 IE 開啟新平台校務系統</b>
+                                  <span>以活動管理者帳號登入 iNCCU，從右下方「校園資訊系統」進入「新平台校務系統」。此系統僅支援 Internet Explorer（IE），請勿改用其他瀏覽器。</span>
+                                  <button className="salary-inline-action copy-action" onClick={copyInccuUrl}>{copiedInccu ? "已複製 iNCCU 網址 ✓" : "複製 iNCCU 網址"}</button>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/maintenance-1.jpg")} aria-label="放大查看新平台校務系統入口">
+                                    <img src="assets/registration/maintenance-1.jpg" alt="iNCCU 校園資訊系統中的新平台校務系統入口" />
+                                    <span>操作畫面 1｜點圖放大</span>
+                                  </button>
+                                </li>
+                                <li>
+                                  <b>進入資料維護並複製既有活動</b>
+                                  <span>確認上方維護單位後，在左側「活動與繳費作業」點選「活動報名資料維護」。找到格式相近的過往活動，選取該筆資料後按「複製活動」，可減少重複設定。</span>
+                                  <div className="system-step-gallery">
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/maintenance-3.jpg", "assets/registration/maintenance-2.jpg"])} aria-label="放大查看活動報名資料維護選單">
+                                      <img src="assets/registration/maintenance-3.jpg" alt="新平台校務系統左側選單，以紅框標示活動報名資料維護" />
+                                      <span>操作畫面 2｜進入資料維護</span>
+                                    </button>
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/maintenance-3.jpg", "assets/registration/maintenance-2.jpg"])} aria-label="放大查看複製活動按鈕">
+                                      <img src="assets/registration/maintenance-2.jpg" alt="活動報名資料維護清單，以紅框標示欲複製的活動與複製活動按鈕" />
+                                      <span>操作畫面 3｜複製既有活動</span>
+                                    </button>
+                                  </div>
+                                </li>
+                                <li>
+                                  <b>由左至右完成各頁籤並存檔</b>
+                                  <span>依序填寫「活動資料」至「費用設定」各頁籤。紅色欄位為必填、白色欄位為選填；確認活動日期、報名期間、地點、名額與認證時數等資料正確後，按右上方「存檔」。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/maintenance-4.jpg")} aria-label="放大查看活動資料頁籤與存檔按鈕">
+                                    <img src="assets/registration/maintenance-4.jpg" alt="活動資料維護畫面，以紅框標示各設定頁籤與存檔按鈕" />
+                                    <span>操作畫面 4｜點圖放大</span>
+                                  </button>
+                                </li>
+                                <li>
+                                  <b>需要蒐集額外資訊時設計問卷</b>
+                                  <span>若報名時需詢問葷素等資訊，點選「設計問卷」後新增題目；設定題目類型與是否必填，再透過「新增選項」建立可選答案，完成後儲存。</span>
+                                  <div className="system-step-gallery">
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/maintenance-survey-1.jpg", "assets/registration/maintenance-survey-2.jpg"])} aria-label="放大查看設計問卷入口">
+                                      <img src="assets/registration/maintenance-survey-1.jpg" alt="活動資料維護畫面，以紅框標示設計問卷按鈕" />
+                                      <span>操作畫面 5｜開啟問卷設計</span>
+                                    </button>
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/maintenance-survey-1.jpg", "assets/registration/maintenance-survey-2.jpg"])} aria-label="放大查看新增問卷題目與選項">
+                                      <img src="assets/registration/maintenance-survey-2.jpg" alt="設計問卷視窗，以紅框標示新增題目、題目型態、必填設定與新增選項" />
+                                      <span>操作畫面 6｜新增題目與選項</span>
+                                    </button>
+                                  </div>
+                                </li>
+                              </ol>
+                            </div>
+                          </div>
                         </section>
 
-                        <section id="registration-roster" className="registration-subsection is-pending">
-                          <div><span>02</span><h3>報名名單管理</h3></div>
-                          <p>本節內容待整理。</p>
+                        <section id="registration-roster" className="registration-subsection">
+                          <div className="registration-subsection-title"><span>2</span><h3>報名名單管理</h3></div>
+                          <div className="system-guide">
+                            <div className="system-guide-copy">
+                              <ol>
+                                <li>
+                                  <b>開啟報名名單管理並選取活動</b>
+                                  <span>確認上方維護單位後，在左側「活動與繳費作業」點選「報名名單管理」，再選取要處理的活動。</span>
+                                  <div className="system-step-gallery">
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-1.jpg", "assets/registration/roster-2.jpg"])} aria-label="放大查看報名名單管理選單">
+                                      <img src="assets/registration/roster-1.jpg" alt="新平台校務系統左側選單，以紅框標示報名名單管理" />
+                                      <span>操作畫面 1｜進入名單管理</span>
+                                    </button>
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-1.jpg", "assets/registration/roster-2.jpg"])} aria-label="放大查看報名名單管理畫面">
+                                      <img src="assets/registration/roster-2.jpg" alt="報名名單管理畫面與活動報名資料" />
+                                      <span>操作畫面 2｜選取活動</span>
+                                    </button>
+                                  </div>
+                                </li>
+                                <li>
+                                  <b>搜尋並修改或刪除單筆資料</b>
+                                  <span>以代號或姓名關鍵字快速搜尋，選取要處理的人員後按「修改／刪除」。修改時可調整報名狀態、聯絡電話與電子郵件，完成後按「儲存」；若要移除資料，使用視窗右上方「刪除」。</span>
+                                  <div className="system-step-gallery">
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-5.jpg", "assets/registration/roster-3.jpg"])} aria-label="放大查看搜尋與選取報名者">
+                                      <img src="assets/registration/roster-5.jpg" alt="報名名單管理畫面，以紅框標示搜尋欄位與選取的報名者" />
+                                      <span>操作畫面 3｜搜尋並選取</span>
+                                    </button>
+                                    <button className="system-step-image" onClick={() => openLightbox(["assets/registration/roster-5.jpg", "assets/registration/roster-3.jpg"])} aria-label="放大查看單筆報名資料維護視窗">
+                                      <img src="assets/registration/roster-3.jpg" alt="單筆報名資料維護視窗，可修改報名狀態、電話與電子郵件" />
+                                      <span>操作畫面 4｜修改或刪除</span>
+                                    </button>
+                                  </div>
+                                </li>
+                                <li>
+                                  <b>直接調整報名狀態</b>
+                                  <span>若只需變更報名狀態，可直接在名單的「報名狀態」欄位開啟下拉選單調整，不必進入單筆資料視窗。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/roster-4.jpg")} aria-label="放大查看報名狀態下拉選單">
+                                    <img src="assets/registration/roster-4.jpg" alt="報名名單管理畫面，以紅框標示報名狀態下拉選單" />
+                                    <span>操作畫面 5｜點圖放大</span>
+                                  </button>
+                                </li>
+                                <li>
+                                  <b>匯出名單與問卷結果</b>
+                                  <span>需要彙整報名資料或問卷答案時，點選「匯出名單（含問卷結果）」下載檔案。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/roster-6.jpg")} aria-label="放大查看匯出名單含問卷結果按鈕">
+                                    <img src="assets/registration/roster-6.jpg" alt="報名名單管理畫面，以紅框標示匯出名單含問卷結果按鈕" />
+                                    <span>操作畫面 6｜點圖放大</span>
+                                  </button>
+                                </li>
+                              </ol>
+                            </div>
+                          </div>
                         </section>
 
                         <section id="registration-online" className="registration-subsection">
-                          <div className="registration-subsection-title"><span>03</span><h3>活動報到（網路版）</h3></div>
+                          <div className="registration-subsection-title"><span>3</span><h3>活動報到（網路版）</h3></div>
                           <div className="system-guide">
                             <div className="system-guide-copy">
-                              <p className="system-guide-kicker">校務系統操作</p>
-                              <h3>用「活動報到(網路版)」幫學員報到</h3>
                               <ol>
                                 <li>
                                   <b>開啟活動報到(網路版)</b>
@@ -1218,9 +1315,30 @@ export default function Home() {
                           </div>
                         </section>
 
-                        <section id="registration-attendance" className="registration-subsection is-pending">
-                          <div><span>04</span><h3>出缺席／學習時數</h3></div>
-                          <p>本節內容待整理。</p>
+                        <section id="registration-attendance" className="registration-subsection">
+                          <div className="registration-subsection-title"><span>4</span><h3>出缺席／學習時數</h3></div>
+                          <div className="system-guide">
+                            <div className="system-guide-copy">
+                              <ol>
+                                <li>
+                                  <b>開啟出缺席／學習時數</b>
+                                  <span>活動結束後，確認上方維護單位，於左側「活動與繳費作業」點選「出缺席／學習時數」，再選取要處理的活動。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/attendance-1.jpg")} aria-label="放大查看出缺席學習時數選單">
+                                    <img src="assets/registration/attendance-1.jpg" alt="新平台校務系統左側選單，以紅框標示出缺席與學習時數" />
+                                    <span>操作畫面 1｜點圖放大</span>
+                                  </button>
+                                </li>
+                                <li>
+                                  <b>匯出名單並彙整資料</b>
+                                  <span>進入活動的出缺席／學習時數畫面後，點選「匯出名單」，下載並彙整出席狀態、認證時數及後續填報所需資料。</span>
+                                  <button className="system-step-image" onClick={() => openLightbox("assets/registration/attendance-2.jpg")} aria-label="放大查看匯出名單按鈕">
+                                    <img src="assets/registration/attendance-2.jpg" alt="出缺席與學習時數畫面，以紅框標示匯出名單按鈕" />
+                                    <span>操作畫面 2｜點圖放大</span>
+                                  </button>
+                                </li>
+                              </ol>
+                            </div>
+                          </div>
                         </section>
                       </div>
                     ) : section.id === "work-admin" ? (
